@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const PAGE = document.body.dataset.page; // "home" | "portfolio" | "lab"
+  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Google Tag Manager (컨테이너 ID가 있을 때만 로드) ---------- */
@@ -42,6 +42,8 @@
       '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">자기 소개</a>' +
       '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">포트폴리오</a>' +
       '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">개인 프로젝트</a>' +
+      '<div class="gnb-separator" aria-hidden="true">·</div>' +
+      '<a class="nav-item" data-page="sentence" href="sentence.html" data-track="navigation" data-track-id="nav_sentence_machine" data-track-location="gnb">문장 자판기</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
 
     // 현재 페이지 표시
