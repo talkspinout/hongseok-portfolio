@@ -254,7 +254,11 @@ const CAREER = [
         workSummary: "페이스북 채널 운영 및 콘텐츠 기획",
       },
     ],
-    clientTags: ["SCK", "대한빙상경기연맹", "동진레저"],
+    otherClients: [
+      { name: "SCK", workSummary: "온라인 마케팅 운영" },
+      { name: "대한빙상경기연맹", workSummary: "웹사이트 운영·유지보수" },
+      { name: "동진레저", workSummary: "카카오스토리·서포터즈 운영" },
+    ],
   },
   {
     domain: "Content · SNS Agency",
@@ -351,7 +355,7 @@ const LAB_ITEMS = [
    7. 포트폴리오 게이트 페이지 문구
    ------------------------------------------------------------ */
 const GATE = {
-  headline: "자세한 포트폴리오는\n신청 후 열람하실 수 있습니다.",
+  headline: "포트폴리오 파일은\n신청 후 열람 권한을 부여하고 있습니다.",
   steps: [
     { title: "열람 신청", desc: "아래 버튼으로 신청 폼을 작성해 주세요. 소속과 연락처를 남겨 주시면 됩니다." },
     { title: "확인", desc: "신청 내용을 확인합니다. 영업일 기준 1일 이내에 처리됩니다." },
