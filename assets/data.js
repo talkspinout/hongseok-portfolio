@@ -14,15 +14,16 @@ const SITE = {
   name: "고홍석",
   title: "마케팅 기획자 고홍석",
   tagline: "GTM 전략부터 콘텐츠, 퍼포먼스, CRM, SEO까지\n마케팅 전 과정을 연결해 성과 구조로 만드는 마케터입니다.",
-  GA_ID: "",            // ← GA4 측정 ID 입력
-  FORM_URL: "",         // ← Google Form 주소 입력
+  GA_ID: "",            // ← GA4 측정 ID 입력 (GTM을 쓰는 경우 비워두고 GTM 안에서 GA4 태그 설정)
+  GTM_ID: "GTM-NPBTB82",           // ← Google Tag Manager 컨테이너 ID 입력 (예: "GTM-XXXXXXX")
+  FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSfIGT8marmIPqCx9RYL0HOBU5G7wh4ZrRjuQsKBTqIIu57sbQ/viewform?usp=header",         // ← Google Form 주소 입력
   NOTION_URL: "https://app.notion.com/p/B2C-B2B-SaaS-333103889f8d8092bf21e5a15a43f7c6",
   LINKTREE_URL: "https://linktr.ee/talkspinout",
 
   /* 연락처 · 소셜: 비워두면 해당 아이콘/버튼이 표시되지 않습니다. */
-  EMAIL: "",            // ← 컨택 이메일 입력 (예: "hello@example.com")
-  INSTAGRAM_URL: "",    // ← 인스타그램 프로필 주소 입력
-  LINKEDIN_URL: "",     // ← 링크드인 프로필 주소 입력
+  EMAIL: "hs5431@gmail.com",            // ← 컨택 이메일 입력 (예: "hello@example.com")
+  INSTAGRAM_URL: "https://www.instagram.com/talkspinout/",    // ← 인스타그램 프로필 주소 입력
+  LINKEDIN_URL: "https://www.linkedin.com/in/%ED%99%8D%EC%84%9D-%EA%B3%A0-108895b0/",     // ← 링크드인 프로필 주소 입력
 };
 
 /* ------------------------------------------------------------
@@ -112,8 +113,8 @@ const PROJECTS = [
    4. 소개 페이지 (about.html)
    ------------------------------------------------------------ */
 const ABOUT = {
-  heroTitle: "문제를 정의하고,\n해결 방식을 설계해,\n성과로 연결합니다.",
-  heroSub: "인하우스와 에이전시를 오가며 B2C 커머스·앱, B2B 엔터프라이즈·SaaS 도메인에서 제품 중심 GTM 전략과 퍼널 기반 성과 구조를 설계해왔습니다. 채널 단위 실행에 머무르지 않고, 사용자 여정과 성과 구조를 함께 설계하는 것이 일하는 방식입니다.",
+  heroTitle: "문제를 정의하고, 해결 방식을 설계해,\n성과로 연결합니다.",
+  heroSub: "인하우스와 에이전시를 오가며 B2C 커머스·앱, B2B 엔터프라이즈·SaaS 도메인에서 성과 구조를 달성해왔습니다. 작은 단위의 실행이 아닌, 사용자 여정과 성과 구조를 함께 설계합니다.",
   skills: [
     "GTM 전략 · 브랜드 포지셔닝",
     "퍼포먼스 · 콘텐츠 마케팅",
@@ -121,7 +122,6 @@ const ABOUT = {
     "SEO · CRM · 트래킹 인프라",
     "팀 리딩 · 프로젝트 관리",
   ],
-  education: "수원대학교 국어국문학과 졸업 — 문학 전공의 언어 감각이 카피라이팅과 콘텐츠 기획의 바탕입니다.",
 };
 
 /* ------------------------------------------------------------

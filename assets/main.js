@@ -8,6 +8,16 @@
   const PAGE = document.body.dataset.page; // "home" | "portfolio" | "lab"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---------- Google Tag Manager (컨테이너 ID가 있을 때만 로드) ---------- */
+  if (SITE.GTM_ID) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    const g = document.createElement("script");
+    g.async = true;
+    g.src = "https://www.googletagmanager.com/gtm.js?id=" + SITE.GTM_ID;
+    document.head.appendChild(g);
+  }
+
   /* ---------- GA4 (측정 ID가 있을 때만 로드) ---------- */
   if (SITE.GA_ID) {
     const s = document.createElement("script");
@@ -29,8 +39,9 @@
     nav.innerHTML =
       '<div class="gnb-logo"><span class="dot"></span>' + SITE.name + "</div>" +
       '<a class="nav-item" data-page="home" href="index.html">홈 · 하이라이트</a>' +
+     
       '<div class="gnb-label">개별 항목</div>' +
-      '<a class="nav-item" data-page="about" href="about.html">소개</a>' +
+      '<a class="nav-item" data-page="about" href="about.html">간단한 자기 소개</a>' +
       '<a class="nav-item" data-page="portfolio" href="portfolio.html">자세한 포트폴리오</a>' +
       '<a class="nav-item" data-page="lab" href="lab.html">Lab · 프레임워크</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
@@ -155,9 +166,10 @@
           alert("신청 폼 준비 중입니다. data.js의 FORM_URL에 Google Form 주소를 입력해 주세요.");
         });
       }
-      // GA 이벤트
+      // 추적 이벤트 (GA4 직접 연결 시 gtag, GTM 사용 시 dataLayer로 수집)
       a.addEventListener("click", function () {
         if (window.gtag) gtag("event", "request_portfolio_access", { page: PAGE });
+        else if (window.dataLayer) dataLayer.push({ event: "request_portfolio_access", page: PAGE });
       });
     });
   }
@@ -231,6 +243,8 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
     linkedin:
       '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.49 2.49 0 1 1 0 4.98 2.49 2.49 0 0 1 0-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4z"/></svg>',
+    mail:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>',
   };
 
   function buildFooterSocial() {
@@ -243,8 +257,8 @@
         html += '<a class="icon" href="' + SITE.LINKEDIN_URL + '" target="_blank" rel="noopener" aria-label="LinkedIn">' + ICONS.linkedin + "</a>";
       }
       if (SITE.EMAIL) {
-        html += '<a class="mail" href="mailto:' + SITE.EMAIL + '">' + SITE.EMAIL + "</a>";
-      }
+  html += '<a class="icon" href="mailto:' + SITE.EMAIL + '" title="' + SITE.EMAIL + '" aria-label="이메일 보내기">' + ICONS.mail + "</a>";
+}
       slot.innerHTML = html;
     });
   }
