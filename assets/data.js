@@ -113,8 +113,8 @@ const PROJECTS = [
    4. 소개 페이지 (about.html)
    ------------------------------------------------------------ */
 const ABOUT = {
-  heroTitle: "문제를 정의하고, 해결 방식을 설계해 성과로 연결합니다.",
-  heroSub: "인하우스와 에이전시를 오가며 B2C 커머스·앱, B2B 엔터프라이즈·SaaS 도메인에서 성과 구조를 달성해왔습니다. 작은 단위의 실행이 아닌, 사용자 여정과 성과 구조를 함께 설계합니다.",
+  heroTitle: "문제를 정의하고,\n해결 방식을 설계해\n성과로 연결합니다.",
+  heroSub: "인하우스와 에이전시를 오가며\nB2C 커머스·앱부터 B2B 엔터프라이즈·SaaS까지,\n다양한 제품과 시장의 성장 과제를 해결해왔습니다.\n\n채널 단위의 실행에 머무르지 않고\n사용자 여정과 성과 구조를 함께 설계합니다.",
   skills: [
     "GTM 전략 · 브랜드 포지셔닝",
     "퍼포먼스 · 콘텐츠 마케팅",
@@ -133,104 +133,197 @@ const ABOUT = {
 const CAREER_DIRECTIONS = [
   {
     title: "에이전시 → 인하우스",
-    desc: "다양한 클라이언트 경험을 바탕으로 제품과 사업의 장기 성장을 책임지는 역할로 확장",
+    desc: "다양한 클라이언트의 과제를 해결한 경험을 바탕으로,\n제품과 브랜드의 성장을 직접 책임지는 역할로 확장했습니다.",
   },
   {
     title: "B2C → B2B SaaS",
-    desc: "커머스·앱부터 엔터프라이즈·SaaS까지 산업과 구매 여정이 다른 시장을 경험",
+    desc: "사용자의 구매·가입 전환부터\n기업 고객의 리드 파이프라인까지 설계해왔습니다.",
   },
   {
-    title: "AE → 마케팅 리드",
-    desc: "채널 실행과 프로젝트 운영에서 GTM 전략 수립, 퍼널 설계와 팀 리딩까지 담당",
+    title: "실행 → 전략·리딩",
+    desc: "채널 운영과 캠페인 실행에서 출발해\nGTM과 통합 마케팅 전략을 총괄하는 역할로 확장했습니다.",
   },
 ];
 
+const CAREER_JOURNEY = {
+  desc: "SNS와 콘텐츠 운영에서 시작해\n퍼포먼스와 전환 퍼널 개선을 거쳐,\nB2B SaaS의 GTM과 통합 마케팅으로 영역을 확장해왔습니다.",
+  items: [
+    { period: "2013.07 – 2015.04", title: "콘텐츠·SNS", desc: "채널 운영과 콘텐츠 기획" },
+    { period: "2016.02 – 2021.11", title: "디지털 마케팅·PM", desc: "B2B 리드 캠페인과 프로젝트 운영" },
+    { period: "2021.12 – 2022.07", title: "브랜드·전환 퍼널", desc: "커머스 광고와 구매 경험 개선" },
+    { period: "2023.04 – 2024.05", title: "앱 그로스", desc: "제품 특성에 맞춘 신규 유입 최적화" },
+    { period: "2025.02 – 2025.11", title: "B2B SaaS GTM", desc: "시장 진입과 통합 마케팅 퍼널 설계" },
+  ],
+};
+
+const EXPERIENCE_INTRO = "산업과 제품이 달라도 핵심 문제를 파악하고,\n상황에 맞는 실행 구조를 설계해 성과로 연결해왔습니다.";
+
 const CAREER = [
   {
+    domain: "B2B SaaS · GTM",
     company: "㈜아이씨",
     role: "마케팅 리드",
     period: "2025.02 – 2025.11",
-    stage: "B2B SaaS GTM",
-    summary: "B2B SaaS 3개 제품군의 시장 진입 전략과 통합 마케팅 체계를 총괄했습니다.",
-    details: [
-      "finex·Fiela.ai·CBOOK 마케팅 전략 수립 및 실행",
-      "블로그·뉴스레터·영상 등 콘텐츠 체계화",
-      "CRM 시나리오 설계와 온보딩·리텐션 캠페인 운영",
-      "Framer 기반 웹사이트 구조 설계 및 SEO 최적화",
+    summary: "3개 B2B SaaS 제품의 GTM 전략을 총괄하고,\n인지부터 전환까지 이어지는 통합 마케팅 퍼널을 구축했습니다.",
+    responsibilities: [
+      "finex·Fiela.ai·CBOOK의 제품별 포지셔닝과 GTM 전략 수립",
+      "SEO·콘텐츠·퍼포먼스·CRM 마케팅 체계 구축",
+      "트래킹 인프라 및 웹사이트 구조 설계",
+      "시장 분석과 KPI 설정, 제품 개선 제안",
     ],
-    scope: "주요 제품 · finex · Fiela.ai · CBOOK",
+    achievements: [
+      { subject: "finex", result: "CPL 대폭 절감" },
+      { subject: "finex", result: "확보 리드의 높은 비율을 영업 미팅으로 연결" },
+      { subject: "Fiela.ai", result: "출시 초기 빠른 속도로 기업 가입 확보" },
+    ],
   },
   {
+    domain: "B2C App · Growth",
     company: "㈜비밀리",
     role: "퍼포먼스 마케터 · 과장",
     period: "2023.04 – 2024.05",
-    stage: "앱 성장",
-    summary: "패밀리타운 출시 초기 세팅부터 신규 사용자 확보와 브랜드 운영을 담당했습니다.",
-    details: [
-      "패밀리타운 출시 초기 마케팅 세팅",
-      "퍼포먼스 광고와 브랜드 마케팅 통합 운영",
-      "IR을 위한 투자 자료 작성",
+    summary: "패밀리타운의 핵심 가치를 하나의 기능으로 압축하고,\n광고 소재와 신규 유입 전략을 재설계했습니다.",
+    responsibilities: [
+      "앱 런칭 초기 퍼포먼스 마케팅 체계 구축",
+      "사용자 패턴 분석을 통한 Hero Feature 전략 수립",
+      "릴스·숏폼 중심 광고 소재 기획",
+      "매체 운영 및 CPI 최적화",
     ],
-    scope: "주요 서비스 · 패밀리타운",
+    achievements: [
+      { result: "Non-incentive CPI 900~1,000원" },
+      { result: "신규 가입자 3만 명 확보" },
+      { result: "커뮤니케이션 앱 카테고리 순위 진입" },
+    ],
   },
   {
+    domain: "B2C Commerce · Brand Growth",
     company: "㈜디토나인",
     role: "마케터 · 파트장(책임)",
     period: "2021.12 – 2022.07",
-    stage: "브랜드·퍼널 운영",
-    summary: "자사 브랜드와 대행 프로젝트를 병행하며 퍼널 분석 기반의 개선을 주도했습니다.",
-    details: [
-      "남성 화장품 브랜드 헤이브로 마케팅 운영",
-      "현대렌탈케어 SNS 채널 및 온라인 마케팅 운영",
-      "GA4·Clarity 기반 사용자 퍼널 분석과 랜딩페이지 개선",
+    summary: "자사 브랜드 헤이브로의 광고·구매 퍼널을 개선하고,\n클라이언트 마케팅 프로젝트 운영을 담당했습니다.",
+    responsibilities: [
+      "남성 코스메틱 브랜드 헤이브로 마케팅 운영",
+      "GA4·Clarity 기반 광고 유입 및 사용자 행동 분석",
+      "랜딩페이지 구조와 제품 포지셔닝 개선",
+      "현대렌탈케어 SNS·온라인 마케팅 운영 관리",
     ],
-    scope: "주요 브랜드 · 헤이브로 · 현대렌탈케어",
+    achievements: [
+      { subject: "헤이브로", result: "ROAS 150% → 230~250%" },
+      { subject: "현대렌탈케어", result: "프로젝트 재계약 달성" },
+    ],
   },
   {
+    domain: "B2B · Agency Project Leadership",
     company: "㈜리시드",
     role: "AE · 과장",
     period: "2016.02 – 2021.11",
-    stage: "디지털 마케팅·PM",
-    summary: "글로벌·B2B 클라이언트의 디지털 마케팅 기획과 장기 프로젝트 운영을 담당했습니다.",
-    projects: [
-      "Autodesk Korea · 온라인 마케팅 전반 운영 및 재계약 2회",
-      "베스핀글로벌 · 퍼포먼스 마케팅 기획과 실행",
-      "행복나눔재단 · SNS 광고와 콘텐츠 제작",
-      "삼성멀티캠퍼스 · 페이스북 운영",
-      "대한빙상연맹 · 웹사이트 유지보수",
+    summary: "글로벌·IT 클라이언트의 디지털 마케팅을 기획하고,\n장기 프로젝트의 실행과 커뮤니케이션을 담당했습니다.",
+    responsibilities: [
+      "디지털 마케팅 및 캠페인 전략 기획",
+      "콘텐츠·퍼포먼스·리드 캠페인 통합 운영",
+      "클라이언트 커뮤니케이션 및 프로젝트 PM",
     ],
+    highlightsTitle: "Client Highlights",
+    clients: [
+      {
+        name: "Autodesk Korea",
+        featured: true,
+        companyStanding: "NASDAQ 상장 · 시가총액 약 440억 달러 규모",
+        standingNote: "2026.07 기준",
+        companyProfile: "글로벌 설계·제작 소프트웨어 기업",
+        workSummary: "온라인 리드 파이프라인 구축과\n교육형 콘텐츠·LinkedIn ABM 캠페인 운영",
+        clientAchievements: [
+          "리드 획득 비용 50% 이상 절감",
+          "MQL→SQL 전환",
+          "장기 운영 및 2회 재계약",
+        ],
+      },
+      {
+        name: "Bespin Global",
+        companyProfile: "클라우드·AI·데이터·보안 영역의\n디지털 전환을 지원하는 기술 기업",
+        workSummary: "AlertNow의 제품 인지도 확대와\nTrial 참여 유도 캠페인 기획",
+      },
+      {
+        name: "SK 행복얼라이언스",
+        companyProfile: "기업·지자체·시민이 함께하는\n아동 문제 해결 사회공헌 네트워크",
+        workSummary: "사회공헌 활동을 참여형·스토리텔링 콘텐츠로 재구성",
+      },
+      {
+        name: "삼성 멀티캠퍼스",
+        companyProfile: "삼성 계열의 기업교육·HRD 전문기업",
+        workSummary: "페이스북 채널 운영 및 콘텐츠 기획",
+      },
+    ],
+    clientTags: ["SCK", "대한빙상경기연맹", "동진레저"],
   },
   {
+    domain: "Content · SNS Agency",
     company: "㈜골드넥스",
     role: "AE · 사원",
     period: "2013.07 – 2015.04",
-    stage: "콘텐츠·SNS",
-    summary: "SNS 채널과 콘텐츠를 운영하며 커뮤니티 기획 및 광고 상품화의 기반을 쌓았습니다.",
-    projects: [
-      "하이얼코리아 · SNS와 블로그 운영 및 제품 바이럴",
-      "PMC 프로덕션 · SNS 운영 대행",
-      "러브프로포즈 · 커뮤니티 기획과 광고 상품 개발",
-      "서울상수도사업본부 · 콘텐츠 제작과 SEO 운영",
+    summary: "SNS와 블로그 운영, 콘텐츠 기획에서 시작해\n사내 미디어 프로젝트의 사업화까지 경험했습니다.",
+    responsibilities: [
+      "SNS·블로그 채널 운영 및 콘텐츠 기획",
+      "제품 바이럴과 SEO 콘텐츠 제작",
+      "클라이언트 커뮤니케이션",
+      "사내 미디어 프로젝트 기획 및 운영",
+    ],
+    highlightsTitle: "Project & Client Highlights",
+    clients: [
+      {
+        name: "LovePropose",
+        featured: true,
+        clientType: "사내 프로젝트",
+        companyProfile: "페이스북 커뮤니티에서 출발한\n사내 연애 콘텐츠 미디어 프로젝트",
+        workSummary: "웹사이트·유튜브로 채널을 확장하고\n광고 상품과 제휴 콘텐츠를 기획",
+        clientAchievements: [
+          "팔로워 40만 확보",
+          "운영 기간 팬 35만 증가",
+          "법인 분리 후 매각",
+        ],
+      },
+      {
+        name: "Haier Korea",
+        companyProfile: "글로벌 가전 그룹 Haier의 한국 법인",
+        workSummary: "SNS·블로그 운영 및 제품 바이럴 콘텐츠 기획",
+      },
+      {
+        name: "PMC Production",
+        companyProfile: "공연 콘텐츠 ‘난타’를 제작한 공연기획사",
+        workSummary: "공연 홍보를 위한 SNS 채널 운영 및 콘텐츠 기획",
+      },
+      {
+        name: "서울시 상수도사업본부",
+        clientType: "공공기관",
+        companyProfile: "서울시 수돗물 ‘아리수’의\n생산·공급과 시민 서비스를 담당한 공공기관",
+        workSummary: "아리수 블로그 콘텐츠 제작 및\n검색 노출을 위한 SEO 운영",
+      },
     ],
   },
 ];
+
+const CORE_CAPABILITIES_INTRO = "전략을 문서로 제안하는 데 그치지 않고,\n직접 실행하고 데이터를 확인하며 구조를 개선합니다.";
 
 const CORE_CAPABILITIES = [
   {
     title: "전략 설계",
-    desc: "시장·제품·사용자를 연결해 GTM 전략과 브랜드 포지셔닝을 구체화합니다.",
+    keywords: "GTM · 브랜드 포지셔닝 · 퍼널 · KPI",
+    desc: "시장과 제품의 구조를 분석하고\n목표와 실행 방향을 설계합니다.",
   },
   {
-    title: "퍼널 운영",
-    desc: "콘텐츠·퍼포먼스·CRM을 연결해 유입부터 전환과 리텐션까지 설계합니다.",
+    title: "통합 실행",
+    keywords: "콘텐츠 · 퍼포먼스 · CRM · SEO",
+    desc: "채널별 활동을 분리하지 않고\n하나의 사용자 여정으로 연결합니다.",
   },
   {
     title: "데이터 최적화",
-    desc: "GA4·Clarity·매체 데이터를 바탕으로 병목을 찾고 실행 구조를 개선합니다.",
+    keywords: "트래킹 · 행동 분석 · 전환 개선",
+    desc: "정량·정성 데이터를 바탕으로\n병목을 찾고 성과 구조를 개선합니다.",
   },
   {
     title: "프로젝트 리딩",
-    desc: "에이전시와 인하우스 경험을 바탕으로 이해관계자를 조율하고 실행을 완수합니다.",
+    keywords: "협업 · 일정 · 예산 · 클라이언트 커뮤니케이션",
+    desc: "인하우스와 에이전시 경험을 바탕으로\n여러 이해관계자와 프로젝트를 운영합니다.",
   },
 ];
 
