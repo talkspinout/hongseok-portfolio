@@ -200,60 +200,97 @@
       }).join("");
     }
 
+    const journeyDesc = document.getElementById("journeyDesc");
+    if (journeyDesc) journeyDesc.textContent = CAREER_JOURNEY.desc;
     const journey = document.getElementById("careerJourney");
     if (journey) {
-      journey.innerHTML = CAREER.slice().reverse().map(function (c) {
+      journey.innerHTML = CAREER_JOURNEY.items.map(function (item) {
         return (
           '<article class="journey-item reveal">' +
           '<span class="journey-dot" aria-hidden="true"></span>' +
-          '<span class="journey-period">' + c.period + '</span>' +
-          '<strong>' + c.stage + '</strong>' +
-          '<span>' + c.company + ' · ' + c.role + '</span>' +
+          '<span class="journey-period">' + item.period + '</span>' +
+          '<strong>' + item.title + '</strong>' +
+          '<span>' + item.desc + '</span>' +
           '</article>'
         );
       }).join("");
     }
 
-    const recent = document.getElementById("recentExperience");
-    if (recent) {
-      recent.innerHTML = CAREER.slice(0, 3).map(function (c) {
+    const experienceDesc = document.getElementById("experienceDesc");
+    if (experienceDesc) experienceDesc.textContent = EXPERIENCE_INTRO;
+    const experienceList = document.getElementById("experienceList");
+    if (experienceList) {
+      experienceList.innerHTML = CAREER.map(function (career) {
+        const achievements = career.achievements && career.achievements.length
+          ? '<div class="achievement-section"><h4>대표 성과</h4><div class="achievement-grid">' +
+            career.achievements.map(function (item) {
+              return (
+                '<div class="achievement-item">' +
+                (item.subject ? '<span>' + item.subject + '</span>' : '') +
+                '<strong>' + item.result + '</strong>' +
+                (item.note ? '<small>' + item.note + '</small>' : '') +
+                '</div>'
+              );
+            }).join("") + '</div></div>'
+          : "";
+
+        const clients = career.clients && career.clients.length
+          ? '<div class="client-section"><h4>' + career.highlightsTitle + '</h4><div class="client-grid">' +
+            career.clients.map(function (client) {
+              return (
+                '<article class="client-item' + (client.featured ? ' featured' : '') + '">' +
+                '<div class="client-heading">' +
+                '<h5>' + client.name + '</h5>' +
+                (client.clientType ? '<span class="client-type">' + client.clientType + '</span>' : '') +
+                '</div>' +
+                (client.companyStanding
+                  ? '<p class="client-standing">' + client.companyStanding +
+                    (client.standingNote ? '<small>' + client.standingNote + '</small>' : '') + '</p>'
+                  : '') +
+                '<p class="client-profile">' + client.companyProfile + '</p>' +
+                '<p class="client-work">' + client.workSummary + '</p>' +
+                (client.clientAchievements
+                  ? '<div class="client-results">' + client.clientAchievements.map(function (result) {
+                      return '<span>' + result + '</span>';
+                    }).join("") + '</div>'
+                  : '') +
+                '</article>'
+              );
+            }).join("") + '</div>' +
+            (career.clientTags
+              ? '<div class="client-tags">' + career.clientTags.map(function (tag) {
+                  return '<span class="tag dim">' + tag + '</span>';
+                }).join("") + '</div>'
+              : '') +
+            '</div>'
+          : "";
+
         return (
           '<article class="experience-card reveal">' +
           '<div class="experience-head">' +
-          '<div><span class="tag">' + c.stage + '</span><h3>' + c.company + '</h3></div>' +
-          '<div class="experience-meta"><strong>' + c.role + '</strong><span>' + c.period + '</span></div>' +
+          '<div><span class="tag">' + career.domain + '</span><h3>' + career.company + '</h3></div>' +
+          '<div class="experience-meta"><strong>' + career.role + '</strong><span>' + career.period + '</span></div>' +
           '</div>' +
-          '<p class="experience-summary">' + c.summary + '</p>' +
-          '<ul class="experience-details">' +
-          c.details.map(function (item) { return '<li>' + item + '</li>'; }).join("") +
-          '</ul>' +
-          '<p class="experience-scope">' + c.scope + '</p>' +
+          '<p class="experience-summary">' + career.summary + '</p>' +
+          '<div class="responsibility-section"><h4>주요 업무</h4><ul>' +
+          career.responsibilities.map(function (item) { return '<li>' + item + '</li>'; }).join("") +
+          '</ul></div>' +
+          achievements +
+          clients +
           '</article>'
         );
       }).join("");
     }
 
-    const earlier = document.getElementById("earlierExperience");
-    if (earlier) {
-      earlier.innerHTML = CAREER.slice(3).map(function (c) {
-        return (
-          '<article class="archive-card reveal">' +
-          '<div class="archive-head"><div><span class="tag dim">' + c.stage + '</span><h3>' + c.company + '</h3></div>' +
-          '<span class="career-period">' + c.period + '</span></div>' +
-          '<p>' + c.summary + '</p>' +
-          '<ul>' + c.projects.map(function (item) { return '<li>' + item + '</li>'; }).join("") + '</ul>' +
-          '</article>'
-        );
-      }).join("");
-    }
-
+    const capabilityDesc = document.getElementById("capabilityDesc");
+    if (capabilityDesc) capabilityDesc.textContent = CORE_CAPABILITIES_INTRO;
     const capabilities = document.getElementById("capabilityGrid");
     if (capabilities) {
       capabilities.innerHTML = CORE_CAPABILITIES.map(function (item, i) {
         return (
           '<article class="capability-card reveal">' +
           '<span>0' + (i + 1) + '</span>' +
-          '<div><h3>' + item.title + '</h3><p>' + item.desc + '</p></div>' +
+          '<div><h3>' + item.title + '</h3><strong>' + item.keywords + '</strong><p>' + item.desc + '</p></div>' +
           '</article>'
         );
       }).join("");
