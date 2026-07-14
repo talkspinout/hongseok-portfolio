@@ -29,8 +29,8 @@
     nav.innerHTML =
       '<div class="gnb-logo"><span class="dot"></span>' + SITE.name + "</div>" +
       '<a class="nav-item" data-page="home" href="index.html">홈 · 하이라이트</a>' +
-      '<a class="nav-item" data-page="about" href="about.html">소개</a>' +
       '<div class="gnb-label">개별 항목</div>' +
+      '<a class="nav-item" data-page="about" href="about.html">소개</a>' +
       '<a class="nav-item" data-page="portfolio" href="portfolio.html">자세한 포트폴리오</a>' +
       '<a class="nav-item" data-page="lab" href="lab.html">Lab · 프레임워크</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
