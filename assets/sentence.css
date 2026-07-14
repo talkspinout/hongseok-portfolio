@@ -132,7 +132,7 @@
   background: var(--sentence-surface);
   border: 3px solid var(--sentence-line);
   border-bottom: 0;
-  border-radius: 38px 38px 8px 8px;
+  border-radius: 38px 38px 0 0;
 }
 
 .sentence-gacha__label {
@@ -263,6 +263,9 @@
 }
 
 .sentence-gacha__body {
+  position: relative;
+  width: 100%;
+  margin-top: -1px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -370,6 +373,9 @@
 }
 
 .sentence-gacha__exit {
+  position: relative;
+  width: 100%;
+  margin-top: -1px;
   padding: 0 48px 19px;
   background: var(--sentence-surface);
   border-right: 3px solid var(--sentence-line);
