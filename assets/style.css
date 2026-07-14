@@ -105,6 +105,14 @@ img { max-width: 100%; display: block; }
 .gnb a.nav-item:hover { background: var(--paper); color: var(--ink); }
 .gnb a.nav-item.active { background: var(--mint-tint); color: var(--mint-deep); }
 
+.gnb-separator {
+  margin: 12px 12px 8px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.55;
+}
+
 .gnb-foot {
   margin-top: auto;
   padding: 16px 12px 4px;

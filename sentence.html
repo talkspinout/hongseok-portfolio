@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오늘의 문장 자판기 | 고홍석</title>
+  <meta name="description" content="레버를 누르고 우리를 위한 문장 중 하나를 뽑아보세요." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/sentence.css" />
+</head>
+<body class="sentence-page" data-page="sentence">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="gnb" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="topbar" aria-label="홈으로 이동"><span class="dot"></span>고홍석 · Marketing Portfolio</a>
+  </header>
+
+  <nav class="gnb" id="gnb" aria-label="사이트 메뉴"></nav>
+
+  <div class="main">
+    <div class="wrap">
+      <main>
+        <section class="sentence-vending" id="sentence-vending" aria-labelledby="sentence-vending-title">
+          <div class="sentence-vending__inner">
+            <header class="sentence-vending__header">
+              <span class="sentence-vending__eyebrow">TODAY'S SENTENCE</span>
+              <h1 id="sentence-vending-title">오늘의 문장 자판기</h1>
+              <p>레버를 누르고 문장을 뽑아보세요.</p>
+            </header>
+
+            <div class="sentence-gacha" id="sentence-gacha" aria-busy="true">
+              <div class="sentence-gacha__top">
+                <div class="sentence-gacha__label">
+                  <strong>문장 자판기</strong>
+                  <span>우리를 위한 문장들</span>
+                </div>
+                <div class="sentence-gacha__window" aria-hidden="true">
+                  <span class="sentence-capsule sentence-capsule--1"></span>
+                  <span class="sentence-capsule sentence-capsule--2"></span>
+                  <span class="sentence-capsule sentence-capsule--3"></span>
+                  <span class="sentence-capsule sentence-capsule--4"></span>
+                  <span class="sentence-capsule sentence-capsule--5"></span>
+                  <span class="sentence-capsule sentence-capsule--6"></span>
+                </div>
+              </div>
+
+              <div class="sentence-gacha__body">
+                <div class="sentence-gacha__dial">
+                  <span class="sentence-gacha__dial-label">DRAW</span>
+                  <button type="button" class="sentence-gacha__button" id="sentence-draw-button" aria-label="오늘의 문장 뽑기" disabled data-track="interaction" data-track-id="sentence_draw" data-track-location="sentence_machine">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="sentence-gacha__guide">
+                  <span aria-hidden="true">←</span>
+                  <span>왼쪽 클릭</span>
+                </div>
+              </div>
+
+              <div class="sentence-gacha__exit">
+                <div class="sentence-gacha__door">
+                  <div class="sentence-gacha__falling-capsule" id="sentence-falling-capsule" aria-hidden="true"><span></span></div>
+                </div>
+              </div>
+              <div class="sentence-gacha__base"></div>
+              <p class="sentence-gacha__status" id="sentence-gacha-status" aria-live="polite">문장을 불러오는 중입니다.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>© 2026 Hongseok Ko. All rights reserved.</div>
+        <div class="social-row" data-social></div>
+      </footer>
+    </div>
+  </div>
+
+  <div class="sentence-modal" id="sentence-modal" aria-hidden="true">
+    <button type="button" class="sentence-modal__backdrop" id="sentence-modal-backdrop" aria-label="문장 카드 닫기" tabindex="-1" data-track="interaction" data-track-id="sentence_modal_close" data-track-location="sentence_modal"></button>
+    <article class="sentence-card" id="sentence-card" role="dialog" aria-modal="true" aria-labelledby="sentence-number" aria-describedby="sentence-quote">
+      <button type="button" class="sentence-card__close" id="sentence-close-button" aria-label="문장 카드 닫기" data-track="interaction" data-track-id="sentence_modal_close" data-track-location="sentence_modal">×</button>
+      <span class="sentence-card__number" id="sentence-number"></span>
+      <blockquote class="sentence-card__quote" id="sentence-quote"></blockquote>
+      <p class="sentence-card__source" id="sentence-source"></p>
+      <button type="button" class="sentence-card__again" id="sentence-again-button" data-track="interaction" data-track-id="sentence_redraw" data-track-location="sentence_modal">다른 문장 뽑기</button>
+    </article>
+  </div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/main.js"></script>
+  <script src="assets/sentence.js"></script>
+</body>
+</html>
