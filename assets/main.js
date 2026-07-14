@@ -182,34 +182,79 @@
 
   /* ---------- 소개 ---------- */
   function buildAbout() {
-    const skills = document.getElementById("skillTags");
-    if (skills) {
-      skills.innerHTML = ABOUT.skills.map(function (s) {
-        return '<span class="tag skill">' + s + "</span>";
-      }).join("");
-    }
     const heroT = document.getElementById("aboutTitle");
     if (heroT) heroT.textContent = ABOUT.heroTitle;
     const heroS = document.getElementById("aboutSub");
     if (heroS) heroS.textContent = ABOUT.heroSub;
-    const edu = document.getElementById("eduLine");
-    if (edu) edu.textContent = ABOUT.education;
 
-    const list = document.getElementById("careerList");
-    if (list) {
-      list.innerHTML = CAREER.map(function (c) {
+    const directions = document.getElementById("careerDirections");
+    if (directions) {
+      directions.innerHTML = CAREER_DIRECTIONS.map(function (item, i) {
         return (
-          '<div class="career-item reveal">' +
-          '<div class="career-dot" aria-hidden="true"></div>' +
-          '<div class="career-body">' +
-          '<div class="career-head">' +
-          '<strong>' + c.company + "</strong>" +
-          '<span class="tag dim">' + c.role + "</span>" +
-          '<span class="career-period">' + c.period + "</span>" +
-          "</div>" +
-          '<p class="career-desc">' + c.desc + "</p>" +
-          '<p class="career-result">' + c.result + "</p>" +
-          "</div></div>"
+          '<article class="direction-card reveal">' +
+          '<span class="direction-num">0' + (i + 1) + '</span>' +
+          '<h3>' + item.title + '</h3>' +
+          '<p>' + item.desc + '</p>' +
+          '</article>'
+        );
+      }).join("");
+    }
+
+    const journey = document.getElementById("careerJourney");
+    if (journey) {
+      journey.innerHTML = CAREER.slice().reverse().map(function (c) {
+        return (
+          '<article class="journey-item reveal">' +
+          '<span class="journey-dot" aria-hidden="true"></span>' +
+          '<span class="journey-period">' + c.period + '</span>' +
+          '<strong>' + c.stage + '</strong>' +
+          '<span>' + c.company + ' · ' + c.role + '</span>' +
+          '</article>'
+        );
+      }).join("");
+    }
+
+    const recent = document.getElementById("recentExperience");
+    if (recent) {
+      recent.innerHTML = CAREER.slice(0, 3).map(function (c) {
+        return (
+          '<article class="experience-card reveal">' +
+          '<div class="experience-head">' +
+          '<div><span class="tag">' + c.stage + '</span><h3>' + c.company + '</h3></div>' +
+          '<div class="experience-meta"><strong>' + c.role + '</strong><span>' + c.period + '</span></div>' +
+          '</div>' +
+          '<p class="experience-summary">' + c.summary + '</p>' +
+          '<ul class="experience-details">' +
+          c.details.map(function (item) { return '<li>' + item + '</li>'; }).join("") +
+          '</ul>' +
+          '<p class="experience-scope">' + c.scope + '</p>' +
+          '</article>'
+        );
+      }).join("");
+    }
+
+    const earlier = document.getElementById("earlierExperience");
+    if (earlier) {
+      earlier.innerHTML = CAREER.slice(3).map(function (c) {
+        return (
+          '<article class="archive-card reveal">' +
+          '<div class="archive-head"><div><span class="tag dim">' + c.stage + '</span><h3>' + c.company + '</h3></div>' +
+          '<span class="career-period">' + c.period + '</span></div>' +
+          '<p>' + c.summary + '</p>' +
+          '<ul>' + c.projects.map(function (item) { return '<li>' + item + '</li>'; }).join("") + '</ul>' +
+          '</article>'
+        );
+      }).join("");
+    }
+
+    const capabilities = document.getElementById("capabilityGrid");
+    if (capabilities) {
+      capabilities.innerHTML = CORE_CAPABILITIES.map(function (item, i) {
+        return (
+          '<article class="capability-card reveal">' +
+          '<span>0' + (i + 1) + '</span>' +
+          '<div><h3>' + item.title + '</h3><p>' + item.desc + '</p></div>' +
+          '</article>'
         );
       }).join("");
     }
