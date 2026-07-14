@@ -178,6 +178,7 @@ h1.hero-title {
   line-height: 1.22;
   letter-spacing: -0.035em;
   white-space: pre-line;
+  text-wrap: balance;
 }
 .hero-sub {
   margin-top: 22px;
@@ -243,6 +244,7 @@ h2.sec-title {
 .btn-line { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.45); }
 .btn-line:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
 .cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta-actions .btn { width: 230px; justify-content: center; text-align: center; }
 .btn .arrow { transition: transform 0.15s; }
 .btn:hover .arrow { transform: translateX(3px); }
 
@@ -495,6 +497,8 @@ footer {
   .cta-band { padding: 36px 28px; }
 }
 @media (max-width: 520px) {
+  .cta-actions { width: 100%; }
+  .cta-actions .btn { width: 100%; }
   .metric-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .metric-card { padding: 20px 16px; }
 }
