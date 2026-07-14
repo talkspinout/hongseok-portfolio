@@ -38,12 +38,12 @@
 
     nav.innerHTML =
       '<div class="gnb-logo"><span class="dot"></span>' + SITE.name + "</div>" +
-      '<a class="nav-item" data-page="home" href="index.html">홈 · 하이라이트</a>' +
+      '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">홈 · 하이라이트</a>' +
      
       '<div class="gnb-label">개별 항목</div>' +
-      '<a class="nav-item" data-page="about" href="about.html">간단한 자기 소개</a>' +
-      '<a class="nav-item" data-page="portfolio" href="portfolio.html">자세한 포트폴리오</a>' +
-      '<a class="nav-item" data-page="lab" href="lab.html">Lab · 프레임워크</a>' +
+      '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">간단한 자기 소개</a>' +
+      '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">자세한 포트폴리오</a>' +
+      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">Lab · 프레임워크</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
 
     // 현재 페이지 표시
@@ -166,11 +166,6 @@
           alert("신청 폼 준비 중입니다. data.js의 FORM_URL에 Google Form 주소를 입력해 주세요.");
         });
       }
-      // 추적 이벤트 (GA4 직접 연결 시 gtag, GTM 사용 시 dataLayer로 수집)
-      a.addEventListener("click", function () {
-        if (window.gtag) gtag("event", "request_portfolio_access", { page: PAGE });
-        else if (window.dataLayer) dataLayer.push({ event: "request_portfolio_access", page: PAGE });
-      });
     });
   }
 
@@ -216,7 +211,7 @@
     wrap.innerHTML = LAB_ITEMS.map(function (item) {
       const badge = item.type === "framework" ? "프레임워크" : "개인 프로젝트";
       const btn = item.link
-        ? '<a class="btn btn-ghost" href="' + item.link + '" target="_blank" rel="noopener">' +
+        ? '<a class="btn btn-ghost" href="' + item.link + '" target="_blank" rel="noopener" data-track="cta" data-track-id="view_framework" data-track-location="lab_card">' +
           (item.linkLabel || "보러 가기") + ' <span class="arrow">→</span></a>'
         : "";
       return (
@@ -251,15 +246,35 @@
     document.querySelectorAll("[data-social]").forEach(function (slot) {
       let html = "";
       if (SITE.INSTAGRAM_URL) {
-        html += '<a class="icon" href="' + SITE.INSTAGRAM_URL + '" target="_blank" rel="noopener" aria-label="Instagram">' + ICONS.instagram + "</a>";
+        html += '<a class="icon" href="' + SITE.INSTAGRAM_URL + '" target="_blank" rel="noopener" aria-label="Instagram" data-track="social" data-track-id="social_instagram" data-track-location="footer">' + ICONS.instagram + "</a>";
       }
       if (SITE.LINKEDIN_URL) {
-        html += '<a class="icon" href="' + SITE.LINKEDIN_URL + '" target="_blank" rel="noopener" aria-label="LinkedIn">' + ICONS.linkedin + "</a>";
+        html += '<a class="icon" href="' + SITE.LINKEDIN_URL + '" target="_blank" rel="noopener" aria-label="LinkedIn" data-track="social" data-track-id="social_linkedin" data-track-location="footer">' + ICONS.linkedin + "</a>";
       }
       if (SITE.EMAIL) {
-  html += '<a class="icon" href="mailto:' + SITE.EMAIL + '" title="' + SITE.EMAIL + '" aria-label="이메일 보내기">' + ICONS.mail + "</a>";
+  html += '<a class="icon" href="mailto:' + SITE.EMAIL + '" title="' + SITE.EMAIL + '" aria-label="이메일 보내기" data-track="contact" data-track-id="contact_email" data-track-location="footer">' + ICONS.mail + "</a>";
 }
       slot.innerHTML = html;
+    });
+  }
+
+  /* ---------- 공통 클릭 추적 (Google Tag Manager) ---------- */
+  function initTracking() {
+    document.addEventListener("click", function (event) {
+      const element = event.target.closest("[data-track]");
+      if (!element) return;
+
+      const href = element.href || "";
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "ui_click",
+        element_type: element.dataset.track || "",
+        element_id: element.dataset.trackId || "",
+        element_location: element.dataset.trackLocation || "",
+        element_text: (element.textContent || "").trim().replace(/\s+/g, " "),
+        link_url: href.indexOf("mailto:") === 0 ? "mailto" : href,
+        page_type: PAGE || ""
+      });
     });
   }
 
@@ -287,5 +302,6 @@
   buildAbout();
   buildGate();
   buildLab();
+  initTracking();
   observe();
 })();
