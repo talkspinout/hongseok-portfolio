@@ -37,11 +37,11 @@
     if (!nav) return;
 
     nav.innerHTML =
-      '<a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="gnb"><span class="dot"></span>' + SITE.name + " · Marketing Portfolio</a>" +
+      '<a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="gnb"><span class="dot"></span>Portfolio</a>" +
       '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">하이라이트</a>' +
-      '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">간단한 자기 소개</a>' +
-      '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">자세한 포트폴리오</a>' +
-      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">소소한 프로젝트</a>' +
+      '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">자기 소개</a>' +
+      '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">포트폴리오</a>' +
+      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">개인 프로젝트</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
 
     // 현재 페이지 표시
@@ -257,10 +257,11 @@
                 '</article>'
               );
             }).join("") + '</div>' +
-            (career.clientTags
-              ? '<div class="client-tags">' + career.clientTags.map(function (tag) {
-                  return '<span class="tag dim">' + tag + '</span>';
-                }).join("") + '</div>'
+            (career.otherClients
+              ? '<div class="other-clients"><h5>기타 주요 클라이언트</h5><div class="other-client-grid">' +
+                career.otherClients.map(function (client) {
+                  return '<div class="other-client-item"><strong>' + client.name + '</strong><span>' + client.workSummary + '</span></div>';
+                }).join("") + '</div></div>'
               : '') +
             '</div>'
           : "";
@@ -373,18 +374,33 @@
 
   /* ---------- 스크롤 리빌 + 카운트업 ---------- */
   function observe() {
+    const revealEls = Array.from(document.querySelectorAll(".reveal"));
+    if (!("IntersectionObserver" in window)) {
+      revealEls.forEach(function (el) { el.classList.add("in"); });
+      return;
+    }
+
+    revealEls.forEach(function (el) { el.classList.add("reveal-pending"); });
     const io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
+          e.target.classList.remove("reveal-pending");
           e.target.classList.add("in");
           e.target.querySelectorAll(".metric-num").forEach(animateCount);
           io.unobserve(e.target);
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.12, rootMargin: "0px 0px 80px 0px" }
     );
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    revealEls.forEach(function (el) { io.observe(el); });
+
+    window.setTimeout(function () {
+      revealEls.forEach(function (el) {
+        el.classList.remove("reveal-pending");
+        el.classList.add("in");
+      });
+    }, 1800);
   }
 
   buildGNB();
