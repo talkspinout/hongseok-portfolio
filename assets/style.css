@@ -594,6 +594,26 @@ h2.sec-title {
 }
 .client-tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
 
+.other-clients {
+  margin-top: 22px;
+  padding: 24px 26px;
+  border-radius: 16px;
+  background: var(--paper);
+}
+.other-clients > h5 { font-size: 15px; margin-bottom: 16px; }
+.other-client-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.other-client-item {
+  padding: 4px 18px;
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.other-client-item:first-child { border-left: none; padding-left: 0; }
+.other-client-item:last-child { padding-right: 0; }
+.other-client-item strong { font-size: 15px; }
+.other-client-item span { color: var(--ink-soft); font-size: 13px; line-height: 1.55; }
+
 .capability-grid { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .capability-card {
   min-height: 190px;
@@ -615,7 +635,10 @@ h2.sec-title {
   .journey-track::before { top: 8px; bottom: 8px; left: 8px; right: auto; width: 2px; height: auto; }
   .journey-item { padding-top: 0; }
   .journey-dot { left: -26px; }
-  .responsibility-section ul, .achievement-grid, .client-grid { grid-template-columns: 1fr; }
+  .responsibility-section ul, .achievement-grid, .client-grid, .other-client-grid { grid-template-columns: 1fr; }
+  .other-client-item { padding: 14px 0; border-left: none; border-top: 1px solid var(--line); }
+  .other-client-item:first-child { border-top: none; padding-top: 0; }
+  .other-client-item:last-child { padding-bottom: 0; }
   .client-item, .client-item:nth-child(-n+2) { border-top: 1px solid var(--line); }
   .client-item:first-child { border-top: none; }
   .client-item.featured { grid-column: auto; }
@@ -683,7 +706,8 @@ footer {
 .social-row a.mail:hover { border-color: var(--mint); background: var(--mint-tint); color: var(--mint-deep); }
 
 /* ---------- 등장 애니메이션 ---------- */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal { opacity: 1; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.reveal-pending { opacity: 0; transform: translateY(18px); }
 .reveal.in { opacity: 1; transform: none; }
 
 /* ---------- 반응형 ---------- */
