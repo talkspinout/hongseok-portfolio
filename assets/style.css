@@ -34,6 +34,7 @@ body {
   letter-spacing: -0.01em;
   word-break: keep-all;
 }
+body.menu-open { overflow: hidden; }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -147,7 +148,11 @@ img { max-width: 100%; display: block; }
   width: 18px; height: 2px;
   border-radius: 2px;
   background: var(--ink);
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
+.menu-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-btn.open span:nth-child(2) { opacity: 0; }
+.menu-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ---------- 본문 프레임 ---------- */
 .main {
