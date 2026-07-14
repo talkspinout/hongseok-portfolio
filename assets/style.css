@@ -126,6 +126,7 @@ img { max-width: 100%; display: block; }
   gap: 14px;
 }
 .topbar .gnb-logo { margin: 0; font-size: 17px; }
+.topbar .gnb-logo:hover { color: var(--mint-deep); }
 .menu-btn {
   border: 1px solid var(--line);
   background: var(--bg);
@@ -301,14 +302,18 @@ h2.sec-title {
 /* ---------- 게이트 (블러 프리뷰) ---------- */
 .gate-stage { position: relative; margin-top: 44px; border-radius: 28px; overflow: hidden; }
 .blur-stack {
-  filter: blur(9px);
-  opacity: 0.75;
+  filter: blur(3px);
+  opacity: 0.72;
   pointer-events: none;
   user-select: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  padding: 8px;
+  overflow: hidden;
+  transform: scale(1.015);
+}
+.portfolio-preview-image {
+  width: 100%;
+  min-height: 440px;
+  object-fit: cover;
+  display: block;
 }
 .blur-card {
   background: var(--paper);
@@ -328,7 +333,7 @@ h2.sec-title {
   justify-content: center;
   gap: 18px;
   text-align: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.88));
+  background: linear-gradient(180deg, rgba(255,255,255,0.48), rgba(255,255,255,0.9));
   padding: 24px;
 }
 .gate-overlay .lock {
@@ -497,6 +502,8 @@ footer {
   .cta-band { padding: 36px 28px; }
 }
 @media (max-width: 520px) {
+  .topbar .gnb-logo { font-size: 14px; }
+  .portfolio-preview-image { min-height: 500px; }
   .cta-actions { width: 100%; }
   .cta-actions .btn { width: 100%; }
   .metric-grid { grid-template-columns: 1fr 1fr; gap: 10px; }

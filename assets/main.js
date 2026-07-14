@@ -37,7 +37,7 @@
     if (!nav) return;
 
     nav.innerHTML =
-      '<div class="gnb-logo"><span class="dot"></span>' + SITE.name + "</div>" +
+      '<a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="gnb"><span class="dot"></span>' + SITE.name + " · Marketing Portfolio</a>" +
       '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">홈 · 하이라이트</a>' +
      
       '<div class="gnb-label">개별 항목</div>' +
