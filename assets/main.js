@@ -38,12 +38,10 @@
 
     nav.innerHTML =
       '<a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="gnb"><span class="dot"></span>' + SITE.name + " · Marketing Portfolio</a>" +
-      '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">홈 · 하이라이트</a>' +
-     
-      '<div class="gnb-label">개별 항목</div>' +
+      '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">하이라이트</a>' +
       '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">간단한 자기 소개</a>' +
       '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">자세한 포트폴리오</a>' +
-      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">Lab · 프레임워크</a>' +
+      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">소소한 프로젝트</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
 
     // 현재 페이지 표시
@@ -58,23 +56,36 @@
 
     const btn = document.getElementById("menuBtn");
 
-    function setOpen(open) {
+    function setOpen(open, returnFocus) {
       nav.classList.toggle("open", open);
       scrim.classList.toggle("show", open);
-      if (btn) btn.setAttribute("aria-expanded", String(open));
+      document.body.classList.toggle("menu-open", open);
+      if (btn) {
+        btn.classList.toggle("open", open);
+        btn.setAttribute("aria-expanded", String(open));
+        btn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      }
+      if (open) {
+        requestAnimationFrame(function () {
+          const firstLink = nav.querySelector("a");
+          if (firstLink) firstLink.focus();
+        });
+      } else if (returnFocus && btn) {
+        btn.focus();
+      }
     }
 
     if (btn) {
       btn.addEventListener("click", function () {
-        setOpen(!nav.classList.contains("open"));
+        setOpen(!nav.classList.contains("open"), false);
       });
     }
-    scrim.addEventListener("click", function () { setOpen(false); });
+    scrim.addEventListener("click", function () { setOpen(false, true); });
     nav.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") setOpen(false);
+      if (e.target.closest("a")) setOpen(false, false);
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape" && nav.classList.contains("open")) setOpen(false, true);
     });
   }
 
