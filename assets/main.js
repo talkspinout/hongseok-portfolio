@@ -8,29 +8,6 @@
   const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Google Tag Manager (컨테이너 ID가 있을 때만 로드) ---------- */
-  if (SITE.GTM_ID) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-    const g = document.createElement("script");
-    g.async = true;
-    g.src = "https://www.googletagmanager.com/gtm.js?id=" + SITE.GTM_ID;
-    document.head.appendChild(g);
-  }
-
-  /* ---------- GA4 (측정 ID가 있을 때만 로드) ---------- */
-  if (SITE.GA_ID) {
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtag/js?id=" + SITE.GA_ID;
-    document.head.appendChild(s);
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    window.gtag = gtag;
-    gtag("js", new Date());
-    gtag("config", SITE.GA_ID);
-  }
-
   /* ---------- GNB (햄버거 드로어) ---------- */
   function buildGNB() {
     const nav = document.getElementById("gnb");
@@ -86,8 +63,30 @@
     nav.addEventListener("click", function (e) {
       if (e.target.closest("a")) setOpen(false, false);
     });
+    // 드로어가 열려 있을 때 포커스를 내부에 가둔다
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.classList.contains("open")) setOpen(false, true);
+      if (!nav.classList.contains("open")) return;
+
+      if (e.key === "Escape") {
+        setOpen(false, true);
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const focusable = nav.querySelectorAll("a[href]");
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
   }
 
