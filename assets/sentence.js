@@ -250,12 +250,9 @@
   }
 
   function hideModal({ restoreFocus = true } = {}) {
-    const wasVisible = modal.classList.contains("is-visible");
-
     modal.classList.remove("is-visible");
     modal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("sentence-modal-open");
-
 
     if (
       restoreFocus &&
