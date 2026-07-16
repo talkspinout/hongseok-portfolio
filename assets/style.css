@@ -14,7 +14,7 @@
   --line: #e4eaea;
   --radius: 20px;
   --gnb-w: 232px;
-  --content-max: 980px;
+  --content-max: clamp(980px, 68vw, 1240px);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -172,10 +172,31 @@ img { max-width: 100%; display: block; }
 .wrap {
   max-width: var(--content-max);
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 48px;
 }
-section { padding: 88px 0; }
+section { padding: 96px 0; }
 section + section { border-top: 1px solid var(--line); }
+
+/* ---------- 레일 레이아웃 (About / Portfolio 상세 섹션) ---------- */
+.rail-section {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0 48px;
+}
+.rail-section > h2.sec-title {
+  grid-column: 1;
+  position: sticky;
+  top: 96px;
+  align-self: start;
+}
+.rail-section > .sec-body {
+  grid-column: 2;
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .rail-section { display: block; }
+  .rail-section > h2.sec-title { position: static; }
+}
 
 .eyebrow {
   display: inline-block;
@@ -218,7 +239,7 @@ h2.sec-title {
   margin-top: 44px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 .metric-card {
   background: var(--paper);
