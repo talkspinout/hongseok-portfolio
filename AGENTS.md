@@ -18,9 +18,11 @@
 - `main.js`: GNB, 공통 렌더링, 클릭 추적
 - `style.css`: 사이트 공통 디자인
 - `sentence.js`, `sentence.css`: 문장 자판기 전용
+- `lead-form.js`, `lead-form.css`: 포트폴리오 열람 신청 모달 폼 전용
+- `apps-script/lead-form.gs`: 열람 신청 폼의 Apps Script 백엔드 참고 코드 (실제 배포는 Google Apps Script 편집기에서 수동으로 함)
 - `index.html`: 하이라이트
 - `about.html`: 자기 소개
-- `portfolio.html`: 포트폴리오
+- `portfolio.html`: 포트폴리오 (열람 신청 모달 포함)
 - `lab.html`: 개인 프로젝트
 - `sentence.html`: 문장 자판기
 
@@ -32,11 +34,12 @@
 
 - 경력 내용, 회사명, 기간, 성과 수치
 - 포트폴리오 안내 문구
-- Google Form 및 Apps Script URL
+- Apps Script URL (`SITE.LEAD_API_URL`, 문장 자판기 API 등)
 - GTM ID와 GA4 ID
-- `ui_click` 이벤트 구조와 기존 `element_id`
+- `ui_click`, `lead_form_submit` 이벤트 구조와 기존 `element_id`
 - 메뉴명과 페이지 구성
 - 문장 자판기의 인용문과 출처 표기
+- 열람 신청 폼의 개인정보 수집·이용 문구와 저작권 안내 문구 (실제 수집 필드와 반드시 일치해야 하므로, 필드를 바꾸면 이 문구도 함께 검토한다)
 
 ## 디자인 기준
 
@@ -54,6 +57,7 @@
 - 모바일 좌우 잘림과 레이아웃
 - GTM·GA4 중복 로드 및 클릭 이벤트 중복
 - 문장 자판기 변경 시 API 정상·실패 처리
+- 열람 신청 폼 변경 시 제출 성공·실패·API 미설정 상태, 개인정보 동의 필수 여부, 스팸 방지(허니팟) 동작
 - 병합 후 GitHub Pages 실제 화면
 
 검증에 문제가 없으면 작업한 에이전트가 PR을 병합하고 배포 결과를 확인할 수 있다.

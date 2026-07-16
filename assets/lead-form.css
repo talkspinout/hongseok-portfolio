@@ -1,0 +1,174 @@
+/* ============================================================
+   lead-form.css — 포트폴리오 열람 신청 모달 폼 전용 스타일
+   색상·폭 등 공통 값은 style.css의 :root 토큰을 그대로 사용합니다.
+   ============================================================ */
+
+.lead-modal {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.lead-modal.is-visible { visibility: visible; opacity: 1; }
+
+.lead-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  cursor: default;
+  background: rgba(25, 31, 31, 0.5);
+  border: 0;
+  backdrop-filter: blur(3px);
+}
+
+.lead-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 520px);
+  max-height: min(88vh, 780px);
+  overflow-y: auto;
+  background: var(--bg);
+  border-radius: 24px;
+  box-shadow: 0 26px 60px rgba(20, 20, 25, 0.22);
+  padding: 40px 32px 32px;
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+.lead-modal.is-visible .lead-card { opacity: 1; transform: translateY(0) scale(1); }
+
+body.lead-modal-open { overflow: hidden; }
+
+.lead-card__close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  color: var(--ink-soft);
+  font-size: 28px;
+  line-height: 1;
+}
+.lead-card__close:hover { color: var(--ink); }
+
+.lead-card__title { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; }
+.lead-card__desc { margin-top: 8px; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+
+/* ---------- 폼 필드 ---------- */
+#lead-form { margin-top: 24px; display: flex; flex-direction: column; gap: 20px; }
+
+.lead-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lead-field label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.lead-field__help {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.lead-field input[type="email"],
+.lead-field input[type="text"],
+.lead-field select,
+.lead-field textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color 0.15s;
+}
+.lead-field input:focus,
+.lead-field select:focus,
+.lead-field textarea:focus {
+  outline: none;
+  border-color: var(--mint);
+}
+.lead-field textarea { resize: vertical; min-height: 72px; }
+
+.lead-field--consent { display: flex; flex-direction: column; gap: 6px; }
+.lead-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lead-checkbox input { margin-top: 3px; flex: none; width: 16px; height: 16px; accent-color: var(--mint); }
+.lead-field--consent .lead-field__help { margin: 0; padding-left: 26px; }
+
+.lead-copyright-notice {
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+}
+
+.lead-form__error {
+  font-size: 13px;
+  font-weight: 600;
+  color: #d0453a;
+  background: #fdeceb;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.lead-submit { width: 100%; justify-content: center; }
+.lead-submit:disabled { opacity: 0.6; cursor: wait; }
+
+/* ---------- 완료 · 오류 패널 ---------- */
+.lead-card__panel--result {
+  text-align: center;
+  padding-top: 16px;
+}
+.lead-result__icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--mint-tint);
+  color: var(--mint-deep);
+  font-size: 24px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lead-card__panel--result.is-error .lead-result__icon {
+  background: #fdeceb;
+  color: #d0453a;
+}
+.lead-card__panel--result .lead-card__desc { margin: 8px auto 24px; max-width: 360px; }
+.lead-card__panel--result .btn { margin: 0 auto; }
+
+@media (max-width: 520px) {
+  .lead-card { padding: 32px 22px 24px; border-radius: 20px; }
+}

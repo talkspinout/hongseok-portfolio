@@ -166,19 +166,6 @@
         );
       }).join("");
     }
-
-    document.querySelectorAll("[data-form-link]").forEach(function (a) {
-      if (SITE.FORM_URL) {
-        a.href = SITE.FORM_URL;
-        a.target = "_blank";
-        a.rel = "noopener";
-      } else {
-        a.addEventListener("click", function (e) {
-          e.preventDefault();
-          alert("신청 폼 준비 중입니다. data.js의 FORM_URL에 Google Form 주소를 입력해 주세요.");
-        });
-      }
-    });
   }
 
   /* ---------- 소개 ---------- */
