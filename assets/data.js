@@ -17,7 +17,7 @@ const SITE = {
   GA_ID: "",            // ← GA4 측정 ID 입력 (GTM을 쓰는 경우 비워두고 GTM 안에서 GA4 태그 설정)
   GTM_ID: "GTM-NPBTB82",           // ← Google Tag Manager 컨테이너 ID 입력 (예: "GTM-XXXXXXX")
   FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSfIGT8marmIPqCx9RYL0HOBU5G7wh4ZrRjuQsKBTqIIu57sbQ/viewform?usp=header",         // ← (미사용) 이전 Google Form 주소. 현재는 LEAD_API_URL의 사이트 내 신청 폼으로 대체됨
-  LEAD_API_URL: "",     // ← 포트폴리오 열람 신청 폼을 처리할 Google Apps Script 웹앱 주소 입력 (비워두면 폼이 "준비 중" 상태로 표시됩니다)
+  LEAD_API_URL: "https://script.google.com/macros/s/AKfycbwctKcoRwoByOTpqyFr5hQvW68KNGo6r02oB5PVpPJy5zMv8090DgS-wEUXt3-LXfSL/exec",     // ← 포트폴리오 열람 신청 폼을 처리할 Google Apps Script 웹앱 주소 입력 (비워두면 폼이 "준비 중" 상태로 표시됩니다)
   NOTION_URL: "https://app.notion.com/p/B2C-B2B-SaaS-333103889f8d8092bf21e5a15a43f7c6",
   LINKTREE_URL: "https://linktr.ee/talkspinout",
 
