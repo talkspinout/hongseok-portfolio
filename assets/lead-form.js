@@ -6,6 +6,11 @@
   // 판단해 사용자가 재시도 → 중복 신청으로 이어질 수 있다.
   const API_TIMEOUT_MS = 20000;
 
+  // 제출이 성공하기 전까지는 모달을 닫았다 다시 열어도 같은 requestId를 재사용한다.
+  // (서버가 "이미 처리된 요청인지"를 판단하는 기준이라, 모달 단위로 매번 새로 만들면
+  // 서버는 성공했는데 클라이언트만 실패로 본 경우 재시도 시 중복이 그대로 생긴다.)
+  const REQUEST_ID_STORAGE_KEY = "leadFormRequestId";
+
   const modal = document.getElementById("lead-modal");
   const backdrop = document.getElementById("lead-modal-backdrop");
   const card = document.getElementById("lead-card");
@@ -119,9 +124,7 @@
     resultPanel.hidden = true;
     submitButton.disabled = false;
     submitButton.textContent = "신청하기";
-    // 같은 모달 세션 안에서 재시도할 때 서버가 중복 제출을 구분할 수 있도록,
-    // ID는 모달을 열 때 한 번만 만들고 제출 실패 후 재시도해도 재사용한다.
-    currentRequestId = createRequestId();
+    ensureRequestId();
   }
 
   function showModal() {
@@ -172,6 +175,40 @@
       return window.crypto.randomUUID();
     }
     return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+  }
+
+  function readStoredRequestId() {
+    try {
+      return window.sessionStorage.getItem(REQUEST_ID_STORAGE_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeStoredRequestId(id) {
+    try {
+      window.sessionStorage.setItem(REQUEST_ID_STORAGE_KEY, id);
+    } catch (e) {
+      // 시크릿 모드 등으로 sessionStorage를 못 쓰면 메모리 값만으로 동작한다.
+    }
+  }
+
+  function clearStoredRequestId() {
+    try {
+      window.sessionStorage.removeItem(REQUEST_ID_STORAGE_KEY);
+    } catch (e) {}
+  }
+
+  // 아직 성공하지 못한 제출 시도가 있으면 그 ID를 이어서 쓰고,
+  // 없으면(=이전 제출이 성공했거나 처음 신청하는 경우) 새로 만든다.
+  function ensureRequestId() {
+    const stored = readStoredRequestId();
+    if (stored) {
+      currentRequestId = stored;
+      return;
+    }
+    currentRequestId = createRequestId();
+    writeStoredRequestId(currentRequestId);
   }
 
   function trackSubmit(purposeValue) {
@@ -282,6 +319,7 @@
         throw new Error((result && result.message) || "신청 처리에 실패했습니다.");
       }
 
+      clearStoredRequestId();
       trackSubmit(purposeValue);
       showResult("success", LEAD_FORM.successTitle, LEAD_FORM.successDesc);
     } catch (error) {
