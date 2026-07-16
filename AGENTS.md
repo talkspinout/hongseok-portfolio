@@ -19,7 +19,9 @@
 - `style.css`: 사이트 공통 디자인
 - `sentence.js`, `sentence.css`: 문장 자판기 전용
 - `lead-form.js`, `lead-form.css`: 포트폴리오 열람 신청 모달 폼 전용
-- `apps-script/lead-form.gs`: 열람 신청 폼의 Apps Script 백엔드 참고 코드 (실제 배포는 Google Apps Script 편집기에서 수동으로 함)
+- `apps-script/lead-form.gs`: 열람 신청 폼의 Apps Script 백엔드 코드. **Google Apps Script 편집기에 실제로 배포되어 있는 코드와 항상 동일해야 한다.** 이 파일은 실행되지 않고 참고·백업 용도이므로, Apps Script 편집기에서 코드를 고치면 그 내용을 그대로 이 파일에도 반영해야 한다 (반대 방향도 마찬가지: 이 파일을 고쳤다면 Apps Script 편집기에 붙여넣고 새 버전으로 재배포해야 실제로 반영된다).
+  - 배포 절차: Google 스프레드시트에서 확장 프로그램 → Apps Script → 코드 붙여넣기 → 배포 → 배포 관리 → 새 버전으로 배포 (실행 계정: 나, 액세스 권한: 모든 사용자) → 웹 앱 URL을 `data.js`의 `SITE.LEAD_API_URL`과 대조.
+  - 시트 헤더: `Timestamp | Email | Name | Company | Purpose | PurposeOther | Message | PageUrl | Consent | ConsentedAt | PrivacyVersion | TermsAccepted | RequestId`
 - `index.html`: 하이라이트
 - `about.html`: 자기 소개
 - `portfolio.html`: 포트폴리오 (열람 신청 모달 포함)
