@@ -193,7 +193,7 @@ section + section { border-top: 1px solid var(--line); }
   grid-column: 2;
   min-width: 0;
 }
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
   .rail-section { display: block; }
   .rail-section > h2.sec-title { position: static; }
 }
