@@ -16,7 +16,8 @@ const SITE = {
   tagline: "GTM 전략부터 콘텐츠, 퍼포먼스, CRM, SEO까지\n마케팅 전 과정을 연결해 성과 구조로 만드는 마케터입니다.",
   GA_ID: "",            // ← GA4 측정 ID 입력 (GTM을 쓰는 경우 비워두고 GTM 안에서 GA4 태그 설정)
   GTM_ID: "GTM-NPBTB82",           // ← Google Tag Manager 컨테이너 ID 입력 (예: "GTM-XXXXXXX")
-  FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSfIGT8marmIPqCx9RYL0HOBU5G7wh4ZrRjuQsKBTqIIu57sbQ/viewform?usp=header",         // ← Google Form 주소 입력
+  FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSfIGT8marmIPqCx9RYL0HOBU5G7wh4ZrRjuQsKBTqIIu57sbQ/viewform?usp=header",         // ← (미사용) 이전 Google Form 주소. 현재는 LEAD_API_URL의 사이트 내 신청 폼으로 대체됨
+  LEAD_API_URL: "",     // ← 포트폴리오 열람 신청 폼을 처리할 Google Apps Script 웹앱 주소 입력 (비워두면 폼이 "준비 중" 상태로 표시됩니다)
   NOTION_URL: "https://app.notion.com/p/B2C-B2B-SaaS-333103889f8d8092bf21e5a15a43f7c6",
   LINKTREE_URL: "https://linktr.ee/talkspinout",
 
@@ -361,4 +362,36 @@ const GATE = {
     { title: "확인", desc: "신청 내용을 확인합니다. 영업일 기준 1일 이내에 처리됩니다." },
     { title: "열람 권한 공유", desc: "작성하신 이메일로 Google Docs 열람 권한을 공유해 드립니다." },
   ],
+};
+
+/* ------------------------------------------------------------
+   8. 포트폴리오 열람 신청 폼 (portfolio.html 내 모달)
+   - purposes: 열람 목적 선택지. value는 Apps Script로 전송되는 값
+   - privacy: 개인정보 수집·이용 동의 문구. 실제 수집 필드와 항목이 일치해야 합니다.
+   - copyrightNotice: 제출 버튼 위에 고지문으로만 노출 (별도 동의 체크박스 없음)
+   ------------------------------------------------------------ */
+const LEAD_FORM = {
+  title: "포트폴리오 열람 신청",
+  desc: "아래 정보를 남겨 주시면 확인 후 이메일로 열람 권한을 공유해 드립니다.",
+  purposes: [
+    { value: "hiring_review", label: "채용 검토" },
+    { value: "interview_prep", label: "면접 또는 미팅 전 검토" },
+    { value: "collab_proposal", label: "프로젝트·외주 협업 제안" },
+    { value: "partnership", label: "비즈니스·파트너십 제안" },
+    { value: "headhunting", label: "헤드헌팅 또는 인재 추천" },
+    { value: "reference", label: "마케팅 사례 및 업무 방식 참고" },
+    { value: "other", label: "기타" },
+  ],
+  privacy: {
+    items: "이메일 주소, 이름, 회사명 또는 소속, 열람 목적, 전달하실 내용(작성 시)",
+    purpose: "포트폴리오 열람 신청 확인, 권한 제공 및 관련 연락",
+    retention: "열람 권한 제공일로부터 3개월 또는 신청자의 삭제 요청 시까지",
+    consentLabel: "포트폴리오 열람 권한 제공을 위한 개인정보 수집 및 이용에 동의합니다.",
+  },
+  copyrightNotice:
+    "본 포트폴리오의 편집·구성 및 직접 작성한 콘텐츠의 저작권은 고홍석에게 있습니다. 열람 자료는 채용 검토 및 협업 논의를 위한 참고 목적으로만 제공되며, 사전 동의 없는 복제, 배포, 외부 공유, 캡처 게시 및 2차 이용을 금합니다. 포트폴리오에 포함된 회사명, 브랜드명, 로고 및 제3자 제작물의 권리는 각 권리자에게 있습니다.",
+  successTitle: "신청이 접수되었습니다.",
+  successDesc: "영업일 기준 1일 이내에 확인 후, 작성하신 이메일로 열람 권한을 공유해 드립니다.",
+  errorDesc: "신청 처리 중 문제가 발생했습니다. 잠시 후 다시 시도하시거나, 아래 이메일로 직접 문의해 주세요.",
+  notReadyDesc: "신청 폼 준비 중입니다. data.js의 LEAD_API_URL에 Apps Script 웹앱 주소를 입력해 주세요.",
 };
