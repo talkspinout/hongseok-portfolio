@@ -18,9 +18,12 @@
   const purposeSelect = document.getElementById("lead-purpose");
   const purposeOtherField = document.getElementById("lead-purpose-other-field");
   const purposeOtherInput = document.getElementById("lead-purpose-other");
+  const privacyConsent = document.getElementById("lead-consent");
   const consentLabel = document.getElementById("lead-consent-label");
   const privacyDetail = document.getElementById("lead-privacy-detail");
   const copyrightNotice = document.getElementById("lead-copyright-notice");
+  const usageConsent = document.getElementById("lead-usage-consent");
+  const usageConsentLabel = document.getElementById("lead-usage-consent-label");
   const formError = document.getElementById("lead-form-error");
   const submitButton = document.getElementById("lead-submit-button");
 
@@ -31,7 +34,8 @@
 
   if (
     !modal || !backdrop || !card || !closeButton || triggers.length === 0 ||
-    !formPanel || !resultPanel || !form || !purposeSelect || !submitButton
+    !formPanel || !resultPanel || !form || !purposeSelect || !submitButton ||
+    !privacyConsent || !usageConsent
   ) {
     return;
   }
@@ -55,9 +59,11 @@
     privacyDetail.innerHTML =
       "수집 항목: " + LEAD_FORM.privacy.items + "<br>" +
       "목적: " + LEAD_FORM.privacy.purpose + "<br>" +
-      "보유 기간: " + LEAD_FORM.privacy.retention;
+      "보유 기간: " + LEAD_FORM.privacy.retention + "<br>" +
+      "동의 거부 안내: " + LEAD_FORM.privacy.refusal;
 
     copyrightNotice.textContent = LEAD_FORM.copyrightNotice;
+    usageConsentLabel.textContent = LEAD_FORM.usageConsentLabel;
   }
 
   function getFocusableElements() {
@@ -99,6 +105,8 @@
 
   function resetForm() {
     form.reset();
+    privacyConsent.setCustomValidity("");
+    usageConsent.setCustomValidity("");
     purposeOtherField.hidden = true;
     purposeOtherInput.required = false;
     formError.hidden = true;
@@ -152,6 +160,13 @@
     }
   }
 
+  function createRequestId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return window.crypto.randomUUID();
+    }
+    return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+  }
+
   function trackSubmit(purposeValue) {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
@@ -161,11 +176,44 @@
     });
   }
 
+  function validateConsent() {
+    privacyConsent.setCustomValidity(
+      privacyConsent.checked
+        ? ""
+        : "개인정보 수집·이용에 동의해야 포트폴리오 열람을 신청할 수 있습니다."
+    );
+    usageConsent.setCustomValidity(
+      usageConsent.checked
+        ? ""
+        : "열람 자료의 비공개·비배포 조건을 확인해야 신청할 수 있습니다."
+    );
+
+    if (!privacyConsent.checked) {
+      privacyConsent.reportValidity();
+      privacyConsent.focus();
+      return false;
+    }
+    if (!usageConsent.checked) {
+      usageConsent.reportValidity();
+      usageConsent.focus();
+      return false;
+    }
+    return true;
+  }
+
   purposeSelect.addEventListener("change", function () {
     const isOther = purposeSelect.value === "other";
     purposeOtherField.hidden = !isOther;
     purposeOtherInput.required = isOther;
     if (!isOther) purposeOtherInput.value = "";
+  });
+
+  privacyConsent.addEventListener("change", function () {
+    privacyConsent.setCustomValidity("");
+  });
+
+  usageConsent.addEventListener("change", function () {
+    usageConsent.setCustomValidity("");
   });
 
   async function handleSubmit(e) {
@@ -178,7 +226,7 @@
       return;
     }
 
-    if (!form.reportValidity()) return;
+    if (!validateConsent() || !form.reportValidity()) return;
 
     if (!SITE.LEAD_API_URL) {
       formError.textContent = LEAD_FORM.notReadyDesc;
@@ -195,7 +243,11 @@
       purposeOther: purposeOtherInput.value.trim(),
       message: document.getElementById("lead-message").value.trim(),
       pageUrl: window.location.href,
-      submittedAt: new Date().toISOString()
+      consent: privacyConsent.checked,
+      consentedAt: new Date().toISOString(),
+      privacyVersion: LEAD_FORM.privacy.version,
+      termsAccepted: usageConsent.checked,
+      requestId: createRequestId()
     };
 
     isSubmitting = true;

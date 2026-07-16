@@ -29,7 +29,7 @@
       <section>
         <span class="eyebrow">Detailed Portfolio</span>
         <h1 class="hero-title" id="gateHeadline"></h1>
-        <p class="hero-sub">해당 템플릿을 동의 없이 도용하는 경우가 발생하여, 확인 절차를 거쳐 공유하고 있습니다. 이력서 제출 기업 외에는 별도의 확인을 통해 공유드리는 점 양해 부탁드립니다.</p>
+        <p class="hero-sub">포트폴리오 파일은 확인 후 열람 권한을 제공하고 있습니다. 자료의 무단 복제·재배포를 방지하기 위해 확인 절차를 거쳐 공유하고 있으며, 이력서 제출 기업 외의 신청은 별도의 확인이 진행될 수 있습니다.</p>
 
         <!-- 블러 처리된 실제 포트폴리오 미리보기 -->
         <div class="gate-stage">
@@ -48,7 +48,7 @@
       <section>
         <h2 class="sec-title">열람 절차</h2>
         <div class="step-grid" id="stepGrid"></div>
-        <div class="notice">채용 검토 목적의 신청은 모두 승인하고 있습니다. 급하신 경우 폼에 남겨 주시면 우선 처리하겠습니다.</div>
+        <div class="notice">채용 검토 목적의 신청은 확인 후 우선적으로 승인하고 있습니다. 급하신 경우 신청 내용에 관련 일정을 남겨 주세요.</div>
         <div style="margin-top:36px">
           <button type="button" class="btn btn-mint" data-lead-form-trigger data-track="cta" data-track-id="request_portfolio" data-track-location="portfolio_steps">열람 신청하기 <span class="arrow">→</span></button>
         </div>
@@ -120,6 +120,13 @@
           </div>
 
           <p class="lead-copyright-notice" id="lead-copyright-notice"></p>
+
+          <div class="lead-field lead-field--consent">
+            <label class="lead-checkbox">
+              <input type="checkbox" id="lead-usage-consent" name="usageConsent" required />
+              <span id="lead-usage-consent-label"></span>
+            </label>
+          </div>
 
           <p class="lead-form__error" id="lead-form-error" role="alert" hidden></p>
 
