@@ -1,21 +1,32 @@
 /**
- * 포트폴리오 열람 신청 폼 백엔드 (Google Apps Script)
+ * 포트폴리오 열람 신청 폼 백엔드
+ * Google Apps Script
  *
- * 배포 방법
- * 1. 새 Google 스프레드시트를 만들고, 첫 행에 아래 헤더를 입력합니다.
- *    Timestamp | Email | Name | Company | Purpose | PurposeOther | Message | PageUrl |
- *    Consent | ConsentedAt | PrivacyVersion | TermsAccepted | RequestId
- * 2. 확장 프로그램 > Apps Script에서 이 파일 내용을 붙여넣습니다.
- * 3. 아래 NOTIFY_EMAIL을 실제 알림 받을 이메일로 바꿉니다.
- * 4. 배포 > 배포 관리 > 수정 > 버전: 새 버전으로 배포합니다.
- *    - 실행 계정: 나
- *    - 액세스 권한: 모든 사용자
- * 5. 기존 웹 앱 URL을 유지하고, data.js의 SITE.LEAD_API_URL과 일치하는지 확인합니다.
+ * 시트 헤더:
+ * Timestamp | Email | Name | Company | Purpose | PurposeOther |
+ * Message | PageUrl | Consent | ConsentedAt | PrivacyVersion |
+ * TermsAccepted | RequestId
  */
 
 const SHEET_NAME = "Leads";
 const NOTIFY_EMAIL = "hs5431@gmail.com";
 const CURRENT_PRIVACY_VERSION = "2026-07-16";
+
+const HEADERS = [
+  "Timestamp",
+  "Email",
+  "Name",
+  "Company",
+  "Purpose",
+  "PurposeOther",
+  "Message",
+  "PageUrl",
+  "Consent",
+  "ConsentedAt",
+  "PrivacyVersion",
+  "TermsAccepted",
+  "RequestId"
+];
 
 const PURPOSE_LABELS = {
   hiring_review: "채용 검토",
@@ -30,10 +41,14 @@ const PURPOSE_LABELS = {
 function doPost(e) {
   try {
     if (!e || !e.postData || !e.postData.contents) {
-      return jsonResponse({ status: "error", message: "요청 데이터가 없습니다." });
+      return jsonResponse({
+        status: "error",
+        message: "요청 데이터가 없습니다."
+      });
     }
 
     const payload = JSON.parse(e.postData.contents);
+
     const email = String(payload.email || "").trim();
     const name = String(payload.name || "").trim();
     const company = String(payload.company || "").trim();
@@ -41,6 +56,7 @@ function doPost(e) {
     const purposeOther = String(payload.purposeOther || "").trim();
     const message = String(payload.message || "").trim();
     const pageUrl = String(payload.pageUrl || "").trim();
+
     const consent = payload.consent === true;
     const consentedAt = String(payload.consentedAt || "").trim();
     const privacyVersion = String(payload.privacyVersion || "").trim();
@@ -48,15 +64,24 @@ function doPost(e) {
     const requestId = String(payload.requestId || "").trim();
 
     if (!isValidEmail(email) || !name || !company || !purpose) {
-      return jsonResponse({ status: "error", message: "필수 항목이 누락되었습니다." });
+      return jsonResponse({
+        status: "error",
+        message: "필수 항목이 누락되었습니다."
+      });
     }
 
     if (!Object.prototype.hasOwnProperty.call(PURPOSE_LABELS, purpose)) {
-      return jsonResponse({ status: "error", message: "유효하지 않은 열람 목적입니다." });
+      return jsonResponse({
+        status: "error",
+        message: "유효하지 않은 열람 목적입니다."
+      });
     }
 
     if (purpose === "other" && !purposeOther) {
-      return jsonResponse({ status: "error", message: "기타 열람 목적을 입력해 주세요." });
+      return jsonResponse({
+        status: "error",
+        message: "기타 열람 목적을 입력해 주세요."
+      });
     }
 
     if (!consent || !termsAccepted || !consentedAt || !requestId) {
@@ -80,10 +105,15 @@ function doPost(e) {
       const sheet = getSheet();
 
       if (hasRequestId(sheet, requestId)) {
-        return jsonResponse({ status: "ok", duplicate: true });
+        return jsonResponse({
+          status: "ok",
+          duplicate: true
+        });
       }
 
-      sheet.appendRow([
+      const nextRow = getNextDataRow(sheet);
+
+      const rowData = [[
         new Date(),
         safeCell(email),
         safeCell(name),
@@ -97,11 +127,26 @@ function doPost(e) {
         safeCell(privacyVersion),
         termsAccepted,
         safeCell(requestId)
-      ]);
+      ]];
+
+      /*
+       * appendRow()를 사용하지 않습니다.
+       * 체크박스가 아래 행까지 생성돼 있어도 A열을 기준으로
+       * 실제 마지막 신청 다음 행에 저장합니다.
+       */
+      sheet
+        .getRange(nextRow, 1, 1, HEADERS.length)
+        .setValues(rowData);
+
+      applyCheckboxes(sheet, nextRow);
     } finally {
       lock.releaseLock();
     }
 
+    /*
+     * 시트 저장이 끝난 뒤 메일을 발송합니다.
+     * 메일 발송에 실패해도 이미 저장된 신청은 유지됩니다.
+     */
     try {
       sendNotification({
         email,
@@ -118,9 +163,12 @@ function doPost(e) {
       console.error("신청 알림 메일 발송 실패:", mailError);
     }
 
-    return jsonResponse({ status: "ok" });
+    return jsonResponse({
+      status: "ok"
+    });
   } catch (error) {
     console.error("포트폴리오 열람 신청 처리 실패:", error);
+
     return jsonResponse({
       status: "error",
       message: "신청 처리 중 오류가 발생했습니다."
@@ -128,47 +176,94 @@ function doPost(e) {
   }
 }
 
+/**
+ * Leads 시트를 가져오고 헤더를 정상 상태로 유지합니다.
+ */
 function getSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
-  if (sheet.getLastRow() === 0) {
-    sheet.appendRow([
-      "Timestamp",
-      "Email",
-      "Name",
-      "Company",
-      "Purpose",
-      "PurposeOther",
-      "Message",
-      "PageUrl",
-      "Consent",
-      "ConsentedAt",
-      "PrivacyVersion",
-      "TermsAccepted",
-      "RequestId"
-    ]);
+  if (!spreadsheet) {
+    throw new Error("연결된 스프레드시트를 찾을 수 없습니다.");
   }
+
+  const sheet =
+    spreadsheet.getSheetByName(SHEET_NAME) ||
+    spreadsheet.insertSheet(SHEET_NAME);
+
+  sheet
+    .getRange(1, 1, 1, HEADERS.length)
+    .setValues([HEADERS]);
 
   return sheet;
 }
 
+/**
+ * A열 Timestamp를 기준으로 실제 데이터의 마지막 행을 구합니다.
+ * 다른 열에 미리 생성된 체크박스나 서식은 무시됩니다.
+ */
+function getLastDataRow(sheet) {
+  const maxRows = sheet.getMaxRows();
+
+  const lastRow = sheet
+    .getRange(maxRows, 1)
+    .getNextDataCell(SpreadsheetApp.Direction.UP)
+    .getRow();
+
+  return Math.max(lastRow, 1);
+}
+
+/**
+ * 실제 마지막 신청 다음 행을 반환합니다.
+ */
+function getNextDataRow(sheet) {
+  return Math.max(getLastDataRow(sheet) + 1, 2);
+}
+
+/**
+ * 동일한 RequestId가 이미 저장됐는지 확인합니다.
+ */
 function hasRequestId(sheet, requestId) {
   const firstDataRow = 2;
-  const requestIdColumn = 13;
-  const rowCount = sheet.getLastRow() - firstDataRow + 1;
+  const lastDataRow = getLastDataRow(sheet);
+  const rowCount = lastDataRow - firstDataRow + 1;
 
-  if (rowCount <= 0) return false;
+  if (rowCount <= 0) {
+    return false;
+  }
 
   return sheet
-    .getRange(firstDataRow, requestIdColumn, rowCount, 1)
+    .getRange(firstDataRow, 13, rowCount, 1)
     .createTextFinder(requestId)
     .matchEntireCell(true)
     .findNext() !== null;
 }
 
+/**
+ * 새로 저장된 행의 Consent와 TermsAccepted 셀에만
+ * 체크박스 데이터 규칙을 적용합니다.
+ */
+function applyCheckboxes(sheet, rowNumber) {
+  const checkboxRule = SpreadsheetApp
+    .newDataValidation()
+    .requireCheckbox()
+    .build();
+
+  sheet
+    .getRange(rowNumber, 9)
+    .setDataValidation(checkboxRule);
+
+  sheet
+    .getRange(rowNumber, 12)
+    .setDataValidation(checkboxRule);
+}
+
+/**
+ * 신청 알림 메일을 발송합니다.
+ */
 function sendNotification(data) {
-  const purposeLabel = PURPOSE_LABELS[data.purpose] || data.purpose;
+  const purposeLabel =
+    PURPOSE_LABELS[data.purpose] || data.purpose;
+
   const purposeLine = data.purposeOther
     ? purposeLabel + " (" + data.purposeOther + ")"
     : purposeLabel;
@@ -192,24 +287,44 @@ function sendNotification(data) {
 
   MailApp.sendEmail(
     NOTIFY_EMAIL,
-    "[포트폴리오 신청] " + subjectName + " · " + subjectCompany,
+    "[포트폴리오 신청] " +
+      subjectName +
+      " · " +
+      subjectCompany,
     body
   );
 }
 
+/**
+ * 스프레드시트 수식으로 해석될 수 있는 입력을 방어합니다.
+ */
 function safeCell(value) {
   const text = String(value || "").trim();
-  return /^[=+\-@]/.test(text) ? "'" + text : text;
+
+  return /^[=+\-@]/.test(text)
+    ? "'" + text
+    : text;
 }
 
+/**
+ * 이메일 제목에 줄바꿈이 들어가지 않도록 처리합니다.
+ */
 function singleLine(value) {
-  return String(value || "").replace(/[\r\n]+/g, " ").trim();
+  return String(value || "")
+    .replace(/[\r\n]+/g, " ")
+    .trim();
 }
 
+/**
+ * 이메일 형식만 간단히 검사합니다.
+ */
 function isValidEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
+/**
+ * JSON 응답을 반환합니다.
+ */
 function jsonResponse(obj) {
   return ContentService
     .createTextOutput(JSON.stringify(obj))
