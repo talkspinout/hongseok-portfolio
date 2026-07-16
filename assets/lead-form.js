@@ -1,7 +1,10 @@
 (() => {
   "use strict";
 
-  const API_TIMEOUT_MS = 10000;
+  // Apps Script 쪽 LockService 대기(최대 10초) + 시트 기록 + 메일 발송 시간을 감안해
+  // 여유 있게 잡는다. 너무 짧으면 서버는 정상 처리 중인데 클라이언트만 먼저 실패로
+  // 판단해 사용자가 재시도 → 중복 신청으로 이어질 수 있다.
+  const API_TIMEOUT_MS = 20000;
 
   const modal = document.getElementById("lead-modal");
   const backdrop = document.getElementById("lead-modal-backdrop");
@@ -42,6 +45,7 @@
 
   let lastFocusedElement = null;
   let isSubmitting = false;
+  let currentRequestId = null;
 
   function fillContent() {
     if (typeof LEAD_FORM === "undefined") return;
@@ -115,6 +119,9 @@
     resultPanel.hidden = true;
     submitButton.disabled = false;
     submitButton.textContent = "신청하기";
+    // 같은 모달 세션 안에서 재시도할 때 서버가 중복 제출을 구분할 수 있도록,
+    // ID는 모달을 열 때 한 번만 만들고 제출 실패 후 재시도해도 재사용한다.
+    currentRequestId = createRequestId();
   }
 
   function showModal() {
@@ -247,7 +254,7 @@
       consentedAt: new Date().toISOString(),
       privacyVersion: LEAD_FORM.privacy.version,
       termsAccepted: usageConsent.checked,
-      requestId: createRequestId()
+      requestId: currentRequestId
     };
 
     isSubmitting = true;
