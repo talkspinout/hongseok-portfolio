@@ -39,7 +39,7 @@ const SITE = {
 const METRICS = [
   { display: "대폭 개선", label: "CPL 개선",     note: "매체 운영 개선을 통한 CPL 절감 · B2B SaaS" },
   { display: "높은 비율", label: "1차 영업 연결", note: "확보 리드의 온라인 미팅 전환 · B2B SaaS" },
-  { value: 1.7,  suffix: "배", decimals: 1, label: "ROAS 향상", note: "150% → 230~250% · 코스메틱 커머스" },
+  { value: 1.7,  suffix: "배", decimals: 1, label: "ROAS 향상", note: "150% → 230~250% · 남성 코스메틱" },
   { value: 1000, prefix: "₩",  label: "CPI 달성",     note: "900~1,000원 · Non-incentive · B2C 앱" },
 ];
 
@@ -79,12 +79,12 @@ const PROJECTS = [
     id: "heybro",
     nav: "헤이브로",
     name: "헤이브로 — 사용자 퍼널 분석을 통한 전환율 개선",
-    domain: "코스메틱 커머스 · 인하우스",
+    domain: "남성 코스메틱 브랜드 · 인하우스",
     period: "2021.12 – 2022.07",
     role: "마케팅 운영 관리",
     problem: "단일 매체(팟캐스트) 의존과 페이스북 단독 운영. 경쟁 브랜드 등장으로 판매량 하락.",
     action: "다매체 확장(트래픽+전환 병행). GA4·Clarity 퍼널 분석으로 상세페이지·구매 퍼널 개선, 광고 크리에이티브·타깃 최적화.",
-    result: "ROAS 150% → 230~250% 달성 (목표 200% 초과)",
+    result: "ROAS 150% → 230~250% 달성 (목표 KPI 200% 초과)",
   },
   {
     id: "autodesk",
@@ -209,7 +209,7 @@ const CAREER = [
       "현대렌탈케어 SNS·온라인 마케팅 운영 관리",
     ],
     achievements: [
-      { subject: "헤이브로", result: "ROAS 150% → 230~250%", note: "회사 목표 200% 초과 달성" },
+      { subject: "헤이브로", result: "ROAS 150% → 230~250%", note: "회사 목표 KPI 200% 초과 달성" },
       { subject: "현대렌탈케어", result: "프로젝트 재계약 달성" },
     ],
   },
