@@ -353,7 +353,7 @@
 
   /* ---------- 결과 텍스트 · 공유 ---------- */
   function buildResultText(model) {
-    const lines = [esc(model.name) + " 마케팅 퍼널 현황 체크 결과", ""];
+    const lines = [model.name + " 마케팅 퍼널 현황 체크 결과", ""];
     state.rounds.forEach(function (round, index) {
       const stage = findStage(model, round.stageId);
       const response = findResponse(round.response);
@@ -375,7 +375,7 @@
       lines.push("");
     });
     lines.push("전체 프레임워크: " + window.location.origin + window.location.pathname.replace("marketing-funnel-check.html", "marketing-funnel.html"));
-    return lines.join("\n").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+    return lines.join("\n");
   }
 
   function showStatusMessage(msg) {
