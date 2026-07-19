@@ -37,7 +37,7 @@ const SITE = {
    항목을 추가/삭제하면 보드가 자동으로 다시 배열됩니다.
    ------------------------------------------------------------ */
 const METRICS = [
-  { value: 50, suffix: "%", label: "CPL 이상 개선", note: "글로벌 IT 기업 · B2B SaaS" },
+  { value: 50, suffix: "%", label: "CPL 개선", note: "글로벌 IT 기업 · B2B SaaS" },
   { value: 1.7,  suffix: "배", decimals: 1, label: "ROAS 향상", note: "남성 코스메틱 브랜드(목표 KPI 초과 달성) · 150% → 230~250%" },
   { value: 1000, prefix: "₩",  label: "App CPI",     note: "B2C 앱 · Non-incentive · 900~1,000원" },
   { value: 40, suffix: "만",  label: "팔로워 달성", note: "국내 팔로워 순위 100위권 · 운영 기간 팬 35만 증가 · 법인 분리 후 매각" },
@@ -177,7 +177,7 @@ const CAREER = [
       { subject: "finex", result: "확보 리드의 높은 비율을 영업 미팅으로 연결" },
       { subject: "Fiela.ai", result: "출시 초기 빠른 속도로 기업 가입 확보" },
     ],
-    note: "* 소속 조직의 정책상 구체적인 성과 수치는 공개하지 않습니다.",
+    note: "* 해당 조직의 정책상 구체적인 성과 수치는 공개하지 않습니다.",
   },
   {
     domain: "B2C App · Growth",
