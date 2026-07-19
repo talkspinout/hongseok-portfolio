@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence"
+  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence" | "marketing-funnel" | "marketing-funnel-check"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- GNB (햄버거 드로어) ---------- */
@@ -292,8 +292,10 @@
     if (!wrap) return;
     wrap.innerHTML = LAB_ITEMS.map(function (item) {
       const badge = item.type === "framework" ? "프레임워크" : "개인 프로젝트";
+      const isExternal = item.link && /^https?:\/\//.test(item.link);
       const btn = item.link
-        ? '<a class="btn btn-ghost" href="' + item.link + '" target="_blank" rel="noopener" data-track="cta" data-track-id="view_framework" data-track-location="lab_card">' +
+        ? '<a class="btn btn-ghost" href="' + item.link + '"' + (isExternal ? ' target="_blank" rel="noopener"' : "") +
+          ' data-track="cta" data-track-id="view_framework" data-track-location="lab_card">' +
           (item.linkLabel || "보러 가기") + ' <span class="arrow">→</span></a>'
         : "";
       return (

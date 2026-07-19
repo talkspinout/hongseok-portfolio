@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="assets/data.js"></script>
+  <script src="assets/analytics.js"></script>
+  <title>마케팅 퍼널 운영 프레임워크: B2C부터 B2B SaaS까지 — 고홍석</title>
+  <meta name="description" content="B2C 커머스·앱, B2B 전통·SaaS 네 개 도메인의 퍼널 운영 방식을 진단 기준과 실행 활동으로 정리한 실무 프레임워크입니다." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://talkspinout.github.io/hongseok-portfolio/marketing-funnel.html" />
+  <meta property="og:title" content="마케팅 퍼널 운영 프레임워크: B2C부터 B2B SaaS까지" />
+  <meta property="og:description" content="B2C 커머스·앱, B2B 전통·SaaS 네 개 도메인의 퍼널 운영 방식을 진단 기준과 실행 활동으로 정리한 실무 프레임워크입니다." />
+  <meta property="og:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="마케팅 퍼널 운영 프레임워크: B2C부터 B2B SaaS까지" />
+  <meta name="twitter:description" content="B2C 커머스·앱, B2B 전통·SaaS 네 개 도메인의 퍼널 운영 방식을 진단 기준과 실행 활동으로 정리한 실무 프레임워크입니다." />
+  <meta name="twitter:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/og-image.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/marketing-funnel.css" />
+</head>
+<body data-page="marketing-funnel">
+
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="gnb" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="topbar" aria-label="홈으로 이동"><span class="dot"></span>고홍석 · Marketing Portfolio</a>
+  </header>
+
+  <nav class="gnb" id="gnb" aria-label="사이트 메뉴"></nav>
+
+  <div class="main">
+    <div class="wrap">
+
+      <!-- 인트로 -->
+      <section id="funnelIntro">
+        <span class="eyebrow">Marketing Framework</span>
+        <h1 class="hero-title" id="funnelTitle"></h1>
+        <p class="hero-sub" id="funnelByline"></p>
+        <div class="funnel-lead" id="funnelLead"></div>
+
+        <div class="cta-actions" style="margin-top:32px">
+          <a class="btn btn-mint" href="marketing-funnel-check.html" data-track="cta" data-track-id="funnel_check_start" data-track-location="funnel_intro">현황 체크하기 <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="lab.html" data-track="navigation" data-track-id="funnel_back_lab" data-track-location="funnel_intro">개인 프로젝트로 돌아가기</a>
+        </div>
+
+        <div class="notice" id="funnelUsage"></div>
+      </section>
+
+      <!-- 비즈니스 모델별 퍼널 흐름 한눈에 보기 -->
+      <section id="funnelOverview">
+        <h2 class="sec-title">비즈니스 모델별 퍼널 흐름 한눈에 보기</h2>
+        <p class="sec-desc">비즈니스 유형에 따라 퍼널에서 막히는 지점과 우선 확인해야 할 KPI는 달라집니다. 상세 내용은 아래 영역별 체크리스트에서 확인합니다. 각 영역은 상황 → 활동 → KPI → 실패 시 분기 순서로 정리되어 있습니다.</p>
+        <div class="funnel-overview-table" id="funnelOverviewTable"></div>
+      </section>
+
+      <!-- 1. 공통 진단 -->
+      <section id="funnelCommon">
+        <h2 class="sec-title">1. 공통 진단 — 영역을 가로지르는 운영 원칙</h2>
+        <p class="sec-desc">영역과 무관하게 적용되는 운영 원칙 13개입니다. 진단 방향을 점검할 때 가장 먼저 참고합니다.</p>
+        <div id="funnelPrinciples"></div>
+      </section>
+
+      <!-- 2~5. 비즈니스 모델별 퍼널 -->
+      <div id="funnelModels"></div>
+
+      <!-- 6. 부록 -->
+      <section id="funnelAppendix">
+        <h2 class="sec-title">부록 — 영역 간 비교 요약</h2>
+        <div class="funnel-appendix-scroll" id="funnelAppendixTable"></div>
+      </section>
+
+      <!-- 7. 적용 가이드 -->
+      <section id="funnelClosing">
+        <h2 class="sec-title">적용 가이드</h2>
+        <p class="sec-desc" id="funnelClosingBody1"></p>
+        <p class="sec-desc" id="funnelClosingBody2"></p>
+
+        <div class="cta-band reveal">
+          <div>
+            <h3>지금 운영 중인 퍼널의 현황이 궁금하다면,
+직접 체크해 보세요.</h3>
+            <p>비즈니스 모델을 고르고, 지금 가장 문제라고 느끼는 단계부터
+하나씩 진단할 수 있습니다.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-mint" href="marketing-funnel-check.html" data-track="cta" data-track-id="funnel_check_start" data-track-location="funnel_bottom">현황 체크하기 <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© 2026 Hongseok Ko. All rights reserved.</div>
+        <div class="social-row" data-social></div>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="assets/marketing-funnel-data.js"></script>
+  <script src="assets/marketing-funnel.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+</html>

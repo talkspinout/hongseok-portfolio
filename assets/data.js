@@ -341,9 +341,9 @@ const LAB_ITEMS = [
   {
     type: "framework",
     title: "마케팅 퍼널 운영 프레임워크: B2C부터 B2B SaaS까지",
-    desc: "B2C 커머스·앱, B2B 전통·SaaS 네 개 도메인의 퍼널 운영 방식을 하나의 구조로 정리한 문서입니다. 업무 방식 참고용으로 공개합니다.",
-    link: SITE.NOTION_URL,
-    linkLabel: "Notion에서 보기",
+    desc: "B2C 커머스·앱, B2B 전통·SaaS 네 개 도메인의 퍼널 운영 방식을 하나의 구조로 정리한 문서입니다. 업무 방식 참고용으로 공개하며, 현황을 직접 체크해 볼 수 있는 도구도 함께 제공합니다.",
+    link: "marketing-funnel.html",
+    linkLabel: "프레임워크 보기",
   },
   {
     type: "project",

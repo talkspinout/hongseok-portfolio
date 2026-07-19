@@ -1,0 +1,82 @@
+/* ============================================================
+   marketing-funnel-check.css — 현황 체크 도구(marketing-funnel-check.html) 전용.
+   상태 배지는 site tone(민트·잉크·페이퍼)만으로 구분합니다.
+   ============================================================ */
+
+#mfcApp { margin-top: 44px; display: flex; flex-direction: column; gap: 28px; }
+
+.mfc-model-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+
+.mfc-link-btn {
+  background: none; border: none; font-family: inherit; cursor: pointer;
+  font-size: 13.5px; font-weight: 700; color: var(--mint-deep);
+  padding: 4px 0;
+}
+.mfc-link-btn:hover { text-decoration: underline; }
+
+.mfc-step h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.4; }
+.mfc-next-step { padding-top: 8px; border-top: 1px solid var(--line); }
+
+/* ---------- 모델 · 상황 카드 그리드 ---------- */
+.mfc-model-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.mfc-model-card {
+  text-align: left; background: var(--bg); border: 1.5px solid var(--line); border-radius: 18px;
+  padding: 24px; cursor: pointer; font-family: inherit;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+.mfc-model-card:hover { border-color: var(--mint); background: var(--mint-tint); transform: translateY(-2px); }
+.mfc-model-card h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
+.mfc-model-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+.mfc-model-kpi { font-size: 12px; font-weight: 700; color: var(--mint-deep); }
+
+/* ---------- 진단 질문 ---------- */
+.mfc-stage-eyebrow { display: inline-block; font-size: 12.5px; font-weight: 800; color: var(--mint-deep); background: var(--mint-tint); padding: 5px 12px; border-radius: 999px; }
+.mfc-situation { margin-top: 14px; font-size: 15px; color: var(--ink-soft); line-height: 1.65; }
+.mfc-situation strong { color: var(--ink); }
+.mfc-step h2 { margin-top: 8px; }
+
+.mfc-response-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.mfc-response-btn {
+  text-align: left; background: var(--paper); border: 1.5px solid transparent; border-radius: 14px;
+  padding: 16px 18px; cursor: pointer; font-family: inherit;
+  display: flex; flex-direction: column; gap: 4px;
+  transition: border-color 0.15s, background 0.15s;
+}
+.mfc-response-btn:hover { border-color: var(--mint); background: var(--mint-tint); }
+.mfc-response-btn strong { font-size: 14.5px; font-weight: 800; }
+.mfc-response-btn span { font-size: 12.5px; color: var(--ink-soft); }
+
+/* ---------- 결과 카드 ---------- */
+.mfc-results { display: flex; flex-direction: column; gap: 14px; }
+.mfc-result-card { border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.mfc-result-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mfc-rank { font-size: 12px; font-weight: 800; color: var(--ink-soft); background: var(--paper); padding: 4px 10px; border-radius: 999px; }
+.mfc-result-head h3 { font-size: 17px; font-weight: 800; flex: 1; min-width: 100px; }
+
+.mfc-status { font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 999px; flex: none; }
+.mfc-status-good { background: var(--mint); color: #fff; }
+.mfc-status-partial { background: var(--mint-tint); color: var(--mint-deep); }
+.mfc-status-none { background: var(--ink); color: #fff; }
+.mfc-status-unknown { background: var(--paper); color: var(--ink-soft); border: 1.5px dashed var(--line); }
+.mfc-status-na { background: var(--paper); color: var(--ink-soft); }
+
+.mfc-result-card > .mfc-situation { margin-top: 12px; font-size: 14px; }
+.mfc-failure, .mfc-kpi { margin-top: 14px; }
+.mfc-failure span, .mfc-kpi span { font-size: 11.5px; font-weight: 800; color: var(--mint-deep); }
+.mfc-failure ol { margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+.mfc-failure li { font-size: 13.5px; }
+.mfc-kpi p { margin-top: 4px; font-size: 13.5px; color: var(--ink-soft); }
+
+.mfc-leaky-note { margin-bottom: 4px; }
+.mfc-empty { font-size: 14.5px; color: var(--ink-soft); }
+
+/* ---------- 유틸리티 바 ---------- */
+.mfc-utility-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 4px; }
+.mfc-status-msg { font-size: 13px; color: var(--mint-deep); font-weight: 700; }
+.mfc-continue-btn { align-self: flex-start; }
+
+@media (max-width: 720px) {
+  .mfc-model-grid, .mfc-response-grid { grid-template-columns: 1fr; }
+  .mfc-result-head h3 { flex: 1 1 100%; order: -1; }
+}
