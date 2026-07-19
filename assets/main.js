@@ -95,13 +95,18 @@
     const grid = document.getElementById("metricGrid");
     if (!grid) return;
     grid.innerHTML = METRICS.map(function (m) {
+      /* display가 있으면 구체 수치 대신 정성적 텍스트를 그대로 보여줍니다
+         (카운트업 애니메이션 없음). value가 있는 카드만 숫자를 센다. */
+      const numEl = m.display
+        ? '<div class="metric-num metric-num-text">' + m.display + "</div>"
+        : '<div class="metric-num" data-value="' + m.value + '" data-decimals="' + (m.decimals || 0) + '">' +
+          '<span class="unit">' + (m.prefix || "") + "</span>" +
+          '<span class="count">0</span>' +
+          '<span class="unit">' + (m.suffix || "") + "</span>" +
+          "</div>";
       return (
         '<div class="metric-card reveal">' +
-        '<div class="metric-num" data-value="' + m.value + '" data-decimals="' + (m.decimals || 0) + '">' +
-        '<span class="unit">' + (m.prefix || "") + "</span>" +
-        '<span class="count">0</span>' +
-        '<span class="unit">' + (m.suffix || "") + "</span>" +
-        "</div>" +
+        numEl +
         '<div class="metric-label">' + m.label + "</div>" +
         '<div class="metric-note">' + m.note + "</div>" +
         "</div>"
@@ -110,9 +115,10 @@
   }
 
   function animateCount(el) {
+    const countEl = el.querySelector(".count");
+    if (!countEl) return; /* metric-num-text처럼 카운트업 대상이 아닌 텍스트 카드는 건너뜀 */
     const target = Number(el.dataset.value);
     const decimals = Number(el.dataset.decimals) || 0;
-    const countEl = el.querySelector(".count");
     function fmt(n) {
       return decimals > 0 ? n.toFixed(decimals) : Math.round(n).toLocaleString();
     }
