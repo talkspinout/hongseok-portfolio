@@ -1,6 +1,7 @@
 /* ============================================================
    marketing-funnel.css — 콘텐츠 페이지(marketing-funnel.html) 전용 스타일.
-   색·크기는 style.css의 디자인 토큰(--mint, --ink, --paper 등)만 사용합니다.
+   공통 색·크기는 style.css의 디자인 토큰을 사용하며,
+   모델 구분용 강조색은 marketing-funnel-data.js의 승인된 값을 사용합니다.
    ============================================================ */
 
 .funnel-lead { margin-top: 26px; max-width: 720px; display: flex; flex-direction: column; gap: 14px; }
