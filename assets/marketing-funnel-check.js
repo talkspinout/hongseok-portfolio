@@ -35,6 +35,18 @@
   function findResponse(key) {
     return FUNNEL_CHECK_RESPONSES.filter(function (r) { return r.key === key; })[0] || null;
   }
+  function validRounds(model, rounds) {
+    if (!Array.isArray(rounds)) return [];
+
+    const seen = [];
+    return rounds.filter(function (round) {
+      if (!round || typeof round !== "object") return false;
+      if (!findStage(model, round.stageId) || !findResponse(round.response)) return false;
+      if (seen.indexOf(round.stageId) !== -1) return false;
+      seen.push(round.stageId);
+      return true;
+    });
+  }
   function answeredStageIds() {
     return state.rounds.map(function (r) { return r.stageId; });
   }
@@ -71,6 +83,7 @@
     if (state.model) {
       const params = new URLSearchParams();
       params.set("model", state.model);
+      if (state.pendingStage) params.set("stage", state.pendingStage);
       if (state.rounds.length) {
         params.set(
           "r",
@@ -104,10 +117,8 @@
 
     if (model) {
       if (q.rounds.length) {
-        const validRounds = q.rounds.filter(function (r) {
-          return findStage(model, r.stageId) && findResponse(r.response);
-        });
-        state = { model: model.id, pendingStage: null, rounds: validRounds, finished: true };
+        const rounds = validRounds(model, q.rounds);
+        state = { model: model.id, pendingStage: null, rounds: rounds, finished: true };
         saveState();
         return;
       }
@@ -122,10 +133,12 @@
       if (raw) {
         const saved = JSON.parse(raw);
         if (saved && saved.model && findModel(saved.model)) {
+          const savedModel = findModel(saved.model);
+          const pendingStage = findStage(savedModel, saved.pendingStage) ? saved.pendingStage : null;
           state = {
-            model: saved.model,
-            pendingStage: saved.pendingStage || null,
-            rounds: Array.isArray(saved.rounds) ? saved.rounds : [],
+            model: savedModel.id,
+            pendingStage: pendingStage,
+            rounds: validRounds(savedModel, saved.rounds),
             finished: !!saved.finished,
           };
           return;
