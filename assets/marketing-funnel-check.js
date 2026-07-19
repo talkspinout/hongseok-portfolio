@@ -43,22 +43,18 @@
     return model.stages.filter(function (s) { return answered.indexOf(s.id) === -1; });
   }
 
-  /* stage.activities에서 우선 활동 하나를 뽑아 "우선 활동 → 실패 시 분기 →
-     참고 KPI" 형태로 체크 도구 결과에 씁니다. 여러 활동의 실패 시 분기를
-     하나로 합치면 서로 다른 경로가 마치 한 순서처럼 보이므로, 가장
-     대표적인 첫 번째 활동 하나만 우선 활동으로 제시하고 나머지 활동은
-     콘텐츠 페이지 해당 단계 섹션 링크로 안내합니다. */
+  /* stage.activities에서 우선 활동 하나를 뽑아 "우선 활동(목적+KPI) → 실패
+     시 분기" 형태로 체크 도구 결과에 씁니다. 여러 활동의 실패 시 분기를
+     하나로 합치면 서로 다른 경로가 마치 한 순서처럼 보이므로, 대표
+     활동 하나만 상세히 보여주고 KPI·실패 시 분기도 그 활동 자신의
+     값을 그대로 씁니다. 나머지 활동은 이름·목적만 가볍게 후보로
+     노출해 퍼널 표에 있는 선택지가 하나뿐이 아님을 보여줍니다. */
   function stageSummary(stage) {
-    const kpis = [];
-    stage.activities.forEach(function (a) {
-      const firstKpi = String(a.kpi).split(/[,·]/)[0].trim();
-      if (firstKpi && kpis.indexOf(firstKpi) === -1 && kpis.length < 3) kpis.push(firstKpi);
-    });
     const lead = stage.activities[0];
+    const others = stage.activities.slice(1);
     return {
-      kpis: kpis,
       leadActivity: lead,
-      failurePath: lead ? lead.failurePath : [],
+      otherActivities: others,
     };
   }
 
@@ -242,6 +238,7 @@
       const response = findResponse(round.response);
       const summary = stageSummary(stage);
       const lead = summary.leadActivity;
+      const others = summary.otherActivities;
       return (
         '<article class="mfc-result-card" ' + accentStyle(model) + ">" +
         '<div class="mfc-result-head">' +
@@ -251,17 +248,23 @@
         "</div>" +
         '<p class="mfc-situation">' + esc(stage.situation) + "</p>" +
         (lead
-          ? '<div class="mfc-lead-activity"><span>우선 활동</span><p><strong>' + esc(lead.activity) + "</strong> — " + esc(lead.purpose) + "</p></div>"
+          ? '<div class="mfc-lead-activity">' +
+            "<span>우선 활동</span>" +
+            "<p><strong>" + esc(lead.activity) + "</strong> — " + esc(lead.purpose) + "</p>" +
+            '<div class="mfc-lead-meta">' +
+            '<div><span>판단 기준(KPI)</span><p>' + esc(lead.kpi) + "</p></div>" +
+            (lead.failurePath && lead.failurePath.length
+              ? '<div><span>실패 시 분기</span><p>' + lead.failurePath.map(esc).join(" → ") + "</p></div>"
+              : "") +
+            "</div>" +
+            "</div>"
           : "") +
-        (summary.failurePath.length
-          ? '<div class="mfc-failure"><span>실패 시 분기</span><ol>' +
-            summary.failurePath.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") +
-            "</ol></div>"
+        (others.length
+          ? '<div class="mfc-other-activities"><span>다른 활동 후보</span><ul>' +
+            others.map(function (a) { return "<li><strong>" + esc(a.activity) + "</strong> — " + esc(a.purpose) + "</li>"; }).join("") +
+            "</ul></div>"
           : "") +
-        (summary.kpis.length
-          ? '<div class="mfc-kpi"><span>참고 KPI</span><p>' + summary.kpis.map(esc).join(" · ") + "</p></div>"
-          : "") +
-        '<a class="mfc-link-btn" href="marketing-funnel.html#' + esc(model.id) + "-" + esc(stage.id) + '" data-track="navigation" data-track-id="mfc_view_full_stage" data-track-location="mfc_result_card">이 단계 다른 활동도 보기 →</a>' +
+        '<a class="mfc-link-btn" href="marketing-funnel.html#' + esc(model.id) + "-" + esc(stage.id) + '" data-track="navigation" data-track-id="mfc_view_full_stage" data-track-location="mfc_result_card">이 단계 전체 활동 보기 →</a>' +
         "</article>"
       );
     }).join("");
@@ -343,16 +346,18 @@
       const response = findResponse(round.response);
       if (!stage || !response) return;
       const summary = stageSummary(stage);
+      const lead = summary.leadActivity;
       lines.push((index + 1) + "순위 · " + stage.name + " — " + response.statusLabel);
       lines.push("  상황: " + stage.situation);
-      if (summary.leadActivity) {
-        lines.push("  우선 활동: " + summary.leadActivity.activity + " — " + summary.leadActivity.purpose);
+      if (lead) {
+        lines.push("  우선 활동: " + lead.activity + " — " + lead.purpose);
+        lines.push("  판단 기준(KPI): " + lead.kpi);
+        if (lead.failurePath && lead.failurePath.length) {
+          lines.push("  실패 시 분기: " + lead.failurePath.join(" → "));
+        }
       }
-      if (summary.failurePath.length) {
-        lines.push("  실패 시 분기: " + summary.failurePath.join(" → "));
-      }
-      if (summary.kpis.length) {
-        lines.push("  참고 KPI: " + summary.kpis.join(" · "));
+      if (summary.otherActivities.length) {
+        lines.push("  다른 활동 후보: " + summary.otherActivities.map(function (a) { return a.activity; }).join(", "));
       }
       lines.push("");
     });

@@ -67,13 +67,19 @@
 .mfc-status-na { background: var(--paper); color: var(--ink-soft); }
 
 .mfc-result-card > .mfc-situation { margin-top: 12px; font-size: 14px; }
-.mfc-lead-activity, .mfc-failure, .mfc-kpi { margin-top: 14px; }
-.mfc-lead-activity { padding: 14px 16px; border-radius: 12px; background: var(--model-accent-soft, var(--paper)); }
-.mfc-lead-activity span, .mfc-failure span, .mfc-kpi span { font-size: 11.5px; font-weight: 800; color: var(--model-accent, var(--mint-deep)); }
-.mfc-lead-activity p { margin-top: 4px; font-size: 14px; line-height: 1.55; }
-.mfc-failure ol { margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
-.mfc-failure li { font-size: 13.5px; }
-.mfc-kpi p { margin-top: 4px; font-size: 13.5px; color: var(--ink-soft); }
+
+.mfc-lead-activity { margin-top: 14px; padding: 16px 18px; border-radius: 14px; background: var(--model-accent-soft, var(--paper)); }
+.mfc-lead-activity > span { font-size: 11.5px; font-weight: 800; color: var(--model-accent, var(--mint-deep)); }
+.mfc-lead-activity > p { margin-top: 4px; font-size: 14.5px; line-height: 1.55; }
+.mfc-lead-meta { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.06); display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.mfc-lead-meta span { display: block; font-size: 11px; font-weight: 800; color: var(--ink-soft); }
+.mfc-lead-meta p { margin-top: 3px; font-size: 13px; line-height: 1.5; }
+
+.mfc-other-activities { margin-top: 14px; }
+.mfc-other-activities > span { font-size: 11.5px; font-weight: 800; color: var(--ink-soft); }
+.mfc-other-activities ul { margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.mfc-other-activities li { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.mfc-other-activities li strong { color: var(--ink); }
 
 .mfc-leaky-note { margin-bottom: 4px; }
 .mfc-empty { font-size: 14.5px; color: var(--ink-soft); }
@@ -84,6 +90,6 @@
 .mfc-continue-btn { align-self: flex-start; }
 
 @media (max-width: 720px) {
-  .mfc-model-grid, .mfc-response-grid { grid-template-columns: 1fr; }
+  .mfc-model-grid, .mfc-response-grid, .mfc-lead-meta { grid-template-columns: 1fr; }
   .mfc-result-head h3 { flex: 1 1 100%; order: -1; }
 }
