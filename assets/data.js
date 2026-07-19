@@ -177,14 +177,14 @@ const CAREER = [
       { subject: "finex", result: "확보 리드의 높은 비율을 영업 미팅으로 연결" },
       { subject: "Fiela.ai", result: "출시 초기 빠른 속도로 기업 가입 확보" },
     ],
-    note: "* 해당 조직의 정책상 구체적인 성과 수치는 공개하지 않습니다.",
+    note: "* 구체적인 성과 수치는 비공개로 정리했습니다.",
   },
   {
     domain: "B2C App · Growth",
     company: "㈜비밀리",
     role: "퍼포먼스 마케터 · 과장",
     period: "2023.04 – 2024.05",
-    summary: "패밀리타운의 핵심 가치를 하나의 기능으로 압축하고,\n광고 소재와 신규 유입 전략을 재설계했습니다.",
+    summary: "사용자가 가장 많이 사용하던 기능을 Hero Feature로 정의하고,\n이를 중심으로 광고 소재와 신규 유입 전략을 재설계했습니다.",
     responsibilities: [
       "앱 런칭 초기 퍼포먼스 마케팅 체계 구축",
       "사용자 패턴 분석을 통한 Hero Feature 전략 수립",
