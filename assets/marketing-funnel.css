@@ -166,3 +166,31 @@ section.model-section { border-top: 3px solid var(--model-accent); }
   .funnel-diagram-arrow { align-self: center; transform: rotate(90deg); padding: 4px 0; }
   .stage-card { padding: 24px 20px; }
 }
+
+
+/* ---------- 공통 진단 빠른 이동 · 모바일 표 안내 ---------- */
+.funnel-common-nav {
+  position: sticky;
+  top: 72px;
+  z-index: 5;
+  margin-top: 24px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.funnel-common-nav a { padding: 8px 12px; border-radius: 999px; background: var(--paper); color: var(--ink-soft); font-size: 12.5px; font-weight: 700; }
+.funnel-common-nav a:hover { background: var(--mint-tint); color: var(--mint-deep); }
+.principle-group { scroll-margin-top: 150px; }
+.principle-back-link { display: inline-block; margin-top: 14px; color: var(--mint-deep); font-size: 12.5px; font-weight: 700; }
+.funnel-scroll-hint { display: none; }
+.funnel-overview-table, .funnel-appendix-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.funnel-overview-table::-webkit-scrollbar, .funnel-appendix-scroll::-webkit-scrollbar { display: none; }
+@media (max-width: 720px) {
+  .funnel-common-nav { top: 64px; }
+  .funnel-scroll-hint { display: block; margin-top: 22px; color: var(--ink-soft); font-size: 12.5px; }
+  .funnel-scroll-hint + .funnel-overview-table, .funnel-scroll-hint + .funnel-appendix-scroll { margin-top: 10px; }
+}
