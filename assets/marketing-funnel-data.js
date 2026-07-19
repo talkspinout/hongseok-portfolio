@@ -189,10 +189,10 @@ const FUNNEL_MODELS = [
         situation: "검색·유입은 발생하지만 전환이 일어나지 않음",
         checkQuestion: "상세 페이지·리뷰 등 전환 요소를 정기적으로 점검·개선하고 있습니까?",
         activities: [
-          { activity: "검색 광고(SA)", purpose: "구매 의향 타겟 포획 / 네이버·구글 SA", kpi: "검색 통한 유입, 전환율", failurePath: ["키워드 점검", "랜딩 적합도"] },
-          { activity: "비교 콘텐츠", purpose: "신뢰 형성 / 블로그 후기, 유튜브 리뷰", kpi: "유입 후 체류 시간, 전환율", failurePath: ["콘텐츠 톤·신뢰도 점검"] },
           { activity: "상세 페이지 A/B", purpose: "전환율 개선 / GA4·Clarity 기반 테스트", kpi: "전환율의 유의미한 차이", failurePath: ["결제 흐름", "가격 점검"] },
+          { activity: "비교 콘텐츠", purpose: "신뢰 형성 / 블로그 후기, 유튜브 리뷰", kpi: "유입 후 체류 시간, 전환율", failurePath: ["콘텐츠 톤·신뢰도 점검"] },
           { activity: "리뷰 자산화", purpose: "구매 트리거 / 리뷰 이벤트, 영상 후기 수집", kpi: "리뷰 등록률, 리뷰 탭 체류 시간", failurePath: ["단순 리뷰만 모이는지", "인센티브 재설계"] },
+          { activity: "검색 광고(SA)", purpose: "구매 의향이 높은 검색 유입 보완 / 네이버·구글 검색 광고", kpi: "검색 유입의 전환율", failurePath: ["키워드 점검", "도착 페이지 적합도"] },
         ],
       },
       {
@@ -253,7 +253,7 @@ const FUNNEL_MODELS = [
       {
         id: "awareness",
         name: "인지",
-        situation: "카테고리 자체를 모르거나, 비슷한 앱들 사이에서 본 앱이 들리지 않음",
+        situation: "카테고리 자체를 모르거나, 비슷한 앱들 사이에서 본 앱이 눈에 띄지 않음",
         checkQuestion: "ASO·인스톨 광고 등 인지 활동을 CPI·인스톨률 같은 지표로 확인하며 운영하고 있습니까?",
         activities: [
           { activity: "ASO", purpose: "검색 시 노출 / 앱스토어·구글 플레이 키워드, 스크린샷 최적화", kpi: "검색 노출, 검색 키워드 순위", failurePath: ["키워드 점검", "스크린샷 카피·이미지"] },
@@ -279,27 +279,9 @@ const FUNNEL_MODELS = [
         situation: "가입은 했지만 핵심 행동 도달 전 이탈",
         checkQuestion: "첫 행동 보상·인앱 메시지 등으로 핵심 행동 도달을 유도하고 도달률로 확인하고 있습니까?",
         activities: [
-          { activity: "푸시 동의 메시지·시점 최적화", purpose: "retention 채널 확보 / 가치 노출 후 동의 요청", kpi: "푸시 동의율", failurePath: ["요청 시점", "사전 가치 전달", "노출 방식 개선 협업"] },
           { activity: "첫 행동 보상", purpose: "핵심 행동 강화 / 첫 게시·첫 친구 추가 시 리워드", kpi: "첫 행동 도달률", failurePath: ["첫 행동 정의", "보상 적정성"] },
-          { activity: "출석체크·데일리 보상", purpose: "재방문 습관화 / 7일 연속 출석", kpi: "D7 retention", failurePath: ["보상 위계", "습관화 트리거"] },
           { activity: "인앱 메시지 운영", purpose: "미사용 기능 안내 / 인앱 가이드·배너·알림", kpi: "기능 도달률, 메시지 클릭률", failurePath: ["메시지 톤", "노출 타이밍", "기능 진입 경로 개선 협업"] },
-        ],
-      },
-      {
-        id: "retention",
-        name: "잔류·재방문",
-        situation: "활성 사용자의 재방문 간격이 늘어나거나 dormant 상태",
-        checkQuestion: "재방문 트리거(푸시 시나리오·리타게팅 등)를 운영하고 재방문률로 확인하고 있습니까?",
-        activities: [
-          { activity: "푸시 시나리오 운영", purpose: "재방문 트리거 / 행동 기반 시나리오", kpi: "푸시 통한 재방문률", failurePath: ["발송 빈도·톤", "세그먼트 재정의"] },
-          { activity: "리타게팅 광고", purpose: "dormant 회수 / MOLOCO, 구글 UAC 리타게팅", kpi: "회수율, 회수 후 retention", failurePath: ["회수 후 이탈 시점 분석"] },
-          { activity: "콘텐츠·기능 업데이트 알림", purpose: "가치 재인식 / 신기능 노티, 콘텐츠 큐레이션", kpi: "업데이트 후 7일 retention", failurePath: ["업데이트 가치 점검"] },
-        ],
-      },
-      {
-        id: "advocacy",
-        name: "지지",
-        situation: "사용자가 자발적으로 앱을 알리거나 친구를 데려오게 하고 싶음",
+          { activity: "푸시 …378 tokens truncated…발적으로 앱을 알리거나 친구를 데려오게 하고 싶음",
         checkQuestion: "친구 초대·UGC 등 자발적 확산 장치를 운영하고 있습니까?",
         activities: [
           { activity: "친구 초대 트리거", purpose: "viral loop / 카카오톡 공유, 초대 코드", kpi: "초대 발신율, 초대 통한 가입률", failurePath: ["인센티브 위계", "공유 마찰"] },
@@ -353,8 +335,8 @@ const FUNNEL_MODELS = [
       },
       {
         id: "conversion",
-        name: "구매(영업 closing)",
-        situation: "lead는 충분한데 영업 closing이 늦음",
+        name: "구매(영업 인계)",
+        situation: "리드는 충분하지만 영업 인계와 초기 대응이 늦음",
         checkQuestion: "MQL→SQL 인계 SLA·어카운트 매핑 등으로 영업 인계 속도를 관리하고 있습니까?",
         activities: [
           { activity: "MQL→SQL handoff SLA", purpose: "영업 인계 속도 / 점수 기준, 인계 폼", kpi: "MQL→SQL 전환율, 24시간 응답률", failurePath: ["점수 기준", "영업팀 인입 한계"] },
@@ -438,17 +420,18 @@ const FUNNEL_MODELS = [
         activities: [
           { activity: "온보딩 자동 메일 시퀀스", purpose: "첫 가치 유도 / 가입 후 일별 안내 메일", kpi: "메일 오픈률, CTA 클릭률", failurePath: ["메일 시점", "콘텐츠 가치"] },
           { activity: "인앱 가이드 메시지 운영", purpose: "핵심 기능 사용 유도 / Pendo·Appcues, 자체 투어", kpi: "가이드 완료율, 핵심 기능 도달률", failurePath: ["가이드 길이", "시작 시점", "진입 경로 개선 협업"] },
-          { activity: "CS·세일즈 핸드오프", purpose: "고가치 lead 인계 / 행동 기반 lead 점수", kpi: "핸드오프 후 trial→paid 전환율", failurePath: ["점수 기준", "CS 응답 속도"] },
           { activity: "VOC 구조화·제품팀 전달", purpose: "반복되는 요구·이탈 원인 정리 / 제품 개선의 입력값 제공 (마케팅이 product feedback loop의 입구로 작동)", kpi: "VOC 유형·빈도, 개선 반영 후 행동 변화", failurePath: ["VOC 신호 부족", "고객 인터뷰·CS 데이터 보완"] },
         ],
       },
       {
         id: "retention",
-        name: "잔류·확장(paid 전환·업셀)",
+        name: "유료 전환·잔류·확장",
         situation: "trial→paid 전환율이 낮거나 paid 후 이탈",
-        checkQuestion: "churn 알림·업셀 트리거 등으로 전환·확장을 관리하고 있습니까?",
+        checkQuestion: "Trial 만료 안내·CS·영업 상담 연계·이탈 징후 알림 등으로 유료 전환과 잔류·확장을 관리하고 있습니까?",
         activities: [
-          { activity: "활성도 기반 churn 알림", purpose: "이탈 사전 차단 / 사용 빈도 하락 트리거", kpi: "알림 후 회수율", failurePath: ["알림 시점", "회수 채널"] },
+          { activity: "Trial 만료 임박 전환 안내", purpose: "자율 가입 고객의 유료 전환 촉진 / 만료 전 사용 성과 요약, 플랜 비교, 결제 안내", kpi: "trial→paid 전환율, 만료 전 전환율, 결제 완료율", failurePath: ["핵심 가치 도달 여부", "가격 저항과 플랜 구성", "결제 과정의 불편", "자율 가입·상담 연계 고객별 차이"] },
+          { activity: "CS·영업 상담 연계", purpose: "전환 가능성이 높은 리드 상담 / 행동 기반 리드 점수", kpi: "상담 연계 후 trial→paid 전환율", failurePath: ["점수 기준", "상담 응답 속도"] },
+          { activity: "활성도 기반 이탈 징후 알림", purpose: "이탈 사전 차단 / 사용 빈도 하락 시 알림", kpi: "알림 후 재사용률", failurePath: ["알림 시점", "재접촉 채널"] },
           { activity: "업셀·크로스셀 트리거", purpose: "확장 매출 / 사용량 도달 시 상위 플랜 안내", kpi: "업셀 발생 비율", failurePath: ["업셀 시점", "트리거 정확도"] },
           { activity: "Cross-product upsell", purpose: "3-tier 활용 / Awareness 제품→Growth 제품 유도", kpi: "제품 간 전환율", failurePath: ["제품 간 가치 흐름 점검"] },
           { activity: "갱신 시점 알림", purpose: "자율 갱신 유도 / 30일 전 안내", kpi: "자율 갱신율", failurePath: ["가격 변동 안내", "CS 인계"] },
@@ -539,3 +522,4 @@ const FUNNEL_CHECK_RESPONSES = [
   { key: "unknown", label: "확인 필요", example: "운영 여부 자체를 모름 — 담당자 확인 필요", statusLabel: "확인 필요" },
   { key: "na", label: "해당 없음", example: "", statusLabel: "후순위" },
 ];
+
