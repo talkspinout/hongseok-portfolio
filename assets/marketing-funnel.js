@@ -14,6 +14,14 @@
     });
   }
 
+  function pushFunnelEvent(eventName, parameters) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({
+      event: eventName,
+      page_type: "marketing-funnel",
+    }, parameters || {}));
+  }
+
   /* ---------- 인트로 ---------- */
   function renderIntro() {
     const title = document.getElementById("funnelTitle");
@@ -120,7 +128,7 @@
         '<div class="principle-group" id="common-group-' + (groupIndex + 1) + '">' +
         "<h3>" + esc(group.group) + "</h3>" +
         '<div class="principle-grid">' + items + "</div>" +
-        '<a class="principle-back-link" href="#funnelCommonNav">공통진단 목차로 ↑</a>' +
+        '<a class="principle-back-link" href="#funnelCommonNav" data-track="navigation" data-track-id="funnel_common_nav_back" data-track-location="funnel_common_group">공통진단 목차로 ↑</a>' +
         "</div>"
       );
     }).join("");
@@ -246,6 +254,32 @@
     if (target) target.scrollIntoView({ block: "start" });
   }
 
+  function trackSectionViews() {
+    if (!("IntersectionObserver" in window)) return;
+
+    const sections = [
+      { element: document.getElementById("funnelCommon"), id: "common" },
+      { element: document.getElementById("b2c-commerce"), id: "b2c_commerce" },
+      { element: document.getElementById("b2c-app"), id: "b2c_app" },
+      { element: document.getElementById("b2b-traditional"), id: "b2b_traditional" },
+      { element: document.getElementById("b2b-saas"), id: "b2b_saas" },
+      { element: document.getElementById("funnelAppendix"), id: "appendix" },
+      { element: document.getElementById("funnelClosing"), id: "closing" },
+    ].filter(function (section) { return section.element; });
+
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const section = sections.filter(function (item) { return item.element === entry.target; })[0];
+        if (!section) return;
+        pushFunnelEvent("funnel_section_view", { section_id: section.id });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.25 });
+
+    sections.forEach(function (section) { observer.observe(section.element); });
+  }
+
   renderIntro();
   renderStats();
   renderOverviewTable();
@@ -254,4 +288,5 @@
   renderAppendix();
   renderClosing();
   scrollToHash();
+  trackSectionViews();
 })();

@@ -25,6 +25,13 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
+  function pushFunnelEvent(eventName, parameters) {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({
+      event: eventName,
+      page_type: "marketing-funnel-check",
+    }, parameters || {}));
+  }
   function findModel(id) {
     return FUNNEL_MODELS.filter(function (m) { return m.id === id; })[0] || null;
   }
@@ -387,10 +394,14 @@
     }, 2200);
   }
 
-  function copyText(text) {
+  function copyText(text, onSuccess) {
+    function handleSuccess() {
+      if (typeof onSuccess === "function") onSuccess();
+      showStatusMessage("복사했습니다.");
+    }
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(
-        function () { showStatusMessage("복사했습니다."); },
+        handleSuccess,
         function () { showStatusMessage("복사에 실패했습니다."); }
       );
       return;
@@ -402,9 +413,10 @@
       textarea.style.opacity = "0";
       document.body.appendChild(textarea);
       textarea.select();
-      document.execCommand("copy");
+      const copied = document.execCommand("copy");
       document.body.removeChild(textarea);
-      showStatusMessage("복사했습니다.");
+      if (!copied) throw new Error("Copy command failed");
+      handleSuccess();
     } catch (e) {
       showStatusMessage("복사에 실패했습니다.");
     }
@@ -441,9 +453,24 @@
 
     if (action === "answer") {
       if (!model || !state.pendingStage) return;
-      state.rounds.push({ stageId: state.pendingStage, response: el.dataset.response });
+      const stageId = state.pendingStage;
+      const response = el.dataset.response;
+      state.rounds.push({ stageId: stageId, response: response });
       state.pendingStage = null;
       saveState();
+      pushFunnelEvent("funnel_check_answer", {
+        model_id: model.id,
+        stage_id: stageId,
+        response: response,
+        round_index: state.rounds.length,
+      });
+      if (remainingStages(model).length === 0) {
+        pushFunnelEvent("funnel_check_complete", {
+          model_id: model.id,
+          answered_stage_count: state.rounds.length,
+          completion_type: "all_stages",
+        });
+      }
       render();
       return;
     }
@@ -451,6 +478,11 @@
     if (action === "finish") {
       state.finished = true;
       saveState();
+      pushFunnelEvent("funnel_check_complete", {
+        model_id: model.id,
+        answered_stage_count: state.rounds.length,
+        completion_type: "manual_finish",
+      });
       render();
       return;
     }
@@ -464,12 +496,23 @@
 
     if (action === "copy") {
       if (!model) return;
-      copyText(buildResultText(model));
+      copyText(buildResultText(model), function () {
+        pushFunnelEvent("funnel_result_share", {
+          model_id: model.id,
+          share_method: "text",
+        });
+      });
       return;
     }
 
     if (action === "copy-link") {
-      copyText(window.location.href);
+      if (!model) return;
+      copyText(window.location.href, function () {
+        pushFunnelEvent("funnel_result_share", {
+          model_id: model.id,
+          share_method: "link",
+        });
+      });
       return;
     }
 
