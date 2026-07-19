@@ -339,18 +339,14 @@ h2.sec-title {
 /* ---------- 게이트 (블러 프리뷰) ---------- */
 .gate-stage { position: relative; margin-top: 44px; border-radius: 28px; overflow: hidden; }
 .blur-stack {
-  filter: blur(3px);
-  opacity: 0.72;
+  filter: blur(7px);
+  opacity: 0.75;
   pointer-events: none;
   user-select: none;
-  overflow: hidden;
-  transform: scale(1.015);
-}
-.portfolio-preview-image {
-  width: 100%;
-  min-height: 440px;
-  object-fit: cover;
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 8px;
 }
 .blur-card {
   background: var(--paper);
@@ -765,7 +761,6 @@ footer {
   .experience-details { padding: 20px 20px 20px 38px; }
   .capability-card { padding: 24px 20px; }
   .topbar .gnb-logo { font-size: 14px; }
-  .portfolio-preview-image { min-height: 500px; }
   .cta-actions { width: 100%; }
   .cta-actions .btn { width: 100%; }
   .metric-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
