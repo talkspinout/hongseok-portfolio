@@ -225,7 +225,9 @@
                 (item.note ? '<small>' + item.note + '</small>' : '') +
                 '</div>'
               );
-            }).join("") + '</div></div>'
+            }).join("") + '</div>' +
+            (career.note ? '<p class="career-note">' + career.note + '</p>' : "") +
+            '</div>'
           : "";
 
         const clients = career.clients && career.clients.length

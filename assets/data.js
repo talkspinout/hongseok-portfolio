@@ -177,6 +177,7 @@ const CAREER = [
       { subject: "finex", result: "확보 리드의 높은 비율을 영업 미팅으로 연결" },
       { subject: "Fiela.ai", result: "출시 초기 빠른 속도로 기업 가입 확보" },
     ],
+    note: "* 소속 조직의 정책상 구체적인 성과 수치는 공개하지 않습니다.",
   },
   {
     domain: "B2C App · Growth",
