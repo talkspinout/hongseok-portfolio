@@ -41,6 +41,37 @@
     }
   }
 
+  /* ---------- 히어로 하단 통계 (밋밋한 상단에 시각적 앵커를 줍니다) ---------- */
+  function renderStats() {
+    const wrap = document.getElementById("funnelStats");
+    if (!wrap) return;
+
+    const principleCount = FUNNEL_COMMON_PRINCIPLES.reduce(function (sum, g) { return sum + g.items.length; }, 0);
+    const stageCount = FUNNEL_MODELS.reduce(function (sum, m) { return sum + m.stages.length; }, 0);
+    const activityCount = FUNNEL_MODELS.reduce(function (sum, m) {
+      return sum + m.stages.reduce(function (s, stage) { return s + stage.activities.length; }, 0);
+    }, 0);
+
+    const stats = [
+      { value: FUNNEL_MODELS.length, label: "비즈니스 모델", note: "B2C 커머스·앱, B2B 전통·SaaS" },
+      { value: principleCount, label: "공통 진단 원칙", note: "영역 무관 운영 원칙" },
+      { value: stageCount, label: "퍼널 단계", note: "모델당 5단계 구성" },
+      { value: activityCount, label: "실무 활동", note: "KPI·실패 시 분기 포함" },
+    ];
+
+    wrap.innerHTML = stats.map(function (s) {
+      return (
+        '<div class="metric-card reveal">' +
+        '<div class="metric-num" data-value="' + s.value + '" data-decimals="0">' +
+        '<span class="count">0</span>' +
+        "</div>" +
+        '<div class="metric-label">' + esc(s.label) + "</div>" +
+        '<div class="metric-note">' + esc(s.note) + "</div>" +
+        "</div>"
+      );
+    }).join("");
+  }
+
   /* ---------- 비즈니스 모델별 퍼널 흐름 한눈에 보기 ---------- */
   function renderOverviewTable() {
     const wrap = document.getElementById("funnelOverviewTable");
@@ -155,11 +186,15 @@
       const stages = model.stages.map(function (stage) { return renderStage(model, stage); }).join("");
 
       const html = (
-        '<section id="' + model.id + '">' +
-        "<h2 class=\"sec-title\">" + (sectionIndex) + ". " + esc(model.name) + " — 퍼널별 고려사항</h2>" +
-        '<span class="tag funnel-badge">' + esc(model.badge) + "</span>" +
+        '<section id="' + model.id + '" class="model-section" style="--model-accent:' + model.accent + ";--model-accent-soft:" + model.accentSoft + ';">' +
+        '<div class="model-section-head">' +
+        '<span class="model-section-num">' + sectionIndex + "</span>" +
+        '<div><h2 class="sec-title">' + esc(model.name) + " — 퍼널별 고려사항</h2>" +
+        '<span class="model-badge">' + esc(model.badge) + "</span></div>" +
+        "</div>" +
         '<p class="sec-desc"><strong>영역 정의</strong> — ' + esc(model.definition) + "</p>" +
         specialNote +
+        '<div class="model-kpi-stat"><span>핵심 KPI</span><strong>' + esc(model.coreKpi) + "</strong></div>" +
         '<div class="funnel-channels"><strong>한국 시장 채널·도구</strong><ul>' + channels + "</ul></div>" +
         renderDiagram(model.id) +
         '<div class="stage-list">' + stages + "</div>" +
@@ -209,6 +244,7 @@
   }
 
   renderIntro();
+  renderStats();
   renderOverviewTable();
   renderPrinciples();
   renderModels();

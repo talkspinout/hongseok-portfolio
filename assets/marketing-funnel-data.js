@@ -157,6 +157,8 @@ const FUNNEL_MODELS = [
   {
     id: "b2c-commerce",
     name: "B2C 커머스",
+    accent: "#b5562a",
+    accentSoft: "#fbeee6",
     badge: "B2C 커머스 운영 경험 기반",
     definition:
       "실물 상품의 단발 또는 세트 구매가 핵심인 비즈니스 모델 (D2C 브랜드, 화장품, 패션, 식품 등). 사이클이 짧고 재구매 주기 관리가 retention의 핵심.",
@@ -234,6 +236,8 @@ const FUNNEL_MODELS = [
   {
     id: "b2c-app",
     name: "B2C 앱",
+    accent: "#3b6ea5",
+    accentSoft: "#eaf1f8",
     badge: "B2C 앱 런칭 케이스 기반",
     definition:
       "무료 또는 부분 유료의 모바일 앱 (커뮤니티, 라이프스타일, 게임, 미디어 등). 핵심 KPI는 설치(가입) / Retention curve(D7/D30).",
@@ -308,6 +312,8 @@ const FUNNEL_MODELS = [
   {
     id: "b2b-traditional",
     name: "B2B 전통",
+    accent: "#5b4b8a",
+    accentSoft: "#f1edf7",
     badge: "글로벌 IT 기업 마케팅 대행 경험",
     definition:
       "라이센스·패키지 영업 중심, 영업팀이 closing하는 구조 (엔터프라이즈 SW, 산업재, 컨설팅 등). 자율 가입·trial이 제한적이며, 사이클이 수개월~1년 이상.",
@@ -384,6 +390,8 @@ const FUNNEL_MODELS = [
   {
     id: "b2b-saas",
     name: "B2B SaaS",
+    accent: "#17918d",
+    accentSoft: "#eafaf9",
     badge: "B2B SaaS 인하우스 운영 경험",
     definition:
       "자율 가입·trial이 가능한 SaaS 모델. self-serve와 sales-assisted가 혼합되는 경우가 많음 (관리회계, 협업툴, AI 솔루션 등). 핵심 KPI는 trial→paid 전환율 + 평균 유지 기간.",
@@ -513,11 +521,12 @@ const FUNNEL_DIAGRAM_STAGES = {
 };
 
 /* ------------------------------------------------------------
-   깨진 양동이 원칙 안내에 쓰이는 판정: 인지 단계를 우선 지목했는데
-   구매/전환 단계가 아직 확인되지 않았을 때 공통 진단 1번을 안내합니다.
+   깨진 양동이 원칙 안내: 인지 단계를 우선 지목했는데 전환 단계가 아직
+   확인되지 않았을 때 공통 진단 1번을 짧게 안내합니다. 실제 문장은
+   marketing-funnel-check.js에서 선택한 모델의 전환 단계 이름을 넣어
+   상황에 맞게 조립합니다(원칙 전문을 그대로 붙여넣지 않습니다).
    ------------------------------------------------------------ */
-const FUNNEL_LEAKY_BUCKET_NOTE =
-  "공통 진단 1. 깨진 양동이 원칙 — 인지 활동을 늘리기 전에 전환 게이트가 막혀 있는지부터 점검하는 걸 권장합니다. 광고비 낭비의 1순위 원인입니다.";
+const FUNNEL_LEAKY_BUCKET_LABEL = "공통 진단 1. 깨진 양동이 원칙";
 
 /* ------------------------------------------------------------
    현황 체크 도구 - 응답 5단계

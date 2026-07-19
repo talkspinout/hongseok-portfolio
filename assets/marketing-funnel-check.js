@@ -43,10 +43,11 @@
     return model.stages.filter(function (s) { return answered.indexOf(s.id) === -1; });
   }
 
-  /* stage.activities에서 대표 KPI·실패 시 분기를 뽑아 체크 도구 결과에 씁니다.
-     실패 시 분기는 활동마다 서로 다른 경로이므로 여러 활동을 하나로 합치지 않고,
-     가장 대표적인 첫 번째 활동의 분기만 그 활동명과 함께 보여줍니다. 전체 활동은
-     콘텐츠 페이지 해당 단계 섹션으로 링크합니다. */
+  /* stage.activities에서 우선 활동 하나를 뽑아 "우선 활동 → 실패 시 분기 →
+     참고 KPI" 형태로 체크 도구 결과에 씁니다. 여러 활동의 실패 시 분기를
+     하나로 합치면 서로 다른 경로가 마치 한 순서처럼 보이므로, 가장
+     대표적인 첫 번째 활동 하나만 우선 활동으로 제시하고 나머지 활동은
+     콘텐츠 페이지 해당 단계 섹션 링크로 안내합니다. */
   function stageSummary(stage) {
     const kpis = [];
     stage.activities.forEach(function (a) {
@@ -56,8 +57,8 @@
     const lead = stage.activities[0];
     return {
       kpis: kpis,
+      leadActivity: lead,
       failurePath: lead ? lead.failurePath : [],
-      failurePathActivity: lead ? lead.activity : "",
     };
   }
 
@@ -154,6 +155,11 @@
 
     let html = renderModelHeader(model);
 
+    /* 다음 질문에 답하는 중에도 지금까지의 결과가 계속 보여야 "이전에 뭘
+       골랐는지" 잃어버리지 않습니다. pendingStage가 있어도 결과를 먼저
+       넣고, 그 아래에 새 질문을 붙입니다. */
+    if (state.rounds.length) html += renderResults(model);
+
     if (state.pendingStage) {
       const stage = findStage(model, state.pendingStage);
       if (stage) {
@@ -164,9 +170,7 @@
       state.pendingStage = null;
     }
 
-    if (state.rounds.length) {
-      html += renderResults(model);
-    } else {
+    if (!state.rounds.length) {
       html += '<p class="mfc-empty">아직 진단한 단계가 없습니다. 아래에서 지금 가장 문제라고 느끼는 상황을 골라 주세요.</p>';
     }
 
@@ -174,11 +178,15 @@
     APP.innerHTML = html;
   }
 
+  function accentStyle(model) {
+    return 'style="--model-accent:' + model.accent + ";--model-accent-soft:" + model.accentSoft + ';"';
+  }
+
   function renderModelHeader(model) {
     if (state.rounds.length === 0 && !state.pendingStage) return "";
     return (
-      '<div class="mfc-model-header">' +
-      '<span class="tag">' + esc(model.name) + '</span>' +
+      '<div class="mfc-model-header" ' + accentStyle(model) + ">" +
+      '<span class="tag mfc-model-chip">' + esc(model.name) + "</span>" +
       '<button type="button" class="mfc-link-btn" data-action="change-model" data-track="cta" data-track-id="mfc_change_model" data-track-location="mfc_header">다른 모델로 다시 시작</button>' +
       "</div>"
     );
@@ -187,7 +195,7 @@
   function renderModelPicker() {
     const cards = FUNNEL_MODELS.map(function (m) {
       return (
-        '<button type="button" class="mfc-model-card" data-action="select-model" data-model="' + esc(m.id) + '" data-track="cta" data-track-id="mfc_select_model_' + esc(m.id) + '" data-track-location="mfc_model_picker">' +
+        '<button type="button" class="mfc-model-card" ' + accentStyle(m) + ' data-action="select-model" data-model="' + esc(m.id) + '" data-track="cta" data-track-id="mfc_select_model_' + esc(m.id) + '" data-track-location="mfc_model_picker">' +
         "<h3>" + esc(m.name) + "</h3>" +
         "<p>" + esc(m.definition) + "</p>" +
         '<span class="mfc-model-kpi">핵심 KPI · ' + esc(m.coreKpi) + "</span>" +
@@ -213,7 +221,7 @@
     }).join("");
 
     return (
-      '<div class="mfc-step">' +
+      '<div class="mfc-step" ' + accentStyle(model) + ">" +
       '<span class="mfc-stage-eyebrow">' + esc(stage.name) + " 단계</span>" +
       '<p class="mfc-situation"><strong>상황</strong> — ' + esc(stage.situation) + "</p>" +
       "<h2>" + esc(stage.checkQuestion) + "</h2>" +
@@ -227,47 +235,59 @@
   }
 
   function renderResults(model) {
-    const leaky = shouldShowLeakyBucketNote();
+    const leakyMsg = leakyBucketMessage(model);
     const cards = state.rounds.map(function (round, index) {
       const stage = findStage(model, round.stageId);
       if (!stage) return "";
       const response = findResponse(round.response);
       const summary = stageSummary(stage);
+      const lead = summary.leadActivity;
       return (
-        '<article class="mfc-result-card">' +
+        '<article class="mfc-result-card" ' + accentStyle(model) + ">" +
         '<div class="mfc-result-head">' +
         '<span class="mfc-rank">' + (index + 1) + "순위</span>" +
         "<h3>" + esc(stage.name) + "</h3>" +
         '<span class="mfc-status ' + statusClass(response.key) + '">' + esc(response.statusLabel) + "</span>" +
         "</div>" +
         '<p class="mfc-situation">' + esc(stage.situation) + "</p>" +
+        (lead
+          ? '<div class="mfc-lead-activity"><span>우선 활동</span><p><strong>' + esc(lead.activity) + "</strong> — " + esc(lead.purpose) + "</p></div>"
+          : "") +
         (summary.failurePath.length
-          ? '<div class="mfc-failure"><span>실패 시 분기 예시 (' + esc(summary.failurePathActivity) + " 기준)</span><ol>" +
+          ? '<div class="mfc-failure"><span>실패 시 분기</span><ol>' +
             summary.failurePath.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") +
             "</ol></div>"
           : "") +
         (summary.kpis.length
           ? '<div class="mfc-kpi"><span>참고 KPI</span><p>' + summary.kpis.map(esc).join(" · ") + "</p></div>"
           : "") +
-        '<a class="mfc-link-btn" href="marketing-funnel.html#' + esc(model.id) + "-" + esc(stage.id) + '" data-track="navigation" data-track-id="mfc_view_full_stage" data-track-location="mfc_result_card">이 단계 전체 활동 보기 →</a>' +
+        '<a class="mfc-link-btn" href="marketing-funnel.html#' + esc(model.id) + "-" + esc(stage.id) + '" data-track="navigation" data-track-id="mfc_view_full_stage" data-track-location="mfc_result_card">이 단계 다른 활동도 보기 →</a>' +
         "</article>"
       );
     }).join("");
 
     return (
       '<div class="mfc-results">' +
-      (leaky ? '<div class="notice mfc-leaky-note">' + esc(FUNNEL_LEAKY_BUCKET_NOTE) + "</div>" : "") +
+      (leakyMsg ? '<div class="notice mfc-leaky-note">' + esc(leakyMsg) + "</div>" : "") +
       cards +
       "</div>"
     );
   }
 
-  function shouldShowLeakyBucketNote() {
+  /* 인지 단계를 문제로 지목했는데 전환 단계가 아직 확인 전이면 공통 진단
+     1번을 짧게 안내합니다. 원칙 전문을 그대로 붙이지 않고, 실제로 선택한
+     모델의 전환 단계 이름을 넣어 그 상황에 맞게 한 문장으로 조립합니다. */
+  function leakyBucketMessage(model) {
     const awarenessRound = state.rounds.filter(function (r) { return r.stageId === "awareness"; })[0];
-    if (!awarenessRound) return false;
-    if (awarenessRound.response === "good") return false;
+    if (!awarenessRound || awarenessRound.response === "good") return "";
     const hasConversion = state.rounds.some(function (r) { return r.stageId === "conversion"; });
-    return !hasConversion;
+    if (hasConversion) return "";
+    const conversionStage = findStage(model, "conversion");
+    if (!conversionStage) return "";
+    return (
+      FUNNEL_LEAKY_BUCKET_LABEL + " — 인지를 늘리기 전에 \"" + conversionStage.name +
+      "\" 단계 게이트가 막혀 있는지부터 점검해 보세요."
+    );
   }
 
   function renderNextArea(model) {
@@ -298,7 +318,7 @@
 
     const cards = remaining.map(function (s) {
       return (
-        '<button type="button" class="mfc-model-card mfc-stage-card-btn" data-action="select-stage" data-stage="' + esc(s.id) + '" data-track="cta" data-track-id="mfc_select_stage_' + esc(s.id) + '" data-track-location="mfc_next">' +
+        '<button type="button" class="mfc-model-card mfc-stage-card-btn" ' + accentStyle(model) + ' data-action="select-stage" data-stage="' + esc(s.id) + '" data-track="cta" data-track-id="mfc_select_stage_' + esc(s.id) + '" data-track-location="mfc_next">' +
         "<h3>" + esc(s.name) + "</h3>" +
         "<p>" + esc(s.situation) + "</p>" +
         "</button>"
@@ -306,7 +326,7 @@
     }).join("");
 
     return (
-      '<div class="mfc-step mfc-next-step">' +
+      '<div class="mfc-step mfc-next-step" ' + accentStyle(model) + ">" +
       "<h2>" + (hasResults ? "다음으로 문제라고 느끼는 상황이 있나요?" : "지금 가장 문제라고 느끼는 상황은?") + "</h2>" +
       '<div class="mfc-model-grid">' + cards + "</div>" +
       (hasResults ? '<button type="button" class="mfc-link-btn" data-action="finish" data-track="cta" data-track-id="mfc_finish" data-track-location="mfc_next">여기까지 확인할게요</button>' : "") +
@@ -325,8 +345,14 @@
       const summary = stageSummary(stage);
       lines.push((index + 1) + "순위 · " + stage.name + " — " + response.statusLabel);
       lines.push("  상황: " + stage.situation);
+      if (summary.leadActivity) {
+        lines.push("  우선 활동: " + summary.leadActivity.activity + " — " + summary.leadActivity.purpose);
+      }
       if (summary.failurePath.length) {
-        lines.push("  실패 시 분기 예시(" + summary.failurePathActivity + "): " + summary.failurePath.join(" → "));
+        lines.push("  실패 시 분기: " + summary.failurePath.join(" → "));
+      }
+      if (summary.kpis.length) {
+        lines.push("  참고 KPI: " + summary.kpis.join(" · "));
       }
       lines.push("");
     });

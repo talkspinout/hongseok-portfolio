@@ -9,24 +9,41 @@
 
 .funnel-badge { margin-top: 18px; display: inline-block; }
 
+/* ---------- 히어로 하단 통계 ---------- */
+.funnel-stat-grid { margin-top: 36px; }
+
 #funnelUsage { margin-top: 32px; max-width: 640px; }
 #funnelUsage strong { display: block; margin-bottom: 10px; font-size: 14px; }
 #funnelUsage ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 #funnelUsage li { font-size: 14.5px; line-height: 1.6; }
 
 /* ---------- 비즈니스 모델별 한눈에 보기 표 ---------- */
-.funnel-overview-table { margin-top: 40px; overflow-x: auto; }
+.funnel-overview-table {
+  margin-top: 40px;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  /* 가로 스크롤이 가능할 때 오른쪽(왼쪽)에 옅은 그림자를 넣어 "더 있다"는
+     걸 알 수 있게 합니다. 표가 잘린 게 아니라 스크롤해서 보는 표라는 힌트. */
+  background:
+    linear-gradient(to right, var(--bg) 0%, rgba(255,255,255,0) 24px) 0 0,
+    linear-gradient(to left, var(--bg) 0%, rgba(255,255,255,0) 24px) 100% 0,
+    linear-gradient(to right, rgba(25,31,31,0.12), rgba(25,31,31,0)) 0 0,
+    linear-gradient(to left, rgba(25,31,31,0.12), rgba(25,31,31,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
 .overview-grid {
   display: grid;
-  grid-template-columns: 180px repeat(var(--stage-count), minmax(150px, 1fr));
+  grid-template-columns: 150px repeat(var(--stage-count), minmax(118px, 1fr));
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  min-width: 860px;
+  min-width: 680px;
 }
-.overview-cell { background: var(--bg); padding: 16px 18px; font-size: 13.5px; line-height: 1.5; }
+.overview-cell { background: var(--bg); padding: 14px 14px; font-size: 13px; line-height: 1.5; }
 .overview-cell.overview-head { background: var(--paper); font-weight: 800; font-size: 13px; }
 .overview-cell.overview-model { background: var(--mint-tint); display: flex; flex-direction: column; gap: 3px; }
 .overview-cell.overview-model strong { font-size: 15px; }
@@ -51,6 +68,29 @@
 .principle-card ul { margin-top: 8px; padding-left: 18px; }
 .principle-card li { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
 
+/* ---------- 비즈니스 모델 섹션 헤더 ---------- */
+section.model-section { border-top: 3px solid var(--model-accent); }
+.model-section-head { display: flex; align-items: flex-start; gap: 18px; }
+.model-section-num {
+  flex: none; width: 48px; height: 48px; border-radius: 14px;
+  background: var(--model-accent-soft); color: var(--model-accent);
+  font-size: 20px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.model-badge {
+  display: inline-block; margin-top: 12px;
+  padding: 5px 12px; border-radius: 999px;
+  background: var(--model-accent-soft); color: var(--model-accent);
+  font-size: 12.5px; font-weight: 700;
+}
+.model-kpi-stat {
+  margin-top: 24px; padding: 18px 22px; border-radius: 14px;
+  background: var(--model-accent-soft);
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+.model-kpi-stat span { font-size: 12px; font-weight: 800; color: var(--model-accent); }
+.model-kpi-stat strong { font-size: 16.5px; font-weight: 800; color: var(--ink); }
+
 /* ---------- 퍼널 다이어그램 ---------- */
 .funnel-diagram {
   margin-top: 36px;
@@ -62,7 +102,7 @@
 }
 .funnel-diagram-col { flex: 1 1 0; min-width: 168px; display: flex; flex-direction: column; }
 .funnel-diagram-label {
-  background: var(--ink); color: #fff;
+  background: var(--model-accent); color: #fff;
   font-size: 13px; font-weight: 800; text-align: center;
   padding: 10px 8px; border-radius: 12px 12px 0 0;
 }
@@ -80,7 +120,10 @@
 
 /* ---------- 단계 상세(상황 + 활동 카드) ---------- */
 .stage-list { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
-.stage-card { border: 1px solid var(--line); border-radius: 20px; padding: 30px; scroll-margin-top: 90px; }
+.stage-card {
+  border: 1px solid var(--line); border-left: 4px solid var(--model-accent);
+  border-radius: 20px; padding: 30px; scroll-margin-top: 90px;
+}
 .stage-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 .stage-head h4 { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; }
 .btn-sm { padding: 9px 18px; font-size: 13px; }
@@ -96,8 +139,19 @@
 .activity-meta p { margin-top: 2px; font-size: 13px; line-height: 1.55; }
 
 /* ---------- 부록 비교표 ---------- */
-.funnel-appendix-scroll { margin-top: 36px; overflow-x: auto; }
-.funnel-appendix-table { width: 100%; min-width: 760px; border-collapse: collapse; }
+.funnel-appendix-scroll {
+  margin-top: 36px;
+  overflow-x: auto;
+  background:
+    linear-gradient(to right, var(--bg) 0%, rgba(255,255,255,0) 24px) 0 0,
+    linear-gradient(to left, var(--bg) 0%, rgba(255,255,255,0) 24px) 100% 0,
+    linear-gradient(to right, rgba(25,31,31,0.12), rgba(25,31,31,0)) 0 0,
+    linear-gradient(to left, rgba(25,31,31,0.12), rgba(25,31,31,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.funnel-appendix-table { width: 100%; min-width: 680px; border-collapse: collapse; }
 .funnel-appendix-table th, .funnel-appendix-table td {
   border: 1px solid var(--line); padding: 14px 16px; font-size: 13.5px; text-align: left; line-height: 1.55;
 }

@@ -25,13 +25,15 @@
   display: flex; flex-direction: column; gap: 10px;
   transition: border-color 0.15s, background 0.15s, transform 0.15s;
 }
-.mfc-model-card:hover { border-color: var(--mint); background: var(--mint-tint); transform: translateY(-2px); }
+.mfc-model-card:hover { border-color: var(--model-accent, var(--mint)); background: var(--model-accent-soft, var(--mint-tint)); transform: translateY(-2px); }
 .mfc-model-card h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
 .mfc-model-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
-.mfc-model-kpi { font-size: 12px; font-weight: 700; color: var(--mint-deep); }
+.mfc-model-kpi { font-size: 12px; font-weight: 700; color: var(--model-accent, var(--mint-deep)); }
+
+.mfc-model-chip { background: var(--model-accent-soft, var(--mint-tint)); color: var(--model-accent, var(--mint-deep)); }
 
 /* ---------- 진단 질문 ---------- */
-.mfc-stage-eyebrow { display: inline-block; font-size: 12.5px; font-weight: 800; color: var(--mint-deep); background: var(--mint-tint); padding: 5px 12px; border-radius: 999px; }
+.mfc-stage-eyebrow { display: inline-block; font-size: 12.5px; font-weight: 800; color: var(--model-accent, var(--mint-deep)); background: var(--model-accent-soft, var(--mint-tint)); padding: 5px 12px; border-radius: 999px; }
 .mfc-situation { margin-top: 14px; font-size: 15px; color: var(--ink-soft); line-height: 1.65; }
 .mfc-situation strong { color: var(--ink); }
 .mfc-step h2 { margin-top: 8px; }
@@ -49,9 +51,12 @@
 
 /* ---------- 결과 카드 ---------- */
 .mfc-results { display: flex; flex-direction: column; gap: 14px; }
-.mfc-result-card { border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.mfc-result-card {
+  border: 1px solid var(--line); border-left: 4px solid var(--model-accent, var(--mint));
+  border-radius: 18px; padding: 24px;
+}
 .mfc-result-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.mfc-rank { font-size: 12px; font-weight: 800; color: var(--ink-soft); background: var(--paper); padding: 4px 10px; border-radius: 999px; }
+.mfc-rank { font-size: 12px; font-weight: 800; color: var(--model-accent, var(--mint-deep)); background: var(--model-accent-soft, var(--paper)); padding: 4px 10px; border-radius: 999px; }
 .mfc-result-head h3 { font-size: 17px; font-weight: 800; flex: 1; min-width: 100px; }
 
 .mfc-status { font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 999px; flex: none; }
@@ -62,8 +67,10 @@
 .mfc-status-na { background: var(--paper); color: var(--ink-soft); }
 
 .mfc-result-card > .mfc-situation { margin-top: 12px; font-size: 14px; }
-.mfc-failure, .mfc-kpi { margin-top: 14px; }
-.mfc-failure span, .mfc-kpi span { font-size: 11.5px; font-weight: 800; color: var(--mint-deep); }
+.mfc-lead-activity, .mfc-failure, .mfc-kpi { margin-top: 14px; }
+.mfc-lead-activity { padding: 14px 16px; border-radius: 12px; background: var(--model-accent-soft, var(--paper)); }
+.mfc-lead-activity span, .mfc-failure span, .mfc-kpi span { font-size: 11.5px; font-weight: 800; color: var(--model-accent, var(--mint-deep)); }
+.mfc-lead-activity p { margin-top: 4px; font-size: 14px; line-height: 1.55; }
 .mfc-failure ol { margin-top: 6px; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
 .mfc-failure li { font-size: 13.5px; }
 .mfc-kpi p { margin-top: 4px; font-size: 13.5px; color: var(--ink-soft); }
