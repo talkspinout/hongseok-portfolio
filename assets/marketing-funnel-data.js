@@ -281,7 +281,25 @@ const FUNNEL_MODELS = [
         activities: [
           { activity: "첫 행동 보상", purpose: "핵심 행동 강화 / 첫 게시·첫 친구 추가 시 리워드", kpi: "첫 행동 도달률", failurePath: ["첫 행동 정의", "보상 적정성"] },
           { activity: "인앱 메시지 운영", purpose: "미사용 기능 안내 / 인앱 가이드·배너·알림", kpi: "기능 도달률, 메시지 클릭률", failurePath: ["메시지 톤", "노출 타이밍", "기능 진입 경로 개선 협업"] },
-          { activity: "푸시 …378 tokens truncated…발적으로 앱을 알리거나 친구를 데려오게 하고 싶음",
+          { activity: "푸시 동의 메시지·시점 최적화", purpose: "리텐션 채널 확보 / 가치 노출 후 동의 요청", kpi: "푸시 동의율", failurePath: ["요청 시점", "사전 가치 전달", "노출 방식 개선 협업"] },
+          { activity: "출석체크·데일리 보상", purpose: "재방문 습관화 / 7일 연속 출석", kpi: "D7 리텐션", failurePath: ["보상 위계", "습관화 계기"] },
+        ],
+      },
+      {
+        id: "retention",
+        name: "잔류·재방문",
+        situation: "활성 사용자의 재방문 간격이 늘어나거나 dormant 상태",
+        checkQuestion: "재방문 트리거(푸시 시나리오·리타게팅 등)를 운영하고 재방문률로 확인하고 있습니까?",
+        activities: [
+          { activity: "푸시 시나리오 운영", purpose: "재방문 트리거 / 행동 기반 시나리오", kpi: "푸시 통한 재방문률", failurePath: ["발송 빈도·톤", "세그먼트 재정의"] },
+          { activity: "리타게팅 광고", purpose: "dormant 회수 / MOLOCO, 구글 UAC 리타게팅", kpi: "회수율, 회수 후 retention", failurePath: ["회수 후 이탈 시점 분석"] },
+          { activity: "콘텐츠·기능 업데이트 알림", purpose: "가치 재인식 / 신기능 노티, 콘텐츠 큐레이션", kpi: "업데이트 후 7일 retention", failurePath: ["업데이트 가치 점검"] },
+        ],
+      },
+      {
+        id: "advocacy",
+        name: "지지",
+        situation: "사용자가 자발적으로 앱을 알리거나 친구를 데려오게 하고 싶음",
         checkQuestion: "친구 초대·UGC 등 자발적 확산 장치를 운영하고 있습니까?",
         activities: [
           { activity: "친구 초대 트리거", purpose: "viral loop / 카카오톡 공유, 초대 코드", kpi: "초대 발신율, 초대 통한 가입률", failurePath: ["인센티브 위계", "공유 마찰"] },
@@ -522,4 +540,3 @@ const FUNNEL_CHECK_RESPONSES = [
   { key: "unknown", label: "확인 필요", example: "운영 여부 자체를 모름 — 담당자 확인 필요", statusLabel: "확인 필요" },
   { key: "na", label: "해당 없음", example: "", statusLabel: "후순위" },
 ];
-
