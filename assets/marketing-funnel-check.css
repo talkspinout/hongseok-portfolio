@@ -1,6 +1,7 @@
 /* ============================================================
    marketing-funnel-check.css — 현황 체크 도구(marketing-funnel-check.html) 전용.
-   상태 배지는 site tone(민트·잉크·페이퍼)만으로 구분합니다.
+   공통 상태 배지는 민트·잉크·페이퍼 토큰을 사용하며,
+   모델 구분용 강조색은 marketing-funnel-data.js의 승인된 값을 사용합니다.
    ============================================================ */
 
 #mfcApp { margin-top: 44px; display: flex; flex-direction: column; gap: 28px; }
