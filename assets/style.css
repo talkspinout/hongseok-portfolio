@@ -104,6 +104,7 @@ img { max-width: 100%; display: block; }
 }
 .gnb a.nav-item:hover { background: var(--paper); color: var(--ink); }
 .gnb a.nav-item.active { background: var(--mint-tint); color: var(--mint-deep); }
+.gnb a.nav-item.nav-subitem { margin-top: -2px; padding-left: 28px; font-size: 13px; font-weight: 500; }
 
 .gnb-separator {
   margin: 15px 12px 12px;
