@@ -127,17 +127,19 @@
   }
 
   /* ---------- 퍼널 다이어그램 ---------- */
-  function renderDiagram(modelId) {
-    const stages = FUNNEL_DIAGRAM_STAGES[modelId];
+  function renderDiagram(model) {
+    const stages = FUNNEL_DIAGRAM_STAGES[model.id];
     return (
       '<div class="funnel-diagram">' +
-      stages.map(function (stage) {
+      stages.map(function (stage, index) {
+        const modelStage = model.stages[index];
+        const activityNames = modelStage ? modelStage.activities.map(function (activity) { return activity.activity; }) : [];
         return (
           '<div class="funnel-diagram-col">' +
           '<div class="funnel-diagram-label">' + esc(stage.label) + "</div>" +
           '<div class="funnel-diagram-card">' +
           "<h5>" + esc(stage.desc) + "</h5>" +
-          "<ul>" + stage.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>" +
+          "<ul>" + activityNames.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>" +
           "</div>" +
           "</div>"
         );
@@ -197,7 +199,7 @@
         specialNote +
         '<div class="model-kpi-stat"><span>핵심 KPI</span><strong>' + esc(model.coreKpi) + "</strong></div>" +
         '<div class="funnel-channels"><strong>한국 시장 채널·도구</strong><ul>' + channels + "</ul></div>" +
-        renderDiagram(model.id) +
+        renderDiagram(model) +
         '<div class="stage-list">' + stages + "</div>" +
         '<div class="cta-band reveal">' +
         "<div><h3>" + esc(model.name) + " 현황을 지금 체크해 보세요.</h3><p>핵심 KPI · " + esc(model.coreKpi) + "</p></div>" +
