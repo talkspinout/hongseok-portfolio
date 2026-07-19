@@ -227,7 +227,6 @@
                 '</div>'
               );
             }).join("") + '</div>' +
-            (career.note ? '<p class="career-note">' + career.note + '</p>' : "") +
             '</div>'
           : "";
 
@@ -274,6 +273,7 @@
           career.responsibilities.map(function (item) { return '<li>' + item + '</li>'; }).join("") +
           '</ul></div>' +
           achievements +
+          (career.note ? '<p class="career-note">' + career.note + '</p>' : "") +
           clients +
           '</article>'
         );
@@ -379,7 +379,17 @@
       return;
     }
 
-    revealEls.forEach(function (el) { el.classList.add("reveal-pending"); });
+    let hashReveal = null;
+    if (window.location.hash) {
+      try {
+        const hashTarget = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+        hashReveal = hashTarget ? hashTarget.closest(".reveal") : null;
+      } catch (e) { /* 잘못된 해시는 일반 reveal 처리 */ }
+    }
+    revealEls.forEach(function (el) {
+      if (el === hashReveal) el.classList.add("in");
+      else el.classList.add("reveal-pending");
+    });
     const io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (e) {
@@ -392,7 +402,9 @@
       },
       { threshold: 0.12, rootMargin: "0px 0px 80px 0px" }
     );
-    revealEls.forEach(function (el) { io.observe(el); });
+    revealEls.forEach(function (el) {
+      if (el !== hashReveal) io.observe(el);
+    });
 
     window.setTimeout(function () {
       revealEls.forEach(function (el) {
