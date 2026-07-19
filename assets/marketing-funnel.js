@@ -100,7 +100,7 @@
     const wrap = document.getElementById("funnelPrinciples");
     if (!wrap) return;
 
-    wrap.innerHTML = FUNNEL_COMMON_PRINCIPLES.map(function (group) {
+    wrap.innerHTML = FUNNEL_COMMON_PRINCIPLES.map(function (group, groupIndex) {
       const items = group.items.map(function (item) {
         const tag = item.tag ? '<span class="tag funnel-badge">' + esc(item.tag) + "</span>" : "";
         const list = item.list
@@ -117,9 +117,10 @@
         );
       }).join("");
       return (
-        '<div class="principle-group">' +
+        '<div class="principle-group" id="common-group-' + (groupIndex + 1) + '">' +
         "<h3>" + esc(group.group) + "</h3>" +
         '<div class="principle-grid">' + items + "</div>" +
+        '<a class="principle-back-link" href="#funnelCommonNav">공통진단 목차로 ↑</a>' +
         "</div>"
       );
     }).join("");
