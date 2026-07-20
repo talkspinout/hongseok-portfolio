@@ -85,7 +85,7 @@
     const wrap = document.getElementById("funnelOverviewTable");
     if (!wrap) return;
 
-    const stageLabels = FUNNEL_DIAGRAM_STAGES[FUNNEL_MODELS[0].id].map(function (s) { return s.label; });
+    const stageLabels = FUNNEL_OVERVIEW_STAGE_LABELS;
 
     let html = '<div class="overview-grid" style="--stage-count:' + stageLabels.length + '">';
     html += '<div class="overview-cell overview-head"></div>';

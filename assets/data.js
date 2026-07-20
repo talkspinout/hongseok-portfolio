@@ -8,7 +8,6 @@
    1. 기본 설정
    - GA_ID: GA4 측정 ID (예: "G-XXXXXXXXXX"). 비워두면 GA가 로드되지 않습니다.
    - FORM_URL: 포트폴리오 열람 신청용 Google Form 주소.
-   - NOTION_URL: 마케팅 퍼널 운영 프레임워크 Notion 문서 주소.
    ------------------------------------------------------------ */
 const SITE = {
   name: "고홍석",
@@ -18,7 +17,6 @@ const SITE = {
   GTM_ID: "GTM-NPBTB82",           // ← Google Tag Manager 컨테이너 ID 입력 (예: "GTM-XXXXXXX")
   FORM_URL: "https://docs.google.com/forms/d/e/1FAIpQLSfIGT8marmIPqCx9RYL0HOBU5G7wh4ZrRjuQsKBTqIIu57sbQ/viewform?usp=header",         // ← (미사용) 이전 Google Form 주소. 현재는 LEAD_API_URL의 사이트 내 신청 폼으로 대체됨
   LEAD_API_URL: "https://script.google.com/macros/s/AKfycbzcVQzn2r996h7QBZjAVMNobh9SWgPnKRQ1454J1Zci3j-GrAC01AnDu3u4m81qvq41cw/exec",     // ← 포트폴리오 열람 신청 폼을 처리할 Google Apps Script 웹앱 주소 입력 (비워두면 폼이 "준비 중" 상태로 표시됩니다)
-  NOTION_URL: "https://app.notion.com/p/B2C-B2B-SaaS-333103889f8d8092bf21e5a15a43f7c6",
   LINKTREE_URL: "https://linktr.ee/talkspinout",
 
   /* 연락처 · 소셜: 비워두면 해당 아이콘/버튼이 표시되지 않습니다. */

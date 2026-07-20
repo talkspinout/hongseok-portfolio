@@ -24,9 +24,11 @@
       '<a class="nav-item" data-page="sentence" href="sentence.html" data-track="navigation" data-track-id="nav_sentence_machine" data-track-location="gnb">문장 자판기</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
 
-    // 현재 페이지 표시
+    // 현재 페이지 표시 (체크 도구 페이지는 프레임워크 하위 메뉴를 그대로 활성 표시)
     nav.querySelectorAll("[data-page]").forEach(function (a) {
-      if (a.dataset.page === PAGE) a.classList.add("active");
+      const active = a.dataset.page === PAGE ||
+        (PAGE === "marketing-funnel-check" && a.dataset.page === "marketing-funnel");
+      if (active) a.classList.add("active");
     });
 
     // 배경 스크림
