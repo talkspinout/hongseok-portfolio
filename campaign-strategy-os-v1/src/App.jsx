@@ -7,7 +7,6 @@ import {
   BookOpen,
   Check,
   Copy,
-  Download,
   FileText,
   FolderOpen,
   HelpCircle,
@@ -31,6 +30,7 @@ const STORAGE_KEY = "campaign-strategy-os-v3";
 const LEGACY_STORAGE_KEYS = ["campaign-strategy-os-v2"];
 const SCHEMA_VERSION = 3;
 const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
+const BACKUP_NUDGE_CARD_COUNT = 6;
 
 const WORK_TYPES = [
   {
@@ -495,6 +495,14 @@ const STATUSES = {
   archived: { label: "보관", badge: "bg-neutral-100 text-neutral-400 border-neutral-200", card: "bg-neutral-100 border-neutral-200 opacity-70" },
 };
 
+/* 논리 연결 점검 카드의 3가지 상태. not-applicable은 실패가 아니라 이 템플릿·
+   프로젝트에는 해당 단계 자체가 없다는 뜻이라 경고색을 쓰지 않는다. */
+const LOGIC_CHECK_STYLES = {
+  connected: { card: "bg-white border-teal-200", icon: "bg-teal-800 text-white", badge: "bg-teal-50 text-teal-800", label: "연결됨" },
+  "needs-review": { card: "bg-amber-50 border-amber-200", icon: "bg-amber-200 text-amber-900", badge: "bg-white/80 text-amber-800", label: "확인 필요" },
+  "not-applicable": { card: "bg-stone-100 border-neutral-200", icon: "bg-neutral-200 text-neutral-500", badge: "bg-white/80 text-neutral-500", label: "해당 없음" },
+};
+
 const LINK_TYPES = {
   because: "왜냐하면",
   therefore: "따라서",
@@ -773,12 +781,24 @@ const buildLogicReview = (project) => {
   const evidenceConnected = evidenceCards.some((evidence) => decisions.some((decision) => evidence.id === decision.id || connected(evidence.id, decision.id)));
   const everyActivityMeasured = activityCards.length > 0 && activityCards.every((card) => asText(card.successSignal).trim());
 
+  /* 템플릿이 활동·측정 단계를 애초에 정의하지 않았다면(예: 전략 브리프 계열은
+     defaultRole "activity" 섹션이 없음) 활동 카드가 없다고 해서 "확인 필요"로
+     경고하지 않는다 — "해당 없음"으로 표시한다. 반대로 사용자가 그런 템플릿에
+     직접 활동·측정 카드를 추가했다면 그 순간부터 점검을 활성화한다. typeId로
+     하드코딩하지 않고 프로젝트의 실제 sections·cards를 기준으로 판단해 가져온
+     구버전 프로젝트나 구조를 바꾼 보드에도 그대로 대응한다. */
+  const expectsActivity = (project?.sections || []).some((section) => section.defaultRole === "activity");
+  const expectsMeasurement = (project?.sections || []).some((section) => section.defaultRole === "measurement" || section.kind === "measurement");
+  const activityRelevant = expectsActivity || activityCards.length > 0;
+  const measurementRelevant = expectsMeasurement || measurementCards.length > 0 || activityCards.length > 0;
+  const checkStatus = (relevant, ok) => (!relevant ? "not-applicable" : ok ? "connected" : "needs-review");
+
   return {
     checks: [
       {
         id: "direction",
         label: "타깃과 목표 변화",
-        ok: Boolean(asText(project?.target).trim()) && decisions.length > 0,
+        status: checkStatus(true, Boolean(asText(project?.target).trim()) && decisions.length > 0),
         detail: !asText(project?.target).trim()
           ? "타깃이 비어 있습니다. 누구의 변화를 만들지 먼저 적어주세요."
           : decisions.length === 0
@@ -788,7 +808,7 @@ const buildLogicReview = (project) => {
       {
         id: "coverage",
         label: "핵심 단계 작성",
-        ok: emptySections.length === 0,
+        status: checkStatus(true, emptySections.length === 0),
         detail: emptySections.length
           ? `아직 카드가 없는 단계: ${emptySections.map((item) => item.title).join(", ")}`
           : "질문이 있는 모든 단계에 판단 재료가 있습니다.",
@@ -796,42 +816,48 @@ const buildLogicReview = (project) => {
       {
         id: "evidence",
         label: "근거와 전략의 연결",
-        ok: decisions.length > 0 && evidenceCards.length > 0 && evidenceConnected,
+        status: checkStatus(true, decisions.length > 0 && evidenceCards.length > 0 && evidenceConnected),
         detail: evidenceCards.length === 0
           ? "전략을 지지하거나 반박할 근거 카드·출처가 없습니다."
           : !evidenceConnected
             ? "근거는 있지만 어떤 전략을 뒷받침하는지 논리 관계가 연결되지 않았습니다."
-            : "근거와 전략 선택 사이의 관계가 연결되어 있습니다.",
+            : "별도 근거 카드 또는 카드 내부 근거가 전략 선택과 연결되어 있습니다.",
       },
       {
         id: "execution",
         label: "전략과 활동의 연결",
-        ok: activityCards.length > 0 && activitiesWithoutStrategy.length === 0,
-        detail: activityCards.length === 0
-          ? "실행 역할을 가진 활동 카드가 아직 없습니다."
-          : activitiesWithoutStrategy.length
-            ? `전략과 연결되지 않은 활동: ${activitiesWithoutStrategy.map((card) => card.title || "제목 없음").join(", ")}`
-            : "모든 활동이 전략 선택과 연결되어 있습니다.",
+        status: checkStatus(activityRelevant, activityCards.length > 0 && activitiesWithoutStrategy.length === 0),
+        detail: !activityRelevant
+          ? "이 템플릿은 별도의 실행 활동 단계를 포함하지 않습니다. 활동 카드를 추가하면 이 점검이 활성화됩니다."
+          : activityCards.length === 0
+            ? "실행 역할을 가진 활동 카드가 아직 없습니다."
+            : activitiesWithoutStrategy.length
+              ? `전략과 연결되지 않은 활동: ${activitiesWithoutStrategy.map((card) => card.title || "제목 없음").join(", ")}`
+              : "모든 활동이 전략 선택과 연결되어 있습니다.",
       },
       {
         id: "journey",
         label: "활동의 역할과 다음 행동",
-        ok: activityCards.length > 0 && incompleteActivities.length === 0,
-        detail: incompleteActivities.length
-          ? `역할·다음 행동·성공 신호를 보완할 활동: ${incompleteActivities.map((card) => card.title || "제목 없음").join(", ")}`
-          : activityCards.length
-            ? "모든 활동에 역할, 다음 행동, 성공 신호가 있습니다."
-            : "점검할 활동 카드가 없습니다.",
+        status: checkStatus(activityRelevant, activityCards.length > 0 && incompleteActivities.length === 0),
+        detail: !activityRelevant
+          ? "이 템플릿은 별도의 실행 활동 단계를 포함하지 않습니다."
+          : incompleteActivities.length
+            ? `역할·다음 행동·성공 신호를 보완할 활동: ${incompleteActivities.map((card) => card.title || "제목 없음").join(", ")}`
+            : activityCards.length
+              ? "모든 활동에 역할, 다음 행동, 성공 신호가 있습니다."
+              : "점검할 활동 카드가 없습니다.",
       },
       {
         id: "measurement",
         label: "성공 판단 근거",
-        ok: everyActivityMeasured || measurementCards.length > 0,
-        detail: everyActivityMeasured
-          ? "각 활동의 성공 신호로 실행 후 판단할 수 있습니다."
-          : measurementCards.length
-            ? "별도의 측정 카드가 있습니다. 활동별 성공 신호와 함께 확인하세요."
-            : "활동별 성공 신호나 별도의 측정 카드가 필요합니다.",
+        status: checkStatus(measurementRelevant, everyActivityMeasured || measurementCards.length > 0),
+        detail: !measurementRelevant
+          ? "이 템플릿은 별도의 측정 단계를 포함하지 않습니다."
+          : everyActivityMeasured
+            ? "각 활동의 성공 신호로 실행 후 판단할 수 있습니다."
+            : measurementCards.length
+              ? "별도의 측정 카드가 있습니다. 활동별 성공 신호와 함께 확인하세요."
+              : "활동별 성공 신호나 별도의 측정 카드가 필요합니다.",
       },
     ],
     activityChains: activityCards.map((card) => ({
@@ -960,7 +986,9 @@ export default function CampaignStrategyOS() {
     const safeTitle = (project.title || "strategy-board").replace(/[^a-zA-Z0-9가-힣_-]+/g, "-");
     anchor.href = url;
     anchor.download = `${safeTitle}.strategy-board.json`;
+    document.body.appendChild(anchor);
     anchor.click();
+    document.body.removeChild(anchor);
     window.setTimeout(() => URL.revokeObjectURL(url), 500);
     setProject(snapshot);
     setDirty(false);
@@ -1251,10 +1279,10 @@ export default function CampaignStrategyOS() {
       <header className="sticky top-0 z-30 bg-stone-100/95 backdrop-blur border-b border-neutral-200 print-hidden">
         <div className="max-w-[1600px] mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
           <button onClick={goLibrary} className="text-xs text-neutral-400 hover:text-neutral-700">← 유형·템플릿</button>
-          <div className="min-w-0">
-            <input aria-label="프로젝트 제목" value={project.title} onChange={(event) => updateProject({ title: event.target.value })} className="font-bold bg-transparent outline-none min-w-0 max-w-[320px]" />
+          <div className="flex-1 min-w-[160px] max-w-[420px]">
+            <input aria-label="프로젝트 제목" value={project.title} onChange={(event) => updateProject({ title: event.target.value })} className="w-full font-bold bg-transparent outline-none" />
             <p className="text-[10px] text-neutral-500 truncate">{project.templateName}{project.author ? ` · ${project.author}` : ""}</p>
-            <input aria-label="캠페인 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full max-w-[420px] bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
+            <input aria-label="캠페인 타깃" value={project.target || ""} onChange={(event) => updateProject({ target: event.target.value })} placeholder="타깃 미입력" className="block w-full bg-transparent text-[10px] text-neutral-500 placeholder:text-neutral-300 outline-none" />
           </div>
           <div className="lg:ml-auto flex items-center gap-1 bg-white border border-neutral-200 rounded-lg p-1 overflow-x-auto">
             {[["board", LayoutGrid, "작업 보드"], ["strategy", FileText, "전략 정리"], ["logic", Link2, "연결 점검"], ["brief", BookOpen, "최종 브리프"]].map(([key, Icon, label]) => (
@@ -1262,7 +1290,11 @@ export default function CampaignStrategyOS() {
             ))}
           </div>
           <div className="flex items-center gap-1">
-            <span className="hidden xl:inline text-[10px] text-neutral-400 mr-1">{autoSavedAt ? "브라우저 자동 임시저장" : "저장 준비 중"}{dirty && project.lastFileSavedAt ? " · 파일 저장 이후 변경됨" : ""}</span>
+            <span className="hidden xl:inline text-[10px] text-neutral-400 mr-1">
+              {project.lastFileSavedAt
+                ? (dirty ? "파일 저장 이후 변경됨 · 임시저장은 이 기기에만 보관" : "파일로 저장됨")
+                : (autoSavedAt ? "임시저장 중 · 이 기기에만 보관, 아직 파일로 백업 안 함" : "저장 준비 중")}
+            </span>
             <button onClick={saveProjectFile} title="프로젝트 파일 저장" aria-label="프로젝트 파일 저장" className="p-2 rounded-md border border-neutral-300 text-neutral-500 hover:text-neutral-900"><Save size={15} /></button>
             <label title="프로젝트 불러오기" aria-label="프로젝트 불러오기" className="p-2 rounded-md border border-neutral-300 text-neutral-500 hover:text-neutral-900 cursor-pointer"><Upload size={15} /><input type="file" accept="application/json,.json" onChange={importProject} className="hidden" /></label>
           </div>
@@ -1270,6 +1302,14 @@ export default function CampaignStrategyOS() {
       </header>
 
       {storageWarning && <div role="alert" className="max-w-[1600px] mx-auto mt-3 px-4 print-hidden"><div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-900">{storageWarning}</div></div>}
+      {!storageWarning && !project.lastFileSavedAt && project.cards.length >= BACKUP_NUDGE_CARD_COUNT && (
+        <div role="alert" className="max-w-[1600px] mx-auto mt-3 px-4 print-hidden">
+          <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-900 flex flex-wrap items-center gap-2">
+            <span className="flex-1 min-w-[220px]">카드가 {project.cards.length}장 쌓였는데 아직 파일로 백업하지 않았습니다. 임시저장은 이 브라우저에만 남아 있어, 데이터 삭제나 기기 변경 시 사라질 수 있습니다.</span>
+            <button onClick={saveProjectFile} className="shrink-0 rounded-md bg-amber-900 text-white px-3 py-1.5 font-semibold">지금 파일로 저장</button>
+          </div>
+        </div>
+      )}
       {notice && <div role="status" aria-live="polite" className="fixed z-50 top-20 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-900 text-white px-4 py-2 text-sm shadow-lg print-hidden">{notice}</div>}
 
       {view === "board" && (
@@ -1416,10 +1456,10 @@ export default function CampaignStrategyOS() {
           </div>
 
           <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {logicReview.checks.map((item) => <article key={item.id} className={`h-full min-h-36 rounded-2xl border p-4 flex flex-col ${item.ok ? "bg-white border-teal-200" : "bg-amber-50 border-amber-200"}`}>
-              <div className="flex items-center gap-2"><span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${item.ok ? "bg-teal-800 text-white" : "bg-amber-200 text-amber-900"}`}>{item.ok ? <Check size={15} /> : <HelpCircle size={15} />}</span><h3 className="font-bold text-sm">{item.label}</h3><span className={`ml-auto text-[9px] rounded-full px-2 py-1 font-bold ${item.ok ? "bg-teal-50 text-teal-800" : "bg-white/80 text-amber-800"}`}>{item.ok ? "연결됨" : "확인 필요"}</span></div>
+            {logicReview.checks.map((item) => { const style = LOGIC_CHECK_STYLES[item.status]; return <article key={item.id} className={`h-full min-h-36 rounded-2xl border p-4 flex flex-col ${style.card}`}>
+              <div className="flex items-center gap-2"><span className={`inline-flex items-center justify-center w-7 h-7 rounded-full ${style.icon}`}>{item.status === "connected" ? <Check size={15} /> : item.status === "needs-review" ? <HelpCircle size={15} /> : <span aria-hidden="true">–</span>}</span><h3 className="font-bold text-sm">{item.label}</h3><span className={`ml-auto text-[9px] rounded-full px-2 py-1 font-bold ${style.badge}`}>{style.label}</span></div>
               <p className="text-xs text-neutral-600 leading-relaxed mt-auto pt-3">{item.detail}</p>
-            </article>)}
+            </article>; })}
           </section>
 
           <section className="mt-6 rounded-2xl bg-white border border-neutral-200 overflow-hidden">

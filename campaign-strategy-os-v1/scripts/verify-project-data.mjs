@@ -93,7 +93,7 @@ try {
 
   const logicExample = createProject("authorFlow", "논리 점검 예시", "", "", EXAMPLES.find(({ id }) => id === "proposal-character-world"));
   const logicReview = buildLogicReview(logicExample);
-  assert.ok(logicReview.checks.every(({ ok }) => ok), "실제 제안서 기반 전략 예시는 모든 연결 점검을 통과해야 합니다.");
+  assert.ok(logicReview.checks.every(({ status }) => status === "connected"), "실제 제안서 기반 전략 예시는 모든 연결 점검을 통과해야 합니다.");
   assert.equal(logicReview.activityChains[0].card.activityPurpose, "relation");
   assert.ok(logicReview.activityChains[0].strategies.length > 0);
 
@@ -101,11 +101,48 @@ try {
     const example = EXAMPLES.find(({ id }) => id === exampleId);
     const project = createProject(example.templateId, "논리 점검 예시", "", "", example);
     const review = buildLogicReview(project);
-    assert.ok(review.checks.every(({ ok }) => ok), `${exampleId} 예시는 모든 연결 점검을 통과해야 합니다.`);
+    assert.ok(review.checks.every(({ status }) => status === "connected"), `${exampleId} 예시는 모든 연결 점검을 통과해야 합니다.`);
     assert.ok(review.activityChains.every(({ card, strategies }) => card.nextAction && card.successSignal && strategies.length), `${exampleId}의 모든 활동은 전략·다음 행동·성공 신호와 연결되어야 합니다.`);
   });
 
-  console.log("데이터 검증 통과: 템플릿, 활동 구조, 예시 익명화·구체성, 논리 연결, v2 마이그레이션, 미상 섹션 카드 복구");
+  // 논리 연결 점검 3상태(연결됨/확인 필요/해당없음) — 템플릿이 활동·측정 단계를
+  // 정의하지 않으면 카드가 없어도 "해당없음"이어야 하고, 정의하면(또는 사용자가
+  // 직접 활동 카드를 추가하면) 실제 카드 기준으로 점검이 활성화되어야 한다.
+  const checkStatus = (project, id) => buildLogicReview(project).checks.find((item) => item.id === id).status;
+
+  ["quick", "ogilvy", "saatchi", "leo"].forEach((templateId) => {
+    const blank = createProject(templateId, "빈 프로젝트", "", "");
+    assert.equal(checkStatus(blank, "execution"), "not-applicable", `${templateId}는 활동 단계가 없어 전략-활동 연결이 해당없음이어야 합니다.`);
+    assert.equal(checkStatus(blank, "journey"), "not-applicable", `${templateId}는 활동 단계가 없어 활동 점검이 해당없음이어야 합니다.`);
+    assert.equal(checkStatus(blank, "measurement"), "not-applicable", `${templateId}는 측정 단계가 없어 성공 판단 근거가 해당없음이어야 합니다.`);
+  });
+
+  const jwtBlank = createProject("jwt", "빈 프로젝트", "", "");
+  assert.equal(checkStatus(jwtBlank, "execution"), "not-applicable", "JWT는 활동 단계가 없어 전략-활동 연결이 해당없음이어야 합니다.");
+  assert.notEqual(checkStatus(jwtBlank, "measurement"), "not-applicable", "JWT는 도달 여부(측정) 섹션이 있어 성공 판단 근거가 해당없음이면 안 됩니다.");
+
+  const positioningBlank = createProject("positioning", "빈 프로젝트", "", "");
+  assert.equal(checkStatus(positioningBlank, "execution"), "not-applicable", "포지셔닝은 기본 상태에서 활동 단계가 없어 해당없음이어야 합니다.");
+
+  ["authorFlow", "campaignPlan"].forEach((templateId) => {
+    const blank = createProject(templateId, "빈 프로젝트", "", "");
+    assert.notEqual(checkStatus(blank, "execution"), "not-applicable", `${templateId}는 활동 단계가 정의되어 있어 전략-활동 연결 점검이 활성화되어야 합니다.`);
+  });
+
+  const activityCard = {
+    id: "manual-activity", sectionId: "goal", role: "activity", title: "수동으로 추가한 활동", content: "",
+    status: "candidate", links: [], activityPurpose: "", nextAction: "", successSignal: "",
+  };
+  const quickWithActivity = { ...createProject("quick", "활동 추가 프로젝트", "", ""), cards: [activityCard] };
+  assert.notEqual(checkStatus(quickWithActivity, "execution"), "not-applicable", "활동 단계가 없는 템플릿도 활동 카드를 추가하면 전략-활동 점검이 활성화되어야 합니다.");
+  assert.notEqual(checkStatus(quickWithActivity, "measurement"), "not-applicable", "활동 카드가 있으면 성공 판단 근거 점검도 함께 활성화되어야 합니다.");
+
+  const quickWithArchivedActivity = { ...quickWithActivity, cards: [{ ...activityCard, status: "archived" }] };
+  assert.equal(checkStatus(quickWithArchivedActivity, "execution"), "not-applicable", "활동 카드를 보관하면 활성 카드 기준으로 다시 해당없음이어야 합니다.");
+  const quickWithRejectedActivity = { ...quickWithActivity, cards: [{ ...activityCard, status: "rejected" }] };
+  assert.equal(checkStatus(quickWithRejectedActivity, "execution"), "not-applicable", "활동 카드를 제외하면 활성 카드 기준으로 다시 해당없음이어야 합니다.");
+
+  console.log("데이터 검증 통과: 템플릿, 활동 구조, 예시 익명화·구체성, 논리 연결 3상태, v2 마이그레이션, 미상 섹션 카드 복구");
 } finally {
   await server.close();
 }
