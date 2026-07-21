@@ -18,8 +18,9 @@
       '<a class="nav-item" data-page="home" href="index.html" data-track="navigation" data-track-id="nav_home" data-track-location="gnb">하이라이트</a>' +
       '<a class="nav-item" data-page="about" href="about.html" data-track="navigation" data-track-id="nav_about" data-track-location="gnb">자기 소개</a>' +
       '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">포트폴리오</a>' +
-      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">개인 프로젝트</a>' +
+      '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">마케팅 랩</a>' +
       '<a class="nav-item nav-subitem" data-page="marketing-funnel" href="marketing-funnel.html" data-track="navigation" data-track-id="nav_marketing_funnel" data-track-location="gnb"><span aria-hidden="true">-</span> 마케팅 퍼널 운영 프레임워크</a>' +
+      '<a class="nav-item nav-subitem" href="https://talkspinout.github.io/campaign-strategy-os/" target="_blank" rel="noopener" data-track="navigation" data-track-id="nav_campaign_strategy_os" data-track-location="gnb"><span aria-hidden="true">-</span> 캠페인 전략 설계 OS</a>' +
       '<div class="gnb-separator" aria-hidden="true">·</div>' +
       '<a class="nav-item" data-page="sentence" href="sentence.html" data-track="navigation" data-track-id="nav_sentence_machine" data-track-location="gnb">문장 자판기</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";

@@ -345,6 +345,13 @@ const LAB_ITEMS = [
     linkLabel: "프레임워크 보기",
   },
   {
+    type: "framework",
+    title: "캠페인 전략 설계 OS",
+    desc: "생각을 카드로 쌓고, 대표안·대안·제외안을 근거와 함께 남기고, 전략과 활동의 논리 연결까지 점검한 뒤 브리프 한 장으로 내보내는 캠페인 전략 설계 도구입니다. 오길비·JWT T-Plan 같은 고전 프레임워크부터 직접 만든 전략 전개형 브리프까지, 실무에서 쓰는 사고 흐름을 그대로 담았습니다.",
+    link: "https://talkspinout.github.io/campaign-strategy-os/",
+    linkLabel: "OS 열어보기",
+  },
+  {
     type: "project",
     title: "개인 프로젝트",
     desc: "진행 중인 개인 프로젝트를 순차적으로 공개할 예정입니다.",
