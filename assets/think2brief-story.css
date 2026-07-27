@@ -2,10 +2,26 @@
    think2brief-story.css — Think2Brief 제작기 페이지 전용
    ============================================================ */
 
+.t2b-hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 40px;
+  align-items: center;
+}
+.t2b-hero-copy .hero-title { font-size: clamp(28px, 3.6vw, 46px); }
+.t2b-hero-visual {
+  background: var(--paper);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(25, 31, 31, 0.1);
+  aspect-ratio: 4 / 3;
+}
+.t2b-hero-visual img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+
 .t2b-shot-grid {
   margin-top: 36px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 .t2b-shot-card {
@@ -29,6 +45,11 @@
   font-weight: 800;
   color: var(--mint-deep);
 }
+.t2b-shot-card--crop-left img {
+  aspect-ratio: 11 / 10;
+  object-fit: cover;
+  object-position: left center;
+}
 
 .t2b-inline-link {
   display: inline-flex;
@@ -42,60 +63,60 @@
 .t2b-inline-link .arrow { transition: transform 0.15s; }
 .t2b-inline-link:hover .arrow { transform: translateX(3px); }
 
-.t2b-quote-grid {
-  margin-top: 36px;
+.t2b-method-note {
+  margin-top: 12px;
+  max-width: 720px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.t2b-method-note strong { color: var(--ink); font-weight: 800; }
+
+.t2b-testi-grid {
+  margin-top: 32px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
-.t2b-quote-card {
+.t2b-testi-card {
   background: var(--paper);
   border-radius: var(--radius);
-  padding: 32px 28px;
+  padding: 28px 26px;
 }
-.t2b-quote-card blockquote {
-  margin-top: 18px;
-  font-size: 15px;
-  line-height: 1.75;
-  color: var(--ink);
-}
-.t2b-ai-badge {
-  display: inline-flex;
+.t2b-testi-brand {
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
-  padding: 7px 14px 7px 10px;
-  border-radius: 999px;
-  color: #fff;
+  margin-bottom: 16px;
 }
-.t2b-ai-badge::before {
-  content: "";
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.001; /* 실제 마크는 아래 각 배지 색으로 채움 */
-}
-.t2b-ai-badge--claude { background: #d97757; }
-.t2b-ai-badge--claude::before { background: #fff; opacity: 0.9; }
-.t2b-ai-badge--codex { background: #10a37f; }
-.t2b-ai-badge--codex::before { background: #fff; opacity: 0.9; }
-
-.t2b-review-body {
-  margin-top: 28px;
-  max-width: 720px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-.t2b-review-body p {
-  font-size: 15.5px;
-  line-height: 1.75;
+.t2b-testi-mark { width: 22px; height: 22px; object-fit: contain; }
+.t2b-testi-card p {
+  font-size: 14.5px;
+  line-height: 1.65;
   color: var(--ink);
 }
+.t2b-testi-card p + p { margin-top: 12px; }
+.t2b-testi-card p strong { color: var(--mint-deep); font-weight: 800; }
 
+.t2b-cta-band { background: linear-gradient(135deg, var(--mint-deep), var(--mint)); }
+.t2b-cta-band p { color: rgba(255,255,255,0.82); }
+.t2b-cta-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.t2b-cta-brand img { width: 28px; height: 28px; border-radius: 8px; }
+.t2b-cta-brand span { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.t2b-cta-band .btn-line { border-color: rgba(255,255,255,0.6); }
+
+@media (max-width: 900px) {
+  .t2b-shot-grid { grid-template-columns: repeat(2, 1fr); }
+  .t2b-hero-grid { grid-template-columns: 1fr; }
+}
 @media (max-width: 720px) {
   .t2b-shot-grid { grid-template-columns: 1fr; }
-  .t2b-quote-grid { grid-template-columns: 1fr; }
+  .t2b-testi-grid { grid-template-columns: 1fr; }
 }
