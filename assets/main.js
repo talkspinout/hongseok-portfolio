@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence" | "marketing-funnel" | "marketing-funnel-check"
+  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence" | "marketing-funnel" | "marketing-funnel-check" | "think2brief"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- GNB (햄버거 드로어) ---------- */
@@ -20,7 +20,7 @@
       '<a class="nav-item" data-page="portfolio" href="portfolio.html" data-track="navigation" data-track-id="nav_portfolio" data-track-location="gnb">포트폴리오</a>' +
       '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">마케팅 랩</a>' +
       '<a class="nav-item nav-subitem" data-page="marketing-funnel" href="marketing-funnel.html" data-track="navigation" data-track-id="nav_marketing_funnel" data-track-location="gnb"><span aria-hidden="true">-</span> 마케팅 퍼널 운영 프레임워크</a>' +
-      '<a class="nav-item nav-subitem" href="https://talkspinout.github.io/campaign-strategy-os/" target="_blank" rel="noopener" data-track="navigation" data-track-id="nav_campaign_strategy_os" data-track-location="gnb"><span aria-hidden="true">-</span> 캠페인 전략 설계 OS</a>' +
+      '<a class="nav-item nav-subitem" data-page="think2brief" href="think2brief-story.html" data-track="navigation" data-track-id="nav_think2brief" data-track-location="gnb"><span aria-hidden="true">-</span> Think2Brief 제작기</a>' +
       '<div class="gnb-separator" aria-hidden="true">·</div>' +
       '<a class="nav-item" data-page="sentence" href="sentence.html" data-track="navigation" data-track-id="nav_sentence_machine" data-track-location="gnb">문장 자판기</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";

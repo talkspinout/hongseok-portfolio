@@ -1,0 +1,101 @@
+/* ============================================================
+   think2brief-story.css — Think2Brief 제작기 페이지 전용
+   ============================================================ */
+
+.t2b-shot-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.t2b-shot-card {
+  background: var(--paper);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.t2b-shot-card img {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid var(--line);
+}
+.t2b-shot-card figcaption {
+  padding: 16px 20px 20px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.t2b-shot-card figcaption span {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 800;
+  color: var(--mint-deep);
+}
+
+.t2b-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mint-deep);
+}
+.t2b-inline-link .arrow { transition: transform 0.15s; }
+.t2b-inline-link:hover .arrow { transform: translateX(3px); }
+
+.t2b-quote-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.t2b-quote-card {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+}
+.t2b-quote-card blockquote {
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+.t2b-ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 7px 14px 7px 10px;
+  border-radius: 999px;
+  color: #fff;
+}
+.t2b-ai-badge::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.001; /* 실제 마크는 아래 각 배지 색으로 채움 */
+}
+.t2b-ai-badge--claude { background: #d97757; }
+.t2b-ai-badge--claude::before { background: #fff; opacity: 0.9; }
+.t2b-ai-badge--codex { background: #10a37f; }
+.t2b-ai-badge--codex::before { background: #fff; opacity: 0.9; }
+
+.t2b-review-body {
+  margin-top: 28px;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.t2b-review-body p {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--ink);
+}
+
+@media (max-width: 720px) {
+  .t2b-shot-grid { grid-template-columns: 1fr; }
+  .t2b-quote-grid { grid-template-columns: 1fr; }
+}
