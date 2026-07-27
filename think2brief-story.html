@@ -47,7 +47,7 @@ Think2Brief 제작기</h1>
 기획 의도부터 제작 방식, AI 협업자의 평가까지 정리했습니다.</p>
         <div class="cta-actions" style="margin-top:32px">
           <a class="btn btn-mint" href="https://chromewebstore.google.com/detail/Think2Brief%20—%20Marketing/poafpfhompnhhcgoefileffigckohpli" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_webstore_top" data-track-location="t2b_intro">Chrome 웹스토어 <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_top" data-track-location="t2b_intro">제품 소개 사이트 보기 <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_top" data-track-location="t2b_intro">제품 사이트 <span class="arrow">→</span></a>
         </div>
       </section>
 
@@ -55,7 +55,16 @@ Think2Brief 제작기</h1>
       <section id="t2bIntent">
         <h2 class="sec-title">기획 의도</h2>
         <p class="sec-desc t2b-full-text">
-          LLM은 짧은 질문에도 빠르게 그럴듯한 답을 만듭니다. 하지만 무엇을 물어볼지, 어떤 근거를 받아들일지, 무엇을 선택하고 버릴지는 여전히 사람이 판단해야 합니다. 저는 실무에서 브리프를 정답지보다 생각의 누락과 연결을 확인하는 도구로 사용해 왔습니다. Think2Brief는 이 방식을 옮겨, 판단과 근거를 카드로 쌓고 전략과 실행까지 논리가 이어지는지 확인할 수 있도록 만든 도구입니다. 전략의 타당성을 대신 평가하지는 않습니다. 필요한 설명이 빠지지 않았는지만 기계적으로 확인하고, 완성된 브리프는 동료나 LLM에게 다시 검토받도록 했습니다. 결국 만들고 싶었던 것은 AI가 생각을 대신하는 도구가 아니라, AI를 사용하기 전에 자신의 판단을 먼저 만드는 도구였습니다.
+          LLM은 짧은 질문에도 빠르게 그럴듯한 답을 만듭니다. 하지만 무엇을 물어볼지, 어떤 근거를 받아들일지, 무엇을 선택하고 버릴지는 여전히 사람이 판단해야 합니다.
+        </p>
+        <p class="sec-desc t2b-full-text">
+          저는 실무에서 브리프를 정답지보다 생각의 누락과 연결을 확인하는 도구로 사용해 왔습니다. Think2Brief는 이 방식을 옮겨, 판단과 근거를 카드로 쌓고 전략과 실행까지 논리가 이어지는지 확인할 수 있도록 만든 도구입니다.
+        </p>
+        <p class="sec-desc t2b-full-text">
+          전략의 타당성을 대신 평가하지는 않습니다. 필요한 설명이 빠지지 않았는지만 기계적으로 확인하고, 완성된 브리프는 동료나 LLM에게 다시 검토받도록 했습니다.
+        </p>
+        <p class="sec-desc t2b-full-text">
+          결국 만들고 싶었던 것은 AI가 생각을 대신하는 도구가 아니라, AI를 사용하기 전에 자신의 판단을 먼저 만드는 도구였습니다.
         </p>
         <div class="t2b-wide-banner">
           <img src="assets/think2brief-work-board.png" alt="목표와 타깃이 채워지고 여러 섹션에 카드가 쌓인 Think2Brief 작업 보드" loading="lazy" />
@@ -75,7 +84,7 @@ Think2Brief 제작기</h1>
             <img src="assets/think2brief-site-preview.png" alt="Think2Brief 공식 소개 사이트 히어로 화면" loading="lazy" />
             <figcaption><span>02</span> 제품 소개 사이트 — 목적·기능·작동 방식을 설명하는 공식 소개 사이트입니다.</figcaption>
           </figure>
-          <figure class="t2b-shot-card t2b-shot-card--crop-top reveal">
+          <figure class="t2b-shot-card reveal">
             <img src="assets/think2brief-webstore-listing.png" alt="Chrome 웹스토어에 등록된 Think2Brief — Marketing 제품 페이지" loading="lazy" />
             <figcaption><span>03</span> Chrome 웹스토어 — 배포 요건과 검수를 거쳐 2026.07.27 실제 공개한 제품 페이지입니다.</figcaption>
           </figure>
@@ -87,7 +96,13 @@ Think2Brief 제작기</h1>
       <section id="t2bMethod">
         <h2 class="sec-title">제작 방법</h2>
         <p class="sec-desc t2b-full-text">
-          개발자가 아니기 때문에 구현에는 Claude Code와 Codex를 활용했습니다. 다만 결과가 나오면 그대로 받아들이는 일반적인 '바이브 코딩'보다는, 먼저 요구사항과 판단 기준을 정하고 AI가 만든 결과를 반복해서 검토하는 방식에 가까웠습니다. 기능을 만들기 전에는 무엇이 정상적으로 작동한 상태인지 정의하고, 구현 후에는 기존 기능이 깨지지 않았는지와 처음 정한 의도에서 벗어나지 않았는지를 확인했습니다. 코드는 AI가 작성했지만, 무엇을 만들지, 무엇을 자동화하지 않을지, 어떤 결과를 받아들일지는 직접 판단했습니다. 이 과정과 제 역할에 대해 Claude와 Codex에게 직접 물었습니다.
+          개발자가 아니기 때문에 구현에는 Claude Code와 Codex를 활용했습니다. Claude의 말을 빌리면, 결과가 나오면 그대로 받아들이는 일반적인 '바이브 코딩'보다는 먼저 요구사항과 판단 기준을 정하고 AI가 만든 결과를 반복해서 검토하는 방식에 가까웠다고 합니다.
+        </p>
+        <p class="sec-desc t2b-full-text">
+          기능을 만들기 전에는 무엇이 정상적으로 작동한 상태인지 정의하고, 구현 후에는 기존 기능이 깨지지 않았는지와 처음 정한 의도에서 벗어나지 않았는지를 확인했습니다.
+        </p>
+        <p class="sec-desc t2b-full-text">
+          코드는 AI가 작성했지만, 무엇을 만들지, 무엇을 자동화하지 않을지, 어떤 결과를 받아들일지는 직접 판단했습니다. 이 과정과 제 역할에 대해 Claude와 Codex에게 직접 물었습니다.
         </p>
 
         <div class="t2b-testi-grid">
@@ -121,7 +136,7 @@ Think2Brief 제작기</h1>
           </div>
           <div class="cta-actions">
             <a class="btn btn-mint" href="https://chromewebstore.google.com/detail/Think2Brief%20—%20Marketing/poafpfhompnhhcgoefileffigckohpli" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_webstore_bottom" data-track-location="t2b_bottom">Chrome 웹스토어 <span class="arrow">→</span></a>
-            <a class="btn btn-line" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_bottom" data-track-location="t2b_bottom">제품 소개 사이트 보기 <span class="arrow">→</span></a>
+            <a class="btn btn-line" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_bottom" data-track-location="t2b_bottom">제품 사이트 <span class="arrow">→</span></a>
           </div>
         </div>
       </section>

@@ -44,7 +44,12 @@
   object-fit: contain;
   background: #fff;
   display: block;
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  box-sizing: border-box;
+}
+.t2b-shot-card--crop-left img {
+  object-fit: cover;
+  object-position: left center;
 }
 .t2b-shot-card figcaption {
   padding: 16px 20px 20px;
