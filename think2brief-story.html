@@ -12,13 +12,13 @@
   <meta property="og:url" content="https://talkspinout.github.io/hongseok-portfolio/think2brief-story.html" />
   <meta property="og:title" content="Think2Brief 제작기 — 고홍석" />
   <meta property="og:description" content="마케터가 실무에서 쓰던 사고 프레임워크를 AI 개발 도구와 함께 Chrome 확장 프로그램으로 만든 과정입니다." />
-  <meta property="og:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/og-image.png" />
+  <meta property="og:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/think2brief-og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Think2Brief 제작기 — 고홍석" />
   <meta name="twitter:description" content="마케터가 실무에서 쓰던 사고 프레임워크를 AI 개발 도구와 함께 Chrome 확장 프로그램으로 만든 과정입니다." />
-  <meta name="twitter:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/og-image.png" />
+  <meta name="twitter:image" content="https://talkspinout.github.io/hongseok-portfolio/assets/think2brief-og.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="assets/think2brief-story.css" />
@@ -39,33 +39,64 @@
 
       <!-- 인트로 -->
       <section id="t2bIntro">
-        <span class="eyebrow">Marketing Lab · Chrome Extension</span>
-        <span class="t2b-launch-tag">2026.07 Chrome 웹스토어 공개</span>
-        <h1 class="hero-title">캠페인 전략 설계 도구,
+        <div class="t2b-hero-layout">
+          <div class="t2b-hero-copy">
+            <div class="t2b-intro-meta">
+              <span class="eyebrow">Marketing Lab · Chrome 확장 프로그램</span>
+            </div>
+            <h1 class="hero-title">캠페인 전략 설계 도구,
 Think2Brief 제작기</h1>
-        <p class="hero-sub">마케팅 기획자가 실무에서 쓰던 사고 프레임워크를, AI 개발 도구와 함께 실제 Chrome 확장 프로그램으로 만들었습니다.
+            <p class="hero-sub">마케팅 기획자가 실무에서 쓰던 사고 프레임워크를, AI 개발 도구와 함께 실제 Chrome 확장 프로그램으로 만들었습니다.
 기획 의도부터 제작 방식, AI 협업자의 평가까지 정리했습니다.</p>
-        <div class="cta-actions" style="margin-top:32px">
-          <a class="btn btn-mint" href="https://chromewebstore.google.com/detail/Think2Brief%20—%20Marketing/poafpfhompnhhcgoefileffigckohpli" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_webstore_top" data-track-location="t2b_intro">Chrome 웹스토어 <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_top" data-track-location="t2b_intro">제품 사이트 <span class="arrow">→</span></a>
+            <div class="cta-actions t2b-hero-actions">
+              <a class="btn btn-mint" href="https://chromewebstore.google.com/detail/Think2Brief%20—%20Marketing/poafpfhompnhhcgoefileffigckohpli" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_webstore_top" data-track-location="t2b_intro">Chrome 웹스토어 <span class="arrow">→</span></a>
+              <a class="btn btn-ghost" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_top" data-track-location="t2b_intro">제품 사이트 <span class="arrow">→</span></a>
+            </div>
+            <p class="t2b-launch-tag">2026.07.27 · Chrome 웹스토어 공개</p>
+          </div>
+          <figure class="t2b-hero-visual" aria-label="Think2Brief 제품 화면">
+            <img src="assets/think2brief-site-preview.png" alt="Think2Brief 제품 소개 사이트와 카드 기반 전략 보드" />
+          </figure>
         </div>
       </section>
 
       <!-- 기획 의도 -->
       <section id="t2bIntent">
         <h2 class="sec-title">기획 의도</h2>
-        <p class="sec-desc t2b-full-text">
-          LLM은 짧은 질문에도 빠르게 그럴듯한 답을 만듭니다. 하지만 무엇을 물어볼지, 어떤 근거를 받아들일지, 무엇을 선택하고 버릴지는 여전히 사람이 판단해야 합니다.
-        </p>
-        <p class="sec-desc t2b-full-text">
-          저는 실무에서 브리프를 정답지보다 생각의 누락과 연결을 확인하는 도구로 사용해 왔습니다. Think2Brief는 이 방식을 옮겨, 판단과 근거를 카드로 쌓고 전략과 실행까지 논리가 이어지는지 확인할 수 있도록 만든 도구입니다.
-        </p>
-        <p class="sec-desc t2b-full-text">
-          전략의 타당성을 대신 평가하지는 않습니다. 필요한 설명이 빠지지 않았는지만 기계적으로 확인하고, 완성된 브리프는 동료나 LLM에게 다시 검토받도록 했습니다.
-        </p>
-        <p class="sec-desc t2b-full-text">
-          결국 만들고 싶었던 것은 AI가 생각을 대신하는 도구가 아니라, AI를 사용하기 전에 자신의 판단을 먼저 만드는 도구였습니다.
-        </p>
+        <p class="t2b-section-lead">Think2Brief는 ‘내 사고 과정을 도구로 구현할 수 있을까’, 그리고 ‘AI 시대에 기획자는 무엇을 해야 하는가’라는 두 가지 질문에서 시작했습니다.</p>
+        <div class="t2b-intent-grid">
+          <article class="t2b-intent-card">
+            <span class="t2b-card-index">01</span>
+            <h3>사고의 과정을 도구로</h3>
+            <p>실무에서 사용해 온 목표 설정, 판단, 근거, 전략, 실행의 흐름을 카드 구조로 옮겼습니다. 결과만 기록하는 것이 아니라 생각이 만들어지는 과정을 남기고 싶었습니다.</p>
+          </article>
+          <article class="t2b-intent-card">
+            <span class="t2b-card-index">02</span>
+            <h3>AI 시대의 기획자</h3>
+            <p>AI가 빠르게 답을 만드는 시대에도 무엇을 물을지, 어떤 근거를 받아들일지, 무엇을 선택하고 버릴지는 사람이 정해야 합니다. 핵심은 AI의 의도를 따르는 것이 아니라 스스로 기획할 수 있는가입니다.</p>
+          </article>
+          <article class="t2b-intent-card">
+            <span class="t2b-card-index">03</span>
+            <h3>정답보다 판단의 근거</h3>
+            <p>시장의 불확실성과 인간의 비합리성을 하나의 점수로 환원하면 거짓된 확신을 만들 수 있습니다. 그래서 전략을 정량 평가하거나 정답을 제시하지 않고, 판단에 필요한 설명이 빠졌는지만 확인합니다.</p>
+          </article>
+          <article class="t2b-intent-card">
+            <span class="t2b-card-index">04</span>
+            <h3>관성적인 실행을 멈추는 점검</h3>
+            <p>목표와 타깃, 전략과 실행 사이의 연결을 다시 확인하게 해 사고 과정의 누락을 발견합니다. 늘 하던 방식대로 바로 실행하기 전에 한 번 더 질문하도록 만드는 도구입니다.</p>
+          </article>
+        </div>
+        <div class="t2b-principle">
+          <div>
+            <span class="t2b-principle-label">제품의 중점</span>
+            <strong>AI가 생각을 대신하기 전에, 자신의 판단을 먼저 만드는 것.</strong>
+          </div>
+          <ul>
+            <li>전략의 정답을 대신 제시하지 않습니다.</li>
+            <li>판단을 점수로 단순화하지 않습니다.</li>
+            <li>놓친 설명과 끊어진 연결을 점검합니다.</li>
+          </ul>
+        </div>
         <div class="t2b-wide-banner">
           <img src="assets/think2brief-work-board.png" alt="목표와 타깃이 채워지고 여러 섹션에 카드가 쌓인 Think2Brief 작업 보드" loading="lazy" />
         </div>
@@ -74,19 +105,25 @@ Think2Brief 제작기</h1>
       <!-- 제품화 결과 -->
       <section id="t2bOutput">
         <h2 class="sec-title">제품화 결과</h2>
-        <p class="sec-desc">아이디어를 기능으로 구현하는 데서 끝내지 않고, 실제로 사용할 수 있는 Chrome Extension과 제품 소개 사이트를 만들고 Chrome 웹스토어에 공개했습니다.</p>
-        <figure class="t2b-shot-featured reveal">
-          <img src="assets/think2brief-site-preview.png" alt="Think2Brief 공식 소개 사이트 히어로 화면" loading="lazy" />
-          <figcaption>제품 소개 사이트 — 목적·기능·작동 방식을 설명하는 공식 소개 사이트입니다.</figcaption>
-        </figure>
+        <p class="sec-desc">아이디어를 기능으로 구현하는 데서 끝내지 않고, 실제로 사용할 수 있는 Chrome 확장 프로그램과 제품 소개 사이트를 만들고 Chrome 웹스토어에 공개했습니다.</p>
         <div class="t2b-shot-grid">
-          <figure class="t2b-shot-card reveal">
-            <img src="assets/think2brief-work-board.png" alt="목표와 타깃이 채워지고 여러 섹션에 카드가 쌓인 Think2Brief 작업 보드" loading="lazy" />
-            <figcaption>Think2Brief — 판단과 근거를 카드로 정리하고 전략·실행의 연결을 점검해 브리프로 만드는 Chrome Extension입니다.</figcaption>
+          <figure class="t2b-shot-card t2b-shot-card--site reveal">
+            <div class="t2b-shot-media">
+              <img src="assets/think2brief-site-preview-framed.png" alt="Think2Brief 공식 소개 사이트 히어로 화면" loading="lazy" />
+            </div>
+            <figcaption><strong>제품 소개 사이트</strong><span>제품의 문제 정의와 작동 방식을 설명하고 설치로 연결하는 공식 사이트</span></figcaption>
           </figure>
           <figure class="t2b-shot-card reveal">
-            <img src="assets/think2brief-webstore-listing.png" alt="Chrome 웹스토어에 등록된 Think2Brief — Marketing 제품 페이지" loading="lazy" />
-            <figcaption>Chrome 웹스토어 — 배포 요건과 검수를 거쳐 2026.07.27 실제 공개한 제품 페이지입니다.</figcaption>
+            <div class="t2b-shot-media">
+              <img src="assets/think2brief-work-board.png" alt="목표와 타깃이 채워지고 여러 섹션에 카드가 쌓인 Think2Brief 작업 보드" loading="lazy" />
+            </div>
+            <figcaption><strong>Think2Brief 작업 보드</strong><span>목표·타깃·판단 근거를 카드로 정리해 브리프로 완성하는 핵심 화면</span></figcaption>
+          </figure>
+          <figure class="t2b-shot-card t2b-shot-card--webstore reveal">
+            <div class="t2b-shot-media">
+              <img src="assets/think2brief-webstore-detail.png" alt="Chrome 웹스토어에 등록된 Think2Brief — Marketing 제품 페이지" loading="lazy" />
+            </div>
+            <figcaption><strong>Chrome 웹스토어</strong><span>배포 요건과 심사를 통과해 2026.07.27 실제 공개한 제품 페이지</span></figcaption>
           </figure>
         </div>
         <a class="t2b-inline-link" href="https://talkspinout.github.io/think2brief/" target="_blank" rel="noopener" data-track="cta" data-track-id="t2b_product_site_mid" data-track-location="t2b_output">제품 소개 사이트에서 전체 화면 보기 <span class="arrow">→</span></a>

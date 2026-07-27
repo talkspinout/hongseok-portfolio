@@ -2,15 +2,158 @@
    think2brief-story.css — Think2Brief 제작기 페이지 전용
    ============================================================ */
 
+.main #t2bIntro {
+  padding-top: 72px;
+  padding-bottom: 80px;
+}
+
+.t2b-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: 40px;
+}
+
+.t2b-hero-copy { min-width: 0; }
+
+.t2b-hero-copy .hero-title {
+  margin-top: 28px;
+  font-size: clamp(42px, 3.6vw, 58px);
+  line-height: 1.08;
+}
+
+.t2b-hero-actions { margin-top: 32px; }
+
+.t2b-hero-visual {
+  margin: 0;
+  padding: 18px;
+  background: #f4f7f6;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 26px 70px rgba(25, 31, 31, 0.12);
+  transform: rotate(1.2deg);
+}
+
+.t2b-hero-visual img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: right center;
+  border-radius: 17px;
+}
+
+.t2b-intro-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .t2b-launch-tag {
-  display: inline-block;
-  margin-left: 10px;
+  margin-top: 18px;
   font-size: 13px;
   font-weight: 700;
   color: var(--ink-soft);
 }
 
 .t2b-full-text { max-width: none; }
+
+.t2b-section-lead {
+  max-width: 920px;
+  margin-top: 16px;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 750;
+  line-height: 1.48;
+  letter-spacing: -0.025em;
+}
+
+.t2b-intent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin-top: 36px;
+}
+
+.t2b-intent-card {
+  padding: 22px 0 28px;
+  background: transparent;
+  border-top: 1px solid var(--line);
+}
+
+.t2b-card-index {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--mint-deep);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.t2b-intent-card h3 {
+  font-size: 19px;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.t2b-intent-card p {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.t2b-principle {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 36px;
+  margin-top: 8px;
+  padding: 28px 30px;
+  color: var(--ink);
+  background: var(--mint-tint);
+  border: 1px solid rgba(0, 142, 137, 0.16);
+  border-radius: var(--radius);
+}
+
+.t2b-principle-label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--mint);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.t2b-principle strong {
+  display: block;
+  max-width: 620px;
+  font-size: clamp(20px, 2vw, 27px);
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+}
+
+.t2b-principle ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-self: center;
+}
+
+.t2b-principle li {
+  position: relative;
+  padding: 8px 0 8px 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0, 142, 137, 0.14);
+}
+
+.t2b-principle li::before {
+  position: absolute;
+  left: 0;
+  color: var(--mint);
+  content: "●";
+  font-size: 8px;
+}
 
 .t2b-wide-banner {
   margin-top: 32px;
@@ -27,51 +170,62 @@
   display: block;
 }
 
-.t2b-shot-featured {
-  margin-top: 36px;
-  background: var(--paper);
-  border-radius: var(--radius);
-  padding: 28px;
-}
-.t2b-shot-featured img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top left;
-  display: block;
-  border-radius: 14px;
-  box-shadow: 0 20px 44px rgba(25, 31, 31, 0.14);
-}
-.t2b-shot-featured figcaption {
-  margin-top: 18px;
-  font-size: 14px;
-  color: var(--ink-soft);
-}
-
 .t2b-shot-grid {
-  margin-top: 20px;
+  margin-top: 36px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
+  align-items: stretch;
 }
 .t2b-shot-card {
+  display: flex;
+  flex-direction: column;
   background: var(--paper);
   border-radius: var(--radius);
   overflow: hidden;
 }
-.t2b-shot-card img {
-  width: 100%;
+.t2b-shot-media {
   aspect-ratio: 4 / 3;
-  object-fit: contain;
-  background: #fff;
-  display: block;
+  padding: 28px;
+  background: #f7f9f8;
   border: 1px solid var(--line);
   box-sizing: border-box;
 }
+.t2b-shot-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(25, 31, 31, 0.12);
+}
+.t2b-shot-card--site .t2b-shot-media {
+  padding: 20px;
+}
+.t2b-shot-card--webstore .t2b-shot-media {
+  padding: 10px;
+}
+.t2b-shot-card--webstore .t2b-shot-media img {
+  box-shadow: 0 8px 22px rgba(25, 31, 31, 0.09);
+}
 .t2b-shot-card figcaption {
+  flex: 1;
   padding: 16px 20px 20px;
-  font-size: 14px;
+}
+.t2b-shot-card figcaption strong,
+.t2b-shot-card figcaption span {
+  display: block;
+}
+.t2b-shot-card figcaption strong {
+  margin-bottom: 7px;
+  color: var(--ink);
+  font-size: 15px;
+}
+.t2b-shot-card figcaption span {
   color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.55;
 }
 
 .t2b-inline-link {
@@ -133,9 +287,53 @@
 .t2b-cta-brand span { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
 .t2b-cta-band .btn-line { border-color: rgba(255,255,255,0.6); }
 
+@media (max-width: 960px) {
+  .t2b-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .t2b-hero-copy { max-width: 760px; }
+  .t2b-hero-visual {
+    max-width: 760px;
+    transform: none;
+  }
+}
+
 @media (max-width: 720px) {
+  .main #t2bIntro {
+    padding-top: 52px;
+    padding-bottom: 64px;
+  }
+  .t2b-intro-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .t2b-launch-tag {
+    margin-top: 16px;
+    padding-left: 2px;
+    font-size: 12.5px;
+  }
+  .t2b-hero-layout { gap: 32px; }
+  .t2b-hero-copy .hero-title {
+    margin-top: 20px;
+    font-size: 37px;
+  }
+  .t2b-hero-visual {
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .t2b-hero-visual img { border-radius: 12px; }
+  .t2b-section-lead { font-size: 21px; }
+  .t2b-intent-grid { grid-template-columns: 1fr; }
+  .t2b-intent-card { padding: 20px 0 24px; }
+  .t2b-principle {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 26px 22px;
+  }
   .t2b-shot-grid { grid-template-columns: 1fr; }
+  .t2b-shot-media { padding: 22px; }
   .t2b-testi-grid { grid-template-columns: 1fr; }
   .t2b-wide-banner img { aspect-ratio: 16 / 9; }
-  .t2b-shot-featured img { aspect-ratio: 4 / 3; }
 }
