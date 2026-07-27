@@ -345,11 +345,11 @@ const LAB_ITEMS = [
     linkLabel: "프레임워크 보기",
   },
   {
-    type: "framework",
-    title: "캠페인 전략 설계 OS",
-    desc: "생각을 카드로 쌓고, 대표안·대안·제외안을 근거와 함께 남기고, 전략과 활동의 논리 연결까지 점검한 뒤 브리프 한 장으로 내보내는 캠페인 전략 설계 도구입니다. 오길비·JWT T-Plan 같은 고전 프레임워크부터 직접 만든 전략 전개형 브리프까지, 실무에서 쓰는 사고 흐름을 그대로 담았습니다.",
-    link: "https://talkspinout.github.io/campaign-strategy-os/",
-    linkLabel: "OS 열어보기",
+    type: "project",
+    title: "Think2Brief — Marketing",
+    desc: "판단과 근거를 카드로 쌓고, 목표·근거·전략·활동의 논리 연결을 점검한 뒤 브리프로 정리하는 실무 사고 흐름을 그대로 옮긴 Chrome 확장 프로그램입니다. 기획 의도부터 제작 방식, AI 협업자의 평가까지 만든 과정을 정리했습니다.",
+    link: "think2brief-story.html",
+    linkLabel: "제작기 보기",
   },
   {
     type: "project",
