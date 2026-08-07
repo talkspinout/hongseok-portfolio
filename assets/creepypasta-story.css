@@ -5,12 +5,14 @@
 .main #creepyIntro { padding-top: 72px; padding-bottom: 84px; }
 .creepy-hero { display:grid; grid-template-columns:minmax(0,1fr); gap:34px; align-items:center; }
 .creepy-hero-copy { max-width:860px; }
+body[data-page="creepypasta"] .hero-sub { max-width:820px; }
 .creepy-hero-copy .hero-title { margin-top:14px; font-size:clamp(42px,3.8vw,60px); line-height:1.08; }
 .creepy-kicker { font-size:clamp(22px,2.3vw,31px); font-weight:800; line-height:1.4; letter-spacing:-.03em; max-width:760px; }
 .creepy-hero-actions { margin-top:30px; }
 
 .creepy-section-lead { margin-top:16px; max-width:920px; font-size:clamp(22px,2.2vw,30px); font-weight:800; line-height:1.45; letter-spacing:-.03em; }
 .creepy-full { max-width:900px; }
+.creepy-mt { margin-top:20px; }
 .creepy-flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-top:38px; }
 .creepy-flow article,.creepy-ai-grid article { padding:24px 22px; background:var(--paper); border-radius:var(--radius); }
 .creepy-flow article span,.creepy-ai-grid article span { display:block; margin-bottom:14px; color:var(--mint-deep); font-size:12px; font-weight:850; letter-spacing:.08em; }
@@ -55,6 +57,7 @@
 .creepy-note { margin-top:24px; color:var(--ink-soft); font-size:14px; }
 
 .creepy-ai-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-top:32px; }
+.creepy-ai-note { margin-top:24px; color:var(--ink-soft); font-size:15px; line-height:1.7; max-width:920px; }
 .creepy-cta { background:linear-gradient(135deg,#171a1a,#2c3533); }
 .creepy-cta p { color:rgba(255,255,255,.75); }
 
