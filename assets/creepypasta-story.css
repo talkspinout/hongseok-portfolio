@@ -1,5 +1,5 @@
 /* ============================================================
-   creepypasta-story.css — 괴담배포망 제작기 전용
+   creepypasta-story.css — 괴담통보망 제작기 전용
    ============================================================ */
 
 .main #creepyIntro { padding-top: 72px; padding-bottom: 84px; }
@@ -39,6 +39,14 @@
 .creepy-case-label { display:block; margin-bottom:18px; font-size:12px; font-weight:850; letter-spacing:.06em; opacity:.72; }
 .creepy-case p { font-size:17px; line-height:1.75; }
 
+.creepy-mt { margin-top:32px; }
+.creepy-mt-lg { margin-top:40px; }
+
+.creepy-logic-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; margin-top:32px; }
+.creepy-logic-grid article { padding:28px; background:var(--paper); border-radius:var(--radius); }
+.creepy-logic-grid h3 { color:var(--mint-deep); font-size:17px; font-weight:850; letter-spacing:-.02em; }
+.creepy-logic-grid p { margin-top:12px; color:var(--ink-soft); font-size:14.5px; line-height:1.8; }
+
 .creepy-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:34px; }
 .creepy-metrics article { padding:26px; border:1px solid var(--line); border-radius:var(--radius); background:#fff; }
 .creepy-metrics article > span { display:block; color:var(--mint-deep); font-size:clamp(28px,3vw,42px); font-weight:850; letter-spacing:-.04em; }
@@ -56,6 +64,22 @@
 .creepy-cta { background:linear-gradient(135deg,#171a1a,#2c3533); }
 .creepy-cta p { color:rgba(255,255,255,.75); }
 
+.creepy-screens-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:36px; align-items:stretch; }
+.creepy-screen-card { display:flex; flex-direction:column; background:var(--paper); border-radius:var(--radius); overflow:hidden; }
+.creepy-screen-media { display:flex; align-items:center; justify-content:center; height:520px; padding:22px; background:var(--bg); border:1px solid var(--line); box-sizing:border-box; }
+.creepy-screen-media img { max-width:100%; max-height:100%; width:auto; height:auto; display:block; border-radius:14px; box-shadow:0 16px 32px rgba(25,31,31,.14); }
+.creepy-screen-card figcaption { flex:1; padding:18px 20px 22px; }
+.creepy-screen-card figcaption strong { display:block; margin-bottom:7px; font-size:15px; }
+.creepy-screen-card figcaption span { display:block; color:var(--ink-soft); font-size:13.5px; line-height:1.6; }
+
+.creepy-egg { margin-top:28px; background:#0a0b0b; border-radius:26px; overflow:hidden; }
+.creepy-egg img { width:100%; aspect-ratio:12/6.5; object-fit:cover; object-position:center; background:#0a0b0b; display:block; }
+.creepy-egg-copy { padding:32px 36px 36px; }
+.creepy-egg-quote { color:#f0f1ec; font-size:19px; font-weight:750; line-height:1.6; }
+.creepy-egg-copy p { margin-top:14px; color:#cfd6d3; font-size:15px; line-height:1.8; }
+.creepy-egg-copy p:first-child { margin-top:0; }
+.creepy-egg-note { color:#7f8a87; font-size:13px; }
+
 @media (max-width:960px) {
   .creepy-hero { grid-template-columns:1fr; }
   .creepy-notice { max-width:760px; transform:none; }
@@ -65,9 +89,12 @@
   .main #creepyIntro { padding-top:52px; padding-bottom:64px; }
   .creepy-hero-copy .hero-title { font-size:38px; }
   .creepy-kicker { font-size:22px; }
-  .creepy-flow,.creepy-ai-grid,.creepy-case-grid,.creepy-metrics,.creepy-principles { grid-template-columns:1fr; }
+  .creepy-flow,.creepy-ai-grid,.creepy-case-grid,.creepy-metrics,.creepy-principles,.creepy-logic-grid,.creepy-screens-grid { grid-template-columns:1fr; }
   .creepy-pipeline { grid-template-columns:1fr; }
   .creepy-pipeline b { transform:rotate(90deg); justify-self:center; }
   .creepy-notice { padding:24px; border-radius:20px; }
   .creepy-warning { margin-top:30px; font-size:22px; }
+  .creepy-egg img { aspect-ratio:16/9; }
+  .creepy-egg-copy { padding:26px 24px 30px; }
+  .creepy-screen-media { height:420px; }
 }
