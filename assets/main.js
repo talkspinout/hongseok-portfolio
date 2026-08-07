@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence" | "marketing-funnel" | "marketing-funnel-check" | "think2brief"
+  const PAGE = document.body.dataset.page; // "home" | "about" | "portfolio" | "lab" | "sentence" | "marketing-funnel" | "marketing-funnel-check" | "think2brief" | "creepypasta"
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- GNB (햄버거 드로어) ---------- */
@@ -21,6 +21,7 @@
       '<a class="nav-item" data-page="lab" href="lab.html" data-track="navigation" data-track-id="nav_lab" data-track-location="gnb">마케팅 랩</a>' +
       '<a class="nav-item nav-subitem" data-page="marketing-funnel" href="marketing-funnel.html" data-track="navigation" data-track-id="nav_marketing_funnel" data-track-location="gnb"><span aria-hidden="true">-</span> 마케팅 퍼널 운영 프레임워크</a>' +
       '<a class="nav-item nav-subitem" data-page="think2brief" href="think2brief-story.html" data-track="navigation" data-track-id="nav_think2brief" data-track-location="gnb"><span aria-hidden="true">-</span> Think2Brief 제작기</a>' +
+      '<a class="nav-item nav-subitem" data-page="creepypasta" href="creepypasta-story.html" data-track="navigation" data-track-id="nav_creepypasta" data-track-location="gnb"><span aria-hidden="true">-</span> 괴담통보망 제작기</a>' +
       '<div class="gnb-separator" aria-hidden="true">·</div>' +
       '<a class="nav-item" data-page="sentence" href="sentence.html" data-track="navigation" data-track-id="nav_sentence_machine" data-track-location="gnb">문장 자판기</a>' +
       '<div class="gnb-foot">© ' + new Date().getFullYear() + " Hongseok Ko</div>";
@@ -305,6 +306,9 @@
     wrap.innerHTML = LAB_ITEMS.map(function (item) {
       const badge = item.type === "framework" ? "프레임워크" : "개인 프로젝트";
       const isExternal = item.link && /^https?:\/\//.test(item.link);
+      const banner = item.banner
+        ? '<div class="lab-card-banner"><img src="' + item.banner + '" alt="' + (item.bannerAlt || "") + '" loading="lazy" /></div>'
+        : "";
       const btn = item.link
         ? '<a class="btn btn-ghost" href="' + item.link + '"' + (isExternal ? ' target="_blank" rel="noopener"' : "") +
           ' data-track="cta" data-track-id="view_framework" data-track-location="lab_card">' +
@@ -312,6 +316,7 @@
         : "";
       return (
         '<article class="lab-card reveal">' +
+        banner +
         '<span class="tag">' + badge + "</span>" +
         "<h3>" + item.title + "</h3>" +
         "<p>" + item.desc + "</p>" +
