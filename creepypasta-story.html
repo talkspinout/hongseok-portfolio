@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <script src="assets/data.js"></script>
+  <script src="assets/analytics.js"></script>
+  <title>괴담배포망 제작기 — 고홍석</title>
+  <meta name="description" content="괴담과 운세를 결합한 개인화 콘텐츠 서비스 괴담배포망의 기획, 콘텐츠 시스템 설계, 시뮬레이션과 AI 협업 과정을 정리했습니다." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://talkspinout.github.io/hongseok-portfolio/creepypasta-story.html" />
+  <meta property="og:title" content="괴담배포망 제작기 — 고홍석" />
+  <meta property="og:description" content="괴담이 요즘 유행인데 하나 만들어볼까? 가벼운 생각에서 시작해 운세 기반 개인화 콘텐츠 서비스로 발전한 과정을 정리했습니다." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/creepypasta-story.css" />
+</head>
+<body data-page="creepypasta">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="gnb" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="gnb-logo" href="index.html" data-track="navigation" data-track-id="brand_home" data-track-location="topbar" aria-label="홈으로 이동"><span class="dot"></span>고홍석 · Marketing Portfolio</a>
+  </header>
+
+  <nav class="gnb" id="gnb" aria-label="사이트 메뉴"></nav>
+
+  <div class="main">
+    <div class="wrap">
+      <section id="creepyIntro" class="creepy-hero">
+        <div class="creepy-hero-copy">
+          <span class="eyebrow">Personal Project · Web Service</span>
+          <p class="creepy-kicker">괴담이 요즘 유행인데 하나 만들어볼까?</p>
+          <h1 class="hero-title">괴담배포망 제작기</h1>
+          <p class="hero-sub">가벼운 생각에서 시작해, 사용자의 생년월일과 오늘 날짜가 결과에 영향을 주는 괴담 서비스를 만들었습니다. 운세를 직접 보여주기보다 괴담을 고르는 규칙으로 사용하고, 반복해서 봐도 어색하지 않도록 콘텐츠 구조와 검수 방식을 함께 설계했습니다.</p>
+          <div class="cta-actions creepy-hero-actions">
+            <a class="btn btn-mint" href="https://rhleka.xyz" target="_blank" rel="noopener" data-track="cta" data-track-id="creepypasta_service_top" data-track-location="creepypasta_intro">서비스 보기 <span class="arrow">→</span></a>
+          </div>
+        </div>
+        <div class="creepy-notice" aria-label="괴담배포망 통보문 예시">
+          <div class="creepy-notice-head"><span>괴담배포망</span><span>오늘의 통보문</span></div>
+          <p class="creepy-warning">오늘은 열쇠와 자물쇠를 조심하십시오.</p>
+          <div class="creepy-rule"></div>
+          <p>역내 분실물 보관소의 잠긴 캐비닛에서 우연히 주운 열쇠를 아무 자물쇠에나 꽂아보지 마십시오.</p>
+          <p class="creepy-muted">같은 입력과 같은 날짜에는 같은 결과가 전달됩니다.</p>
+        </div>
+      </section>
+
+      <section id="creepyStart">
+        <h2 class="sec-title">아이디어의 시작</h2>
+        <p class="creepy-section-lead">괴담을 조금 더 자주 보게 할 수 없을까.</p>
+        <div class="creepy-flow">
+          <article><span>01</span><h3>괴담이 다시 유행했습니다.</h3><p>괴담을 소재로 작은 서비스를 하나 만들어보면 재미있겠다고 생각했습니다.</p></article>
+          <article><span>02</span><h3>다시 찾아올 이유가 필요했습니다.</h3><p>무작위 괴담만 보여준다면 몇 번 보고 나면 끝날 가능성이 높았습니다.</p></article>
+          <article><span>03</span><h3>운세가 떠올랐습니다.</h3><p>결과가 매일 달라진다는 이유만으로도 반복해서 확인하는 콘텐츠라는 점에 주목했습니다.</p></article>
+          <article><span>04</span><h3>그래서 둘을 섞었습니다.</h3><p>생년월일과 오늘 날짜가 괴담에 영향을 주고, 매일 다른 통보문이 도착하도록 만들기로 했습니다.</p></article>
+        </div>
+      </section>
+
+      <section id="creepyRule">
+        <h2 class="sec-title">운세를 콘텐츠 규칙으로</h2>
+        <p class="sec-desc creepy-full">사주를 그대로 풀이하면 또 하나의 운세 서비스가 됩니다. 반대로 생년월일을 입력받고 결과를 무작위로 고르면 개인화라고 부르기 어렵습니다.</p>
+        <p class="creepy-section-lead">명리는 화면에 보여주는 정보가 아니라, 괴담을 고르는 내부 규칙으로 사용했습니다.</p>
+        <div class="creepy-pipeline">
+          <div><strong>생년월일시 + 오늘 날짜</strong><span>개인별·날짜별 신호 계산</span></div>
+          <b>→</b>
+          <div><strong>콘텐츠 방향 결정</strong><span>생활 영역·오행·서사 강도</span></div>
+          <b>→</b>
+          <div><strong>통보문 조립</strong><span>장소·사물·현상·금기 선택</span></div>
+        </div>
+        <p class="creepy-closing">사용자에게 보이는 것은 계산 과정이 아니라, 오늘 자신에게 도착한 한 장의 통보문입니다.</p>
+      </section>
+
+      <section id="creepySystem">
+        <h2 class="sec-title">콘텐츠를 조합 가능한 시스템으로</h2>
+        <p class="sec-desc creepy-full">장소, 구역, 사물, 현상, 조건, 금기를 각각 독립된 소재 풀로 만들고 서로 어울릴 수 있는 범위를 태그와 규칙으로 정의했습니다.</p>
+        <div class="creepy-tags">
+          <span>장소</span><span>구역</span><span>사물</span><span>현상</span><span>조건</span><span>금기</span>
+        </div>
+        <div class="creepy-case-grid">
+          <article class="creepy-case bad">
+            <span class="creepy-case-label">문장은 맞지만</span>
+            <p>아파트 엘리베이터 로비의 거울 앞에 쌓여 있는 마른 흙을 쓸어 담지 마십시오.</p>
+          </article>
+          <article class="creepy-case good">
+            <span class="creepy-case-label">장면은 맞지 않았습니다.</span>
+            <p>문법만 확인하는 것으로는 부족했습니다. 장소의 기능과 사물의 존재 가능성까지 함께 검수하는 규칙이 필요했습니다.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="creepyQa">
+        <h2 class="sec-title">반복도 품질의 문제였습니다</h2>
+        <p class="sec-desc creepy-full">매일 다시 보는 서비스를 만들려면 문장이 자연스러운 것만으로는 부족합니다. 특정 소재가 지나치게 자주 나오거나 며칠 만에 비슷한 결과가 반복되면 금방 기시감이 생깁니다.</p>
+        <div class="creepy-metrics">
+          <article><span>18,000</span><strong>생성 결과 시뮬레이션</strong><p>200명 × 90일 표본으로 실제 노출 분포를 확인했습니다.</p></article>
+          <article><span>68.4% → 24.3%</span><strong>최다 오행 편중</strong><p>연 단위 상수 편향을 줄여 특정 계열에 결과가 몰리는 현상을 낮췄습니다.</p></article>
+          <article><span>12일 → 49일</span><strong>첫 완전 반복</strong><p>최상위 하나가 아닌 적합도 상위 후보 안에서 선택해 반복 시점을 늦췄습니다.</p></article>
+          <article><span>185 → 326</span><strong>1년 고유 괴담</strong><p>결정론을 유지하면서도 한 사람이 접하는 결과의 폭을 넓혔습니다.</p></article>
+        </div>
+        <p class="creepy-note">‘다양해 보인다’고 판단하기보다, 편중·반복·미출현 콘텐츠를 실제 생성 결과로 확인했습니다.</p>
+      </section>
+
+      <section id="creepyLlm">
+        <h2 class="sec-title">괴담은 생성형 AI에게 맡기지 않았습니다</h2>
+        <p class="sec-desc creepy-full">LLM으로 매번 새로운 괴담을 쓰게 하면 다양성은 쉽게 확보할 수 있습니다. 대신 문체와 세계관을 통제하기 어렵고, 같은 조건의 결과를 다시 재현하거나 전체 결과를 검수하기도 어려워집니다.</p>
+        <div class="creepy-principles">
+          <div><strong>통제 가능성</strong><span>사람이 작성하고 검수한 소재만 사용</span></div>
+          <div><strong>재현 가능성</strong><span>같은 입력과 날짜에는 같은 결과</span></div>
+          <div><strong>검수 가능성</strong><span>가능한 조합과 노출 분포를 테스트</span></div>
+        </div>
+      </section>
+
+      <section id="creepyAi">
+        <h2 class="sec-title">AI와는 이렇게 작업했습니다</h2>
+        <p class="sec-desc creepy-full">개발에는 Claude Code와 Codex, ChatGPT를 활용했습니다. 역할을 구현과 판단으로 나누고, 결과가 나오면 실제 문장과 수치를 다시 확인하는 방식으로 작업했습니다.</p>
+        <div class="creepy-ai-grid">
+          <article><span>01</span><h3>문제와 기준 정의</h3><p>무엇이 어색한지, 어떤 상태를 정상으로 볼지 먼저 정했습니다.</p></article>
+          <article><span>02</span><h3>구현</h3><p>정한 기준을 바탕으로 코드, 테스트, 문서를 AI와 함께 만들었습니다.</p></article>
+          <article><span>03</span><h3>독립 검토</h3><p>다른 AI에게 코드와 콘텐츠를 다시 검토하게 해 한 번 더 교차 확인했습니다.</p></article>
+          <article><span>04</span><h3>최종 판단</h3><p>시뮬레이션 수치와 실제 출력 문장을 함께 보고 채택 여부를 결정했습니다.</p></article>
+        </div>
+      </section>
+
+      <section>
+        <div class="cta-band creepy-cta reveal">
+          <div>
+            <h3>오늘의 통보문을 확인해 보세요.</h3>
+            <p>운세를 풀이하지 않고, 오늘 한 장의 괴담으로 전달합니다.</p>
+          </div>
+          <div class="cta-actions">
+            <a class="btn btn-mint" href="https://rhleka.xyz" target="_blank" rel="noopener" data-track="cta" data-track-id="creepypasta_service_bottom" data-track-location="creepypasta_bottom">괴담배포망 보기 <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>© 2026 Hongseok Ko. All rights reserved.</div>
+        <div class="social-row" data-social></div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>
