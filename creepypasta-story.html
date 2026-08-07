@@ -7,11 +7,11 @@
   <script src="assets/data.js"></script>
   <script src="assets/analytics.js"></script>
   <title>괴담통보망 제작기 — 고홍석</title>
-  <meta name="description" content="괴담과 운세를 결합한 개인화 콘텐츠 서비스 괴담통보망의 기획, 콘텐츠 시스템 설계, 시뮬레이션과 AI 협업 과정을 정리했습니다." />
+  <meta name="description" content="괴담과 운세를 결합한 개인화 콘텐츠 서비스 괴담통보망의 아이디어, 구현 과정, 콘텐츠 설계와 AI 협업 방식을 정리했습니다." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://talkspinout.github.io/hongseok-portfolio/creepypasta-story.html" />
   <meta property="og:title" content="괴담통보망 제작기 — 고홍석" />
-  <meta property="og:description" content="'괴담이 요즘 유행인데, 하나 만들어볼까'라는 생각에서 시작해 운세 기반 개인화 콘텐츠 서비스로 발전한 과정을 정리했습니다." />
+  <meta property="og:description" content="'괴담이 요즘 유행인데, 하나 만들어볼까'라는 생각에서 시작해 운세 기반 개인화 괴담 서비스로 발전한 과정을 정리했습니다." />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="assets/creepypasta-story.css" />
@@ -33,17 +33,10 @@
           <span class="eyebrow">Personal Project · Web Service</span>
           <p class="creepy-kicker">‘괴담이 요즘 유행인데, 하나 만들어볼까’라는 생각에서 시작했습니다.</p>
           <h1 class="hero-title">괴담통보망 제작기</h1>
-          <p class="hero-sub">사용자의 생년월일과 오늘 날짜가 결과에 영향을 주는 괴담 서비스를 만들었습니다. 운세를 화면에 직접 보여주기보다 괴담을 고르는 내부 규칙으로 쓰고, 반복해서 봐도 어색하지 않도록 콘텐츠 구조와 선택 로직을 함께 설계했습니다.</p>
+          <p class="hero-sub">괴담을 한 번 읽고 끝나는 콘텐츠가 아니라, 오늘의 운세처럼 다시 찾아보게 만들 수 있을지 궁금했습니다. 그렇게 생년월일과 오늘 날짜에 따라 다른 괴담이 도착하는 서비스를 만들었습니다.</p>
           <div class="cta-actions creepy-hero-actions">
             <a class="btn btn-mint" href="https://rhleka.xyz" target="_blank" rel="noopener" data-track="cta" data-track-id="creepypasta_service_top" data-track-location="creepypasta_intro">서비스 보기 <span class="arrow">→</span></a>
           </div>
-        </div>
-        <div class="creepy-notice" aria-label="괴담통보망 통보문 예시">
-          <div class="creepy-notice-head"><span>괴담통보망</span><span>오늘의 통보문</span></div>
-          <p class="creepy-warning">오늘은 그릇과 도자기를 조심하십시오.</p>
-          <div class="creepy-rule"></div>
-          <p>엎지른 소금이 쓸어낸 뒤에도 같은 자리에 남아 있을 수 있습니다.</p>
-          <p class="creepy-muted">같은 입력과 같은 날짜에는 같은 결과가 전달됩니다.</p>
         </div>
       </section>
 
@@ -58,101 +51,87 @@
         </div>
       </section>
 
-      <section id="creepyRule">
-        <h2 class="sec-title">운세를 콘텐츠 규칙으로</h2>
-        <p class="sec-desc creepy-full">사주를 그대로 풀이하면 또 하나의 운세 서비스가 됩니다. 반대로 생년월일을 입력받고 결과를 무작위로 고르면 개인화라고 부르기 어렵습니다.</p>
-        <p class="creepy-section-lead">명리는 화면에 보여주는 정보가 아니라, 괴담을 고르는 내부 판단 기준으로 삼았습니다.</p>
-        <div class="creepy-pipeline">
-          <div><strong>생년월일시 + 오늘 날짜</strong><span>개인별·날짜별 신호 계산</span></div>
-          <b>→</b>
-          <div><strong>콘텐츠 방향 결정</strong><span>생활 영역·오행·서사 강도</span></div>
-          <b>→</b>
-          <div><strong>통보문 조립</strong><span>장소·사물·현상·금기 선택</span></div>
-        </div>
-        <p class="creepy-closing">사용자에게 보이는 것은 계산 과정이 아니라, 오늘 자신에게 도착한 한 장의 통보문입니다.</p>
-      </section>
-
-      <section id="creepySystem">
-        <h2 class="sec-title">콘텐츠를 조합 가능한 시스템으로</h2>
-        <p class="sec-desc creepy-full">장소, 구역, 사물, 현상, 조건, 금기를 각각 독립된 소재 풀로 만들고 서로 어울릴 수 있는 범위를 태그와 규칙으로 정의했습니다.</p>
-        <div class="creepy-tags">
-          <span>장소</span><span>구역</span><span>사물</span><span>현상</span><span>조건</span><span>금기</span>
-        </div>
-        <div class="creepy-case-grid">
-          <article class="creepy-case bad">
-            <span class="creepy-case-label">문장은 맞지만</span>
-            <p>아파트 엘리베이터 로비의 거울 앞에 쌓여 있는 마른 흙을 쓸어 담지 마십시오.</p>
-          </article>
-          <article class="creepy-case good">
-            <span class="creepy-case-label">장면은 맞지 않았습니다.</span>
-            <p>문법만 확인하는 것으로는 부족했습니다. 장소의 기능과 사물의 존재 가능성까지 함께 검수하는 규칙이 필요했습니다.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="creepyLogic">
-        <h2 class="sec-title">반복을 막는 선택 로직</h2>
-        <p class="sec-desc creepy-full">매일 다시 보는 서비스이니 소재 몇 개를 돌려 쓰는 정도로는 부족했습니다. 편중과 반복을 줄이려고 로직 두 곳을 다시 만들었습니다.</p>
-        <div class="creepy-logic-grid">
-          <article>
-            <h3>오늘 기운 계산</h3>
-            <p>원국에는 상대적으로 부족하지만 오늘 기운에서 강하게 들어오는 오행을 1순위로 정합니다. 처음에는 연·월·일주를 1:1:1로 셌는데, 연주는 그 해 내내 같은 값이라 상수처럼 작동했습니다. 2026년(병오년)에는 매일 火 기운에 +2가 붙어 1순위 오행의 68.4%가 火로 쏠렸습니다. 연주를 계산에서 빼고 월 1 : 일 2 비중으로 다시 세도록 로직을 바꾸자 1순위 최다 오행 비중이 24.3%로 내려갔습니다.</p>
-          </article>
-          <article>
-            <h3>소재 선택 창</h3>
-            <p>조건에 맞는 소재 중 적합도가 가장 높은 것 하나만 고르면 같은 조건에서는 항상 같은 소재가 이깁니다. 별도의 1년 반복 시뮬레이션에서는 한 사람이 매일 봐도 서로 다른 괴담이 185개뿐이었고, 12일 만에 같은 문장이 다시 나왔습니다. 적합도 상위 3개를 후보로 남기고 그중 하나를 결정론적 시드로 고르도록 바꾸자 첫 반복은 49일째로 밀렸고, 1년 동안 접하는 고유 괴담은 326개로 늘었습니다. 시드에 생년월일시와 날짜가 모두 들어가므로 같은 입력·같은 날짜라면 지금도 같은 결과가 나옵니다.</p>
-          </article>
-        </div>
-        <p class="sec-desc creepy-full creepy-mt">편중은 200명 × 90일, 총 18,000건의 생성 결과로 확인했고, 반복 주기는 별도의 1년 시뮬레이션으로 확인했습니다.</p>
-        <div class="creepy-metrics">
-          <article><span>18,000</span><strong>분포 시뮬레이션</strong><p>200명 × 90일 표본으로 실제 노출 편중과 소재 분포를 확인했습니다.</p></article>
-          <article><span>68.4% → 24.3%</span><strong>최다 오행 편중</strong><p>오늘 기운 계산에서 연주를 빼자 특정 오행에 쏠리던 현상이 낮아졌습니다.</p></article>
-          <article><span>12일 → 49일</span><strong>첫 완전 반복</strong><p>별도의 1년 반복 시뮬레이션에서 소재 선택 창을 넓힌 효과를 확인했습니다.</p></article>
-          <article><span>185 → 326</span><strong>1년 고유 괴담</strong><p>결정론을 유지하면서도 한 사람이 1년 동안 접하는 결과의 폭을 넓혔습니다.</p></article>
-        </div>
-        <p class="creepy-note">‘다양해 보인다’고 판단하기보다, 편중·반복·미출현 콘텐츠를 실제 생성 결과로 확인했습니다.</p>
-      </section>
-
-      <section id="creepyAi">
-        <h2 class="sec-title">AI와의 작업 방식</h2>
-        <p class="sec-desc creepy-full">괴담 자체는 생성형 AI가 그때그때 쓰지 않습니다. LLM으로 매번 새로 쓰면 다양성은 쉽게 확보되지만, 문체와 세계관을 통제하기 어렵고 같은 조건의 결과를 재현하거나 전체 결과를 검수하기도 어려워집니다.</p>
-        <div class="creepy-principles">
-          <div><strong>통제 가능성</strong><span>사람이 작성하고 검수한 소재만 사용</span></div>
-          <div><strong>재현 가능성</strong><span>같은 입력과 날짜에는 같은 결과</span></div>
-          <div><strong>검수 가능성</strong><span>가능한 조합과 노출 분포를 테스트</span></div>
-        </div>
-        <p class="sec-desc creepy-full creepy-mt">콘텐츠에는 이 원칙을 지키되, 그 시스템을 만드는 개발에는 Claude Code, Codex, ChatGPT를 적극적으로 활용했습니다. 역할을 구현과 판단으로 나누고, 결과가 나오면 실제 문장과 수치를 다시 확인하는 방식으로 작업했습니다.</p>
-        <div class="creepy-ai-grid">
-          <article><span>01</span><h3>문제와 기준 정의</h3><p>무엇이 어색한지, 어떤 상태를 정상으로 볼지 먼저 정했습니다.</p></article>
-          <article><span>02</span><h3>구현</h3><p>정한 기준을 바탕으로 코드, 테스트, 문서를 AI와 함께 만들었습니다.</p></article>
-          <article><span>03</span><h3>독립 검토</h3><p>다른 AI에게 코드와 콘텐츠를 다시 검토하게 해 한 번 더 교차 확인했습니다.</p></article>
-          <article><span>04</span><h3>최종 판단</h3><p>시뮬레이션 수치와 실제 출력 문장을 함께 보고 채택 여부를 결정했습니다.</p></article>
-        </div>
-      </section>
-
-      <section id="creepyScreens">
-        <h2 class="sec-title">실제 화면과 숨겨진 장치</h2>
-        <p class="sec-desc creepy-full">생년월일을 입력하면 사주 풀이가 아니라 오늘 도착한 통보문 한 장이 뜹니다. 화면 하단에는 판단 근거인 생시 사주와 오늘 사주를 함께 보여줍니다.</p>
+      <section id="creepyProduct">
+        <h2 class="sec-title">실제로 구현한 제품</h2>
+        <p class="sec-desc creepy-full">사용자는 생년월일을 입력하고, 그날 자신에게 도착한 통보문 한 장을 받습니다. 운세 풀이를 길게 보여주기보다 괴담 자체가 결과가 되도록 만들었습니다.</p>
         <div class="creepy-screens-grid">
           <figure class="creepy-screen-card">
             <div class="creepy-screen-media"><img src="assets/creepypasta-screen-input.png" alt="괴담통보망 생년월일 입력 화면" loading="lazy" /></div>
-            <figcaption><strong>생년월일 입력</strong><span>생년월일과, 알고 있다면 태어난 시각만 받습니다.</span></figcaption>
+            <figcaption><strong>생년월일 입력</strong><span>생년월일과, 알고 있다면 태어난 시각을 입력합니다.</span></figcaption>
           </figure>
           <figure class="creepy-screen-card">
             <div class="creepy-screen-media"><img src="assets/creepypasta-screen-result.png" alt="괴담통보망 오늘의 통보문 결과 화면" loading="lazy" /></div>
-            <figcaption><strong>오늘의 통보문</strong><span>징조, 금기 사항, 무시해야 할 것과 판단 근거인 두 사주를 함께 보여줍니다. 위 예시와 같은 결과입니다.</span></figcaption>
+            <figcaption><strong>오늘의 통보문</strong><span>오늘의 징조와 금기, 무시해야 할 것들이 한 장의 통보문으로 나타납니다.</span></figcaption>
           </figure>
         </div>
 
-        <p class="sec-desc creepy-full creepy-mt-lg">결과 화면에서 15초 동안 아무 조작도 하지 않으면, 100분의 1 확률로 이 화면이 대신 뜹니다.</p>
+        <div class="creepy-product-note">
+          <strong>조금 더 괴담답게.</strong>
+          <p>결과 화면에서 일정 시간 아무 조작도 하지 않으면 낮은 확률로 다른 화면이 나타나도록 이스터에그도 넣었습니다.</p>
+        </div>
         <div class="creepy-egg">
           <img src="assets/creepypasta-easter-egg.png" alt="이스터에그 화면: 당신은 올바르지 않은 경로로 접근하였습니다" loading="lazy" />
           <div class="creepy-egg-copy">
             <p class="creepy-egg-quote">“당신은 올바르지 않은 경로로 접근하였습니다.”</p>
-            <p>서비스로 돌아가는 링크 하나만 남기고 나머지는 비워 둡니다.</p>
-            <p class="creepy-egg-note">본 서비스와 도메인만 다른 보조 도메인을 따로 만들어, 거기로 들어오면 무조건 이 화면이 뜨도록 해 뒀습니다.</p>
+            <p>기능과 별개로, 서비스를 사용하는 순간 자체가 괴담처럼 느껴질 장치를 몇 가지 숨겨 두었습니다.</p>
           </div>
         </div>
+      </section>
+
+      <section id="creepyRule">
+        <h2 class="sec-title">운세를 괴담의 규칙으로</h2>
+        <p class="sec-desc creepy-full">사주를 그대로 풀이하면 또 하나의 운세 서비스가 됩니다. 반대로 생년월일을 받으면서 결과가 완전히 무작위라면 개인화라고 부르기 어렵습니다.</p>
+        <p class="creepy-section-lead">그래서 운세는 보여주는 콘텐츠가 아니라, 어떤 괴담을 보여줄지 정하는 기준으로 사용했습니다.</p>
+        <div class="creepy-pipeline">
+          <div><strong>생년월일시 + 오늘 날짜</strong><span>사람과 날짜에 따라 다른 신호를 만듭니다.</span></div>
+          <b>→</b>
+          <div><strong>오늘의 방향</strong><span>어떤 생활 영역과 분위기를 사용할지 정합니다.</span></div>
+          <b>→</b>
+          <div><strong>통보문</strong><span>장소·사물·현상·금기를 조합해 한 편으로 만듭니다.</span></div>
+        </div>
+        <div class="creepy-tags">
+          <span>장소</span><span>구역</span><span>사물</span><span>현상</span><span>조건</span><span>금기</span>
+        </div>
+        <p class="creepy-closing">사용자에게 남는 것은 계산 과정이 아니라, 오늘 자신에게 도착한 한 장의 괴담입니다.</p>
+      </section>
+
+      <section id="creepyIterations">
+        <h2 class="sec-title">만들면서 발견하고, 다시 고쳤습니다</h2>
+        <p class="sec-desc creepy-full">처음부터 완성된 규칙을 만든 것은 아닙니다. 실제 문장을 계속 생성해 보면서 이상한 지점을 찾고, 왜 그런 결과가 나왔는지 확인한 뒤 규칙을 바꾸는 식으로 다듬었습니다.</p>
+
+        <div class="creepy-iteration-grid">
+          <article>
+            <span class="creepy-iteration-index">01 · 장면</span>
+            <h3>문장은 맞는데, 장면이 이상했습니다.</h3>
+            <p class="creepy-example">아파트 엘리베이터 로비의 거울 앞에 쌓여 있는 마른 흙을 쓸어 담지 마십시오.</p>
+            <p>문법만 맞으면 충분하다고 생각했지만, 장소에 존재하기 어려운 사물이 섞이면 괴담보다 조합 오류처럼 보였습니다. 이후 장소의 기능과 사물의 존재 가능성까지 조건으로 묶었습니다.</p>
+          </article>
+          <article>
+            <span class="creepy-iteration-index">02 · 편중</span>
+            <h3>개인화했는데도 비슷한 결과가 자주 나왔습니다.</h3>
+            <p>생성 결과를 모아보니 특정 기운과 소재가 반복해서 선택되는 경향이 있었습니다. 계산식 안에서 매일 변하지 않는 값이 지나치게 큰 영향을 주고 있다는 걸 확인했고, 날짜에 따라 실제로 달라지는 신호가 더 잘 반영되도록 비중을 다시 조정했습니다.</p>
+            <p class="creepy-evidence">수정 전에는 한 오행이 68.4%까지 몰렸지만, 조정 후 24.3% 수준으로 내려갔습니다.</p>
+          </article>
+          <article>
+            <span class="creepy-iteration-index">03 · 반복</span>
+            <h3>정답 하나만 고르면, 결국 같은 괴담이 돌아왔습니다.</h3>
+            <p>조건에 가장 잘 맞는 소재 하나만 계속 선택하면 결과는 정확해 보이지만 금방 익숙해집니다. 그래서 적합한 후보 몇 개를 남기고, 그 안에서 같은 사람·같은 날짜에는 같은 결과가 나오도록 선택 방식을 바꿨습니다.</p>
+            <p class="creepy-evidence">1년 반복 테스트에서 같은 문장이 다시 나타나는 시점이 12일에서 49일로 늦어졌습니다.</p>
+          </article>
+        </div>
+        <p class="creepy-note">수치는 결론이 아니라 확인 수단으로 썼습니다. 대량 생성 결과와 실제 문장을 함께 보면서 ‘이상해 보이는 이유’를 먼저 찾는 방식으로 작업했습니다.</p>
+      </section>
+
+      <section id="creepyAi">
+        <h2 class="sec-title">AI와의 작업 방식</h2>
+        <p class="sec-desc creepy-full">괴담 자체는 생성형 AI가 매번 새로 쓰지 않습니다. 대신 콘텐츠 규칙과 검수 기준을 정하고, 이를 구현하고 테스트하는 과정에서 Claude Code, Codex, ChatGPT를 함께 사용했습니다.</p>
+        <div class="creepy-ai-grid">
+          <article><span>01</span><h3>문제와 기준 정의</h3><p>무엇이 어색한지, 어떤 결과를 정상으로 볼지 먼저 정했습니다.</p></article>
+          <article><span>02</span><h3>구현</h3><p>정한 기준을 바탕으로 코드와 테스트를 AI와 함께 만들었습니다.</p></article>
+          <article><span>03</span><h3>교차 검토</h3><p>다른 AI에게 코드와 콘텐츠를 다시 보여주고 놓친 문제를 찾았습니다.</p></article>
+          <article><span>04</span><h3>최종 판단</h3><p>수치와 실제 출력 문장을 함께 보고 무엇을 남길지 결정했습니다.</p></article>
+        </div>
+        <p class="creepy-closing">AI가 결과를 대신 정하게 하기보다, 제가 기준을 만들고 여러 AI를 구현과 검토에 나누어 사용하는 방식에 가까웠습니다.</p>
       </section>
 
       <section>
