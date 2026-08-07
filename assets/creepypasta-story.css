@@ -1,0 +1,73 @@
+/* ============================================================
+   creepypasta-story.css — 괴담배포망 제작기 전용
+   ============================================================ */
+
+.main #creepyIntro { padding-top: 72px; padding-bottom: 84px; }
+.creepy-hero { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr); gap:46px; align-items:center; }
+.creepy-hero-copy .hero-title { margin-top:14px; font-size:clamp(42px,3.8vw,60px); line-height:1.08; }
+.creepy-kicker { font-size:clamp(22px,2.3vw,31px); font-weight:800; line-height:1.4; letter-spacing:-.03em; max-width:760px; }
+.creepy-hero-actions { margin-top:30px; }
+.creepy-notice { background:#131616; color:#f0f1ec; border-radius:26px; padding:30px; box-shadow:0 24px 60px rgba(25,31,31,.18); transform:rotate(1deg); }
+.creepy-notice-head { display:flex; justify-content:space-between; gap:16px; font-size:12px; letter-spacing:.08em; color:#9da8a5; text-transform:uppercase; }
+.creepy-warning { margin-top:42px; font-size:26px; font-weight:800; line-height:1.45; letter-spacing:-.03em; }
+.creepy-rule { height:1px; background:#353d3b; margin:26px 0; }
+.creepy-notice p:not(.creepy-warning):not(.creepy-muted) { font-size:15px; line-height:1.8; }
+.creepy-muted { margin-top:34px; color:#7f8a87; font-size:12px; }
+
+.creepy-section-lead { margin-top:16px; max-width:920px; font-size:clamp(22px,2.2vw,30px); font-weight:800; line-height:1.45; letter-spacing:-.03em; }
+.creepy-full { max-width:900px; }
+.creepy-flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-top:38px; }
+.creepy-flow article,.creepy-ai-grid article { padding:24px 22px; background:var(--paper); border-radius:var(--radius); }
+.creepy-flow article span,.creepy-ai-grid article span { display:block; margin-bottom:14px; color:var(--mint-deep); font-size:12px; font-weight:850; letter-spacing:.08em; }
+.creepy-flow h3,.creepy-ai-grid h3 { font-size:18px; line-height:1.35; letter-spacing:-.02em; }
+.creepy-flow p,.creepy-ai-grid p { margin-top:10px; color:var(--ink-soft); font-size:14px; line-height:1.7; }
+
+.creepy-pipeline { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:18px; align-items:center; margin-top:36px; }
+.creepy-pipeline > div { padding:24px; border:1px solid var(--line); border-radius:var(--radius); background:#fff; }
+.creepy-pipeline strong,.creepy-pipeline span { display:block; }
+.creepy-pipeline strong { font-size:17px; }
+.creepy-pipeline span { margin-top:7px; color:var(--ink-soft); font-size:13.5px; }
+.creepy-pipeline b { color:var(--mint-deep); font-size:22px; }
+.creepy-closing { margin-top:28px; padding:24px 26px; background:var(--mint-tint); border-radius:var(--radius); font-size:18px; font-weight:750; line-height:1.6; }
+
+.creepy-tags { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
+.creepy-tags span { padding:8px 14px; border-radius:999px; background:var(--paper); border:1px solid var(--line); font-size:13px; font-weight:750; }
+.creepy-case-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:28px; }
+.creepy-case { padding:28px; border-radius:var(--radius); }
+.creepy-case.bad { background:#171a1a; color:#f4f4ef; }
+.creepy-case.good { background:var(--mint-tint); }
+.creepy-case-label { display:block; margin-bottom:18px; font-size:12px; font-weight:850; letter-spacing:.06em; opacity:.72; }
+.creepy-case p { font-size:17px; line-height:1.75; }
+
+.creepy-metrics { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:34px; }
+.creepy-metrics article { padding:26px; border:1px solid var(--line); border-radius:var(--radius); background:#fff; }
+.creepy-metrics article > span { display:block; color:var(--mint-deep); font-size:clamp(28px,3vw,42px); font-weight:850; letter-spacing:-.04em; }
+.creepy-metrics strong { display:block; margin-top:8px; font-size:15px; }
+.creepy-metrics p { margin-top:8px; color:var(--ink-soft); font-size:13.5px; line-height:1.6; }
+.creepy-note { margin-top:24px; color:var(--ink-soft); font-size:14px; }
+
+.creepy-principles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin-top:32px; }
+.creepy-principles > div { padding:26px; background:#171a1a; color:#fff; border-radius:var(--radius); }
+.creepy-principles strong,.creepy-principles span { display:block; }
+.creepy-principles strong { font-size:18px; }
+.creepy-principles span { margin-top:9px; color:#abb4b1; font-size:13.5px; line-height:1.6; }
+
+.creepy-ai-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; margin-top:32px; }
+.creepy-cta { background:linear-gradient(135deg,#171a1a,#2c3533); }
+.creepy-cta p { color:rgba(255,255,255,.75); }
+
+@media (max-width:960px) {
+  .creepy-hero { grid-template-columns:1fr; }
+  .creepy-notice { max-width:760px; transform:none; }
+  .creepy-flow,.creepy-ai-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:720px) {
+  .main #creepyIntro { padding-top:52px; padding-bottom:64px; }
+  .creepy-hero-copy .hero-title { font-size:38px; }
+  .creepy-kicker { font-size:22px; }
+  .creepy-flow,.creepy-ai-grid,.creepy-case-grid,.creepy-metrics,.creepy-principles { grid-template-columns:1fr; }
+  .creepy-pipeline { grid-template-columns:1fr; }
+  .creepy-pipeline b { transform:rotate(90deg); justify-self:center; }
+  .creepy-notice { padding:24px; border-radius:20px; }
+  .creepy-warning { margin-top:30px; font-size:22px; }
+}
