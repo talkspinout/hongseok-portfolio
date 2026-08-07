@@ -728,6 +728,8 @@ body[data-page="about"] .rail-section .sec-desc { max-width: none; }
 }
 .lab-card h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
 .lab-card p { color: var(--ink-soft); font-size: 15px; }
+.lab-card-banner { width: 100%; max-width: 360px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+.lab-card-banner img { width: 100%; display: block; }
 
 /* ---------- 푸터 ---------- */
 footer {

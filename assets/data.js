@@ -353,6 +353,15 @@ const LAB_ITEMS = [
   },
   {
     type: "project",
+    title: "괴담통보망",
+    desc: "생년월일과 오늘 날짜에 따라 다른 괴담이 도착하는 개인화 콘텐츠 서비스입니다. 운세를 결과로 보여주는 대신, 어떤 괴담을 보여줄지 정하는 규칙으로 사용했습니다. 기획 의도부터 콘텐츠 설계, AI와의 작업 방식까지 만든 과정을 정리했습니다.",
+    link: "creepypasta-story.html",
+    linkLabel: "제작기 보기",
+    banner: "assets/creepypasta-hero-teaser.png",
+    bannerAlt: "괴담통보망 실제 통보문 화면 일부",
+  },
+  {
+    type: "project",
     title: "개인 프로젝트",
     desc: "진행 중인 개인 프로젝트를 순차적으로 공개할 예정입니다.",
   },
