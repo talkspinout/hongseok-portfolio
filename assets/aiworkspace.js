@@ -1,0 +1,1 @@
+document.addEventListener('DOMContentLoaded',()=>{const data=window.AIWIMG||{};document.querySelectorAll('img[data-img]').forEach(el=>{const v=data[el.dataset.img];if(v)el.src='data:image/webp;base64,'+v;});});
