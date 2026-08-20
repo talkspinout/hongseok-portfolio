@@ -362,6 +362,13 @@ const LAB_ITEMS = [
   },
   {
     type: "project",
+    title: "AI Workspace",
+    desc: "여러 AI에게 작업을 나눠 맡기고, 그 결과를 Task 하나로 관리하는 Task 중심 워크스페이스입니다. 제품은 준비 중이며, 이번에는 브랜드 사이트를 만든 과정을 정리했습니다.",
+    link: "ai-workspace-story.html",
+    linkLabel: "제작기 보기",
+  },
+  {
+    type: "project",
     title: "개인 프로젝트",
     desc: "진행 중인 개인 프로젝트를 순차적으로 공개할 예정입니다.",
   },

@@ -1,0 +1,336 @@
+/* ============================================================
+   ai-workspace-story.css — AI Workspace 브랜드 사이트 제작기 전용
+   ============================================================ */
+
+.main #aiwIntro {
+  padding-top: 72px;
+  padding-bottom: 80px;
+}
+
+.aiw-hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: 40px;
+}
+
+.aiw-hero-copy { min-width: 0; }
+
+.aiw-hero-copy .hero-title {
+  margin-top: 28px;
+  font-size: clamp(38px, 3.4vw, 54px);
+  line-height: 1.14;
+}
+
+.aiw-hero-actions { margin-top: 32px; }
+
+.aiw-hero-visual {
+  margin: 0;
+  padding: 14px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 22px 56px rgba(25, 31, 31, 0.08);
+  transform: rotate(-0.8deg);
+}
+
+.aiw-hero-visual img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 12 / 9;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 17px;
+}
+
+.aiw-intro-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.aiw-status-tag {
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.aiw-full-text { max-width: none; }
+
+.aiw-section-lead {
+  max-width: 920px;
+  margin-top: 16px;
+  font-size: clamp(19px, 1.9vw, 26px);
+  font-weight: 750;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+
+.aiw-intent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  margin-top: 36px;
+}
+
+.aiw-intent-card {
+  padding: 22px 0 28px;
+  background: transparent;
+  border-top: 1px solid var(--line);
+}
+
+.aiw-card-index {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--mint-deep);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.aiw-intent-card h3 {
+  font-size: 18.5px;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+}
+
+.aiw-intent-card p {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.aiw-principle {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: 36px;
+  margin-top: 8px;
+  padding: 28px 30px;
+  color: var(--ink);
+  background: var(--mint-tint);
+  border: 1px solid rgba(0, 142, 137, 0.16);
+  border-radius: var(--radius);
+}
+
+.aiw-principle-label {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--mint);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.aiw-principle strong {
+  display: block;
+  max-width: 620px;
+  font-size: clamp(19px, 1.9vw, 25px);
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+}
+
+.aiw-principle ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-self: center;
+}
+
+.aiw-principle li {
+  position: relative;
+  padding: 8px 0 8px 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0, 142, 137, 0.14);
+}
+
+.aiw-principle li::before {
+  position: absolute;
+  left: 0;
+  color: var(--mint);
+  content: "●";
+  font-size: 8px;
+}
+
+.aiw-shot-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+.aiw-shot-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.aiw-shot-media {
+  aspect-ratio: 4 / 3;
+  padding: 20px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  box-sizing: border-box;
+}
+.aiw-shot-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--bg);
+  display: block;
+  border-radius: 10px;
+}
+.aiw-shot-card figcaption {
+  flex: 1;
+  padding: 16px 20px 20px;
+}
+.aiw-shot-card figcaption strong,
+.aiw-shot-card figcaption span {
+  display: block;
+}
+.aiw-shot-card figcaption strong {
+  margin-bottom: 7px;
+  color: var(--ink);
+  font-size: 15px;
+}
+.aiw-shot-card figcaption span {
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.aiw-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--mint-deep);
+}
+.aiw-inline-link .arrow { transition: transform 0.15s; }
+.aiw-inline-link:hover .arrow { transform: translateX(3px); }
+
+.aiw-testi-grid {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.aiw-testi-card {
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+}
+.aiw-testi-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+.aiw-testi-mark { width: 22px; height: 22px; object-fit: contain; }
+.aiw-testi-card p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+.aiw-testi-card p + p { margin-top: 12px; }
+.aiw-testi-card p strong { color: var(--mint-deep); font-weight: 800; }
+
+.aiw-doc-card {
+  border: 1px dashed rgba(0, 142, 137, 0.4);
+}
+.aiw-doc-tag {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--mint-tint);
+  color: var(--mint-deep);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.aiw-review-disclaimer {
+  margin-top: 20px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.aiw-cta-band { background: linear-gradient(135deg, var(--mint-deep), var(--mint)); }
+.aiw-cta-band p { color: rgba(255,255,255,0.82); }
+.aiw-cta-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.aiw-cta-brand span { font-size: 13px; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.aiw-cta-band .btn-line { border-color: rgba(255,255,255,0.6); }
+.aiw-cta-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #161b1d;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 960px) {
+  .aiw-hero-layout {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .aiw-hero-copy { max-width: 760px; }
+  .aiw-hero-visual {
+    max-width: 760px;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .main #aiwIntro {
+    padding-top: 52px;
+    padding-bottom: 64px;
+  }
+  .aiw-intro-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .aiw-status-tag {
+    margin-top: 16px;
+    padding-left: 2px;
+    font-size: 12.5px;
+  }
+  .aiw-hero-layout { gap: 32px; }
+  .aiw-hero-copy .hero-title {
+    margin-top: 20px;
+    font-size: 33px;
+  }
+  .aiw-hero-visual {
+    padding: 10px;
+    border-radius: 20px;
+  }
+  .aiw-hero-visual img { border-radius: 12px; }
+  .aiw-section-lead { font-size: 19px; }
+  .aiw-intent-grid { grid-template-columns: 1fr; }
+  .aiw-intent-card { padding: 20px 0 24px; }
+  .aiw-principle {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 26px 22px;
+  }
+  .aiw-shot-grid { grid-template-columns: 1fr; }
+  .aiw-shot-media { padding: 18px; }
+  .aiw-testi-grid { grid-template-columns: 1fr; }
+}
