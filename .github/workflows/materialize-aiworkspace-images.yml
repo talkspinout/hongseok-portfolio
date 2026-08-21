@@ -1,0 +1,55 @@
+name: Materialize AI Workspace screenshots
+
+on:
+  push:
+    paths:
+      - '.aiworkspace-assets/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebuild screenshot assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .aiworkspace-assets/READY || exit 0
+
+          cat .aiworkspace-assets/task.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-task-0023.webp
+          cat .aiworkspace-assets/handoff.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-handoff.webp
+          cat .aiworkspace-assets/overview.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-overview.webp
+          cat .aiworkspace-assets/newtask.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-newtask.webp
+
+          echo 'f4d279b82528036ee6bc16c456c81d1a09ff3092939ff0473d4fdcb00493bf50  assets/aiworkspace-task-0023.webp' | sha256sum -c -
+          echo '67e88d1ee45a77accd4af4c86549ed30f377ab6da06d81d8a3f84be1e77c6a83  assets/aiworkspace-handoff.webp' | sha256sum -c -
+          echo '7bce353f9478d022c2499b41902d094c0638fcd0869e300c6187cb82a49f508a  assets/aiworkspace-overview.webp' | sha256sum -c -
+          echo '1c38a941e6d17be7552d389eb048476893ecf1bc645a66e5cbf123bbe8e595f7  assets/aiworkspace-newtask.webp' | sha256sum -c -
+
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('assets/aiworkspace.js')
+          s = p.read_text()
+          old = '.task-focus-crop{width:100%!important;max-width:none!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}'
+          new = '.task-focus-crop{width:100%!important;max-width:1246px!important;margin-left:auto!important;margin-right:auto!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}'
+          s = s.replace(old, new)
+          old = '.proof-shot img{height:190px!important}'
+          new = '.proof-shot img{width:100%!important;height:auto!important;aspect-ratio:600/317!important;object-fit:cover!important;object-position:top!important}'
+          s = s.replace(old, new)
+          p.write_text(s)
+          PY
+
+          rm -rf .aiworkspace-assets
+          rm -f .github/workflows/materialize-aiworkspace-images.yml
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/aiworkspace-task-0023.webp assets/aiworkspace-handoff.webp assets/aiworkspace-overview.webp assets/aiworkspace-newtask.webp assets/aiworkspace.js .aiworkspace-assets .github/workflows/materialize-aiworkspace-images.yml
+          git commit -m 'Use sharp AI Workspace screenshots' || exit 0
+          git push
