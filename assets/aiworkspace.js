@@ -14,14 +14,9 @@ window.AIWIMG=window.AIWIMG||{};
 
   async function ensureImageData(){
     const jobs=[];
-    if(!window.AIWIMG.newtask){
-      jobs.push(loadScript('assets/aiworkspace-img-newtask.js'));
-    }
+    if(!window.AIWIMG.newtask) jobs.push(loadScript('assets/aiworkspace-img-newtask.js'));
     if(!window.AIWIMG.task){
-      jobs.push(
-        loadScript('assets/aiworkspace-img-task-1.js')
-          .then(()=>loadScript('assets/aiworkspace-img-task-2.js'))
-      );
+      jobs.push(loadScript('assets/aiworkspace-img-task-1.js').then(()=>loadScript('assets/aiworkspace-img-task-2.js')));
     }
     if(jobs.length) await Promise.all(jobs);
   }
@@ -55,30 +50,15 @@ window.AIWIMG=window.AIWIMG||{};
       </div>
       <div class="concept-track richer">
         <div class="concept-line"></div>
-        <div class="concept-node discord">
-          <div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8.5c0-1.4 1.1-2.5 2.5-2.5h7C16.9 6 18 7.1 18 8.5v5c0 1.4-1.1 2.5-2.5 2.5H11l-3.5 2v-2H8.5C7.1 16 6 14.9 6 13.5v-5Z"/></svg></div>
-          <span>Input</span><strong>Discord</strong>
-        </div>
+        <div class="concept-node discord"><div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8.5c0-1.4 1.1-2.5 2.5-2.5h7C16.9 6 18 7.1 18 8.5v5c0 1.4-1.1 2.5-2.5 2.5H11l-3.5 2v-2H8.5C7.1 16 6 14.9 6 13.5v-5Z"/></svg></div><span>Input</span><strong>Discord</strong></div>
         <span class="concept-arrow">→</span>
-        <div class="concept-node task">
-          <div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5"/><path d="M5 7h.01M5 12h.01M5 17h.01"/></svg></div>
-          <span>Core</span><strong>Task</strong>
-        </div>
+        <div class="concept-node task"><div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7h8M8 12h8M8 17h5"/><path d="M5 7h.01M5 12h.01M5 17h.01"/></svg></div><span>Core</span><strong>Task</strong></div>
         <span class="concept-arrow">→</span>
-        <div class="concept-node active">
-          <div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/><circle cx="12" cy="12" r="4"/></svg></div>
-          <span>Agent A</span><strong>Work</strong>
-        </div>
+        <div class="concept-node active"><div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v4M12 16v4M4 12h4M16 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><span>Agent A</span><strong>Work</strong></div>
         <span class="concept-arrow">→</span>
-        <div class="concept-node handoff">
-          <div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h8"/><path d="m11 8 4 4-4 4"/><path d="M18 7v10"/></svg></div>
-          <span>Context</span><strong>Handoff</strong>
-        </div>
+        <div class="concept-node handoff"><div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h8"/><path d="m11 8 4 4-4 4"/><path d="M18 7v10"/></svg></div><span>Context</span><strong>Handoff</strong></div>
         <span class="concept-arrow">→</span>
-        <div class="concept-node next">
-          <div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12a5 5 0 0 0 8.5 3.5L18 13"/><path d="M17 11a5 5 0 0 0-8.5-3.5L6 10"/></svg></div>
-          <span>Agent B</span><strong>Continue</strong>
-        </div>
+        <div class="concept-node next"><div class="concept-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12a5 5 0 0 0 8.5 3.5L18 13"/><path d="M17 11a5 5 0 0 0-8.5-3.5L6 10"/></svg></div><span>Agent B</span><strong>Continue</strong></div>
       </div>
       <div class="concept-meta">
         <div class="concept-chip"><span class="chip-dot"></span>Goal · Decisions · Next action이 Task에 남습니다.</div>
@@ -92,13 +72,11 @@ window.AIWIMG=window.AIWIMG||{};
     if(!demo || !tools) return;
 
     const head=demo.querySelector('.demo-video-head');
-    if(head){
-      head.innerHTML='<span class="demo-eyebrow">PRODUCT DEMO</span><strong>실제 Task가 Agent를 바꿔가며 이어지는 흐름</strong><p>Discord에서 Task를 만들고, Handoff로 다음 Agent에게 넘기고, Admin에서 같은 상태를 확인하는 실제 시연입니다.</p>';
-    }
+    if(head) head.innerHTML='<span class="demo-eyebrow">PRODUCT DEMO</span><strong>실제 Task가 Agent를 바꿔가며 이어지는 흐름</strong><p>Discord에서 Task를 만들고, Handoff로 다음 Agent에게 넘기고, Admin에서 같은 상태를 확인하는 실제 시연입니다.</p>';
+
     const stage=demo.querySelector('.demo-video-stage');
-    if(stage){
-      stage.innerHTML='<iframe src="https://www.youtube.com/embed/lg5cbHGhoUI?rel=0&modestbranding=1" title="AI Workspace 실제 시연 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
-    }
+    if(stage) stage.innerHTML='<iframe src="https://www.youtube.com/embed/lg5cbHGhoUI?rel=0&modestbranding=1" title="AI Workspace 실제 시연 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+
     const note=demo.querySelector('.demo-note');
     if(note) note.remove();
 
@@ -121,7 +99,7 @@ window.AIWIMG=window.AIWIMG||{};
     list.innerHTML=`
       <div class="future-item"><div class="future-no">01</div><div><h3>Handoff를 더 다양한 작업에서 검증하고, 현업 Workflow에도 적용해보기.</h3></div></div>
       <div class="future-item"><div class="future-no">02</div><div><h3>Task Admin을 Workflow의 Hub로 두고, 다양한 MCP 연결을 확장해보기.</h3></div></div>
-      <div class="future-item"><div class="future-no">03</div><div><h3>가능하다면 사이드잡으로 상업화해보기.</h3><p>Notion 템플릿이나 Discord Bot 같은 형태도 생각하고 있습니다.</p></div></div>`;
+      <div class="future-item future-commercial"><div class="future-no">03</div><div><h3>가능하다면 사이드잡으로 상업화해보기. <span class="future-detail">Notion 템플릿이나 Discord Bot 같은 형태도 생각하고 있습니다.</span></h3></div></div>`;
   }
 
   function installStyles(){
@@ -138,8 +116,7 @@ window.AIWIMG=window.AIWIMG||{};
       .concept-track.richer{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;white-space:nowrap!important;padding:10px 0 8px!important;z-index:1!important}
       .concept-line{position:absolute;left:50px;right:50px;top:50%;height:2px;background:linear-gradient(90deg,rgba(45,127,132,.08),rgba(45,127,132,.34),rgba(45,127,132,.08));transform:translateY(-50%)}
       .concept-node{position:relative!important;width:104px!important;min-height:120px!important;border-radius:16px!important;padding:14px 12px 12px!important;align-items:flex-start!important;gap:8px!important;z-index:1!important}
-      .concept-node span{font-size:11.5px!important;margin:0!important}
-      .concept-node strong{font-size:16px!important;line-height:1.15!important}
+      .concept-node span{font-size:11.5px!important;margin:0!important}.concept-node strong{font-size:16px!important;line-height:1.15!important}
       .concept-icon{width:34px;height:34px;border-radius:12px;background:#f3f8f8;border:1px solid #dbe9e9;display:grid;place-items:center;color:var(--accent-strong)}
       .concept-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
       .concept-node.task,.concept-node.active{border-color:#9bc6c5!important;box-shadow:0 10px 28px rgba(45,127,132,.12)!important}
@@ -147,27 +124,20 @@ window.AIWIMG=window.AIWIMG||{};
       .concept-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1}
       .concept-chip{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.9);border:1px solid #e1e8ec;font-size:14px;line-height:1.5;color:var(--text);box-shadow:0 8px 22px rgba(24,39,56,.04)}
       .chip-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px;box-shadow:0 0 0 4px rgba(45,127,132,.12)}
-      .demo-section{padding:54px 0 72px!important;border-bottom:1px solid var(--line)!important;background:#fff!important}
-      .demo-section .demo-video-block{margin:0!important}
-      .demo-section .demo-video-head{max-width:860px!important;margin-bottom:22px!important}
+      .demo-section{padding:54px 0 72px!important;border-bottom:1px solid var(--line)!important;background:#fff!important}.demo-section .demo-video-block{margin:0!important}.demo-section .demo-video-head{max-width:860px!important;margin-bottom:22px!important}
       .demo-section .demo-video-stage{position:relative!important;width:100%!important;max-width:1120px!important;aspect-ratio:16/9!important;height:auto!important;border:1px solid var(--line)!important;border-radius:16px!important;overflow:hidden!important;background:#0f141b!important;box-shadow:0 18px 42px rgba(24,39,56,.10)!important}
       .demo-section .demo-video-stage iframe{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;border:0!important}
-      .task-focus-crop{max-width:370px!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}
-      .task-focus-crop img{width:100%!important;height:190px!important;object-fit:cover!important;object-position:center top!important}
+      .task-focus-crop{width:100%!important;max-width:none!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}
+      .task-focus-crop img{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center top!important}
       .proof-shot img{height:190px!important}
       .future-item h3{font-size:21px!important;line-height:1.58!important}
-      .future-item p{font-size:16px!important}
+      .future-commercial h3{white-space:normal!important}
+      .future-commercial .future-detail{font-size:16px!important;font-weight:620!important;color:var(--ink)!important;letter-spacing:-.02em!important;margin-left:6px!important}
       @media(max-width:700px){
-        .concept-head{display:block!important}
-        .concept-badges{margin-top:12px!important;justify-content:flex-start!important}
-        .concept-track.richer{overflow-x:auto!important;justify-content:flex-start!important;gap:6px!important}
-        .concept-node{min-width:94px!important;width:94px!important}
-        .concept-meta{grid-template-columns:1fr!important}
-        .concept-chip{font-size:13px!important}
-        .demo-section{padding:42px 0 56px!important}
-        .demo-section .demo-video-stage{border-radius:12px!important}
-        .task-focus-crop{max-width:none!important}
-        .task-focus-crop img{height:auto!important;max-height:240px!important}
+        .concept-head{display:block!important}.concept-badges{margin-top:12px!important;justify-content:flex-start!important}.concept-track.richer{overflow-x:auto!important;justify-content:flex-start!important;gap:6px!important}.concept-node{min-width:94px!important;width:94px!important}.concept-meta{grid-template-columns:1fr!important}.concept-chip{font-size:13px!important}
+        .demo-section{padding:42px 0 56px!important}.demo-section .demo-video-stage{border-radius:12px!important}
+        .task-focus-crop img{width:100%!important;height:auto!important}
+        .future-commercial .future-detail{font-size:15.5px!important;margin-left:0!important}
       }`;
     document.head.appendChild(style);
   }
@@ -177,11 +147,7 @@ window.AIWIMG=window.AIWIMG||{};
     renderHero();
     renderDemo();
     renderFuture();
-    try{
-      await ensureImageData();
-    }catch(err){
-      console.error('[AI Workspace] image data load failed',err);
-    }
+    try{await ensureImageData();}catch(err){console.error('[AI Workspace] image data load failed',err);}
     renderImages();
   });
 })();
