@@ -27,6 +27,11 @@ jobs:
           cat .png-materialize/overview.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-overview.png
           cat .png-materialize/newtask.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-newtask.png
 
+          echo 'f4d79ef3745eb50dde1761be01219431ccc61a7411295443defc5305f244fb34  assets/aiworkspace-task-0023.png' | sha256sum -c -
+          echo '0ea1ddc2002c40544f2faf7b62f4de173a51d89de4acb667a7262d88409eaf46  assets/aiworkspace-handoff.png' | sha256sum -c -
+          echo '9c20e8ae8269d94054ed877a9b9739de4dc0ed2abed04d326ec8595867f8e702  assets/aiworkspace-overview.png' | sha256sum -c -
+          echo '8b981e55a5f0d4e2be05f4b2432fe7e44f9fe0212528458f3c2b2a3bcc626f1e  assets/aiworkspace-newtask.png' | sha256sum -c -
+
           python - <<'PY'
           from pathlib import Path
           import re
