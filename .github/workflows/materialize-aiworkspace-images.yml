@@ -1,4 +1,4 @@
-name: Materialize AI Workspace screenshots
+name: Sharpen AI Workspace screenshots
 
 on:
   push:
@@ -9,40 +9,50 @@ permissions:
   contents: write
 
 jobs:
-  materialize:
+  sharpen:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Rebuild screenshot assets
+      - name: Sharpen and resize screenshots
         shell: bash
         run: |
           set -euo pipefail
           test -f .aiworkspace-assets/READY || exit 0
-
-          cat .aiworkspace-assets/task.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-task-0023.webp
-          cat .aiworkspace-assets/handoff.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-handoff.webp
-          cat .aiworkspace-assets/overview.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-overview.webp
-          cat .aiworkspace-assets/newtask.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-newtask.webp
-
-          echo 'f4d279b82528036ee6bc16c456c81d1a09ff3092939ff0473d4fdcb00493bf50  assets/aiworkspace-task-0023.webp' | sha256sum -c -
-          echo '67e88d1ee45a77accd4af4c86549ed30f377ab6da06d81d8a3f84be1e77c6a83  assets/aiworkspace-handoff.webp' | sha256sum -c -
-          echo '7bce353f9478d022c2499b41902d094c0638fcd0869e300c6187cb82a49f508a  assets/aiworkspace-overview.webp' | sha256sum -c -
-          echo '1c38a941e6d17be7552d389eb048476893ecf1bc645a66e5cbf123bbe8e595f7  assets/aiworkspace-newtask.webp' | sha256sum -c -
-
+          python -m pip install --quiet pillow
           python - <<'PY'
           from pathlib import Path
-          p = Path('assets/aiworkspace.js')
-          s = p.read_text()
-          old = '.task-focus-crop{width:100%!important;max-width:none!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}'
-          new = '.task-focus-crop{width:100%!important;max-width:1246px!important;margin-left:auto!important;margin-right:auto!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}'
-          s = s.replace(old, new)
-          old = '.proof-shot img{height:190px!important}'
-          new = '.proof-shot img{width:100%!important;height:auto!important;aspect-ratio:600/317!important;object-fit:cover!important;object-position:top!important}'
-          s = s.replace(old, new)
-          p.write_text(s)
+          from PIL import Image, ImageFilter
+
+          assets = [
+              Path('assets/aiworkspace-task-0023.webp'),
+              Path('assets/aiworkspace-handoff.webp'),
+              Path('assets/aiworkspace-overview.webp'),
+              Path('assets/aiworkspace-newtask.webp'),
+          ]
+
+          for path in assets:
+              with Image.open(path) as im:
+                  im = im.convert('RGB')
+                  w, h = im.size
+                  scaled = im.resize((w * 2, h * 2), Image.Resampling.LANCZOS)
+                  scaled = scaled.filter(ImageFilter.UnsharpMask(radius=0.8, percent=115, threshold=2))
+                  scaled.save(path, 'WEBP', lossless=True, method=6)
+                  print(path, (w, h), '->', scaled.size)
+
+          js = Path('assets/aiworkspace.js')
+          s = js.read_text()
+          s = s.replace(
+              '.task-focus-crop{width:100%!important;max-width:none!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}',
+              '.task-focus-crop{width:100%!important;max-width:1180px!important;margin-left:auto!important;margin-right:auto!important;height:auto!important;overflow:hidden!important;background:#fff!important;border-radius:11px!important}'
+          )
+          s = s.replace(
+              '.proof-shot img{height:190px!important}',
+              '.proof-shot img{width:100%!important;height:auto!important;aspect-ratio:600/317!important;object-fit:cover!important;object-position:top!important}'
+          )
+          js.write_text(s)
           PY
 
           rm -rf .aiworkspace-assets
@@ -51,5 +61,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add assets/aiworkspace-task-0023.webp assets/aiworkspace-handoff.webp assets/aiworkspace-overview.webp assets/aiworkspace-newtask.webp assets/aiworkspace.js .aiworkspace-assets .github/workflows/materialize-aiworkspace-images.yml
-          git commit -m 'Use sharp AI Workspace screenshots' || exit 0
+          git commit -m 'Sharpen AI Workspace screenshots and sizing' || exit 0
           git push
