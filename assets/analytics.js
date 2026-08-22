@@ -63,18 +63,20 @@
     style.id = "aiworkspace-portfolio-surface-style";
     style.textContent = `
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
-        padding:30px 36px!important;
+        padding:28px 34px!important;
         display:grid!important;
         grid-template-columns:minmax(0,1fr) auto!important;
         align-items:center!important;
         gap:24px!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] h3{
-        max-width:740px!important;
+        max-width:760px!important;
+        margin-bottom:10px!important;
         white-space:normal!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] p{
-        max-width:800px!important;
+        max-width:820px!important;
+        margin-bottom:0!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
         justify-self:end!important;
@@ -83,55 +85,56 @@
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{
         width:auto!important;
         min-width:168px!important;
-        padding:14px 22px!important;
+        padding:13px 21px!important;
       }
 
       body[data-page="lab"] .lab-card:has(.lab-card-banner){
         display:grid!important;
-        grid-template-columns:minmax(0,1fr) minmax(250px,330px)!important;
+        grid-template-columns:minmax(0,1fr) minmax(240px,330px)!important;
         grid-template-areas:
           "tag banner"
           "title banner"
           "desc banner"
           "button banner"!important;
-        column-gap:32px!important;
+        column-gap:30px!important;
         row-gap:8px!important;
-        align-items:start!important;
-        padding:26px 30px!important;
+        align-items:center!important;
+        padding:24px 28px!important;
       }
-      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.tag{grid-area:tag!important;width:max-content!important}
-      body[data-page="lab"] .lab-card:has(.lab-card-banner)>h3{grid-area:title!important;margin:0!important}
-      body[data-page="lab"] .lab-card:has(.lab-card-banner)>p{grid-area:desc!important;margin:0!important;max-width:720px!important}
-      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.btn{grid-area:button!important;width:max-content!important;margin-top:4px!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.tag{grid-area:tag!important;width:max-content!important;align-self:end!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>h3{grid-area:title!important;margin:0!important;align-self:start!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>p{grid-area:desc!important;margin:0!important;max-width:720px!important;align-self:start!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.btn{grid-area:button!important;width:max-content!important;margin-top:4px!important;align-self:start!important}
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
         grid-area:banner!important;
         width:100%!important;
-        max-width:none!important;
+        max-width:330px!important;
         align-self:center!important;
-        aspect-ratio:16/9!important;
+        justify-self:end!important;
         border-radius:14px!important;
         overflow:hidden!important;
         background:#fff!important;
       }
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner img{
+        display:block!important;
         width:100%!important;
-        height:100%!important;
-        object-fit:cover!important;
+        height:auto!important;
+        max-height:none!important;
+        aspect-ratio:auto!important;
+        object-fit:contain!important;
         object-position:center!important;
       }
 
       @media(max-width:860px){
         body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
           grid-template-columns:1fr!important;
-          padding:28px!important;
+          padding:26px!important;
         }
         body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
           justify-self:start!important;
           width:100%!important;
         }
-        body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{
-          width:100%!important;
-        }
+        body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{width:100%!important}
         body[data-page="lab"] .lab-card:has(.lab-card-banner){
           grid-template-columns:1fr!important;
           grid-template-areas:
@@ -142,15 +145,13 @@
             "button"!important;
           gap:12px!important;
           padding:24px!important;
+          align-items:start!important;
         }
         body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
           width:100%!important;
+          max-width:none!important;
+          justify-self:stretch!important;
           margin-top:4px!important;
-          aspect-ratio:auto!important;
-        }
-        body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner img{
-          height:auto!important;
-          object-fit:contain!important;
         }
       }
     `;
@@ -221,17 +222,90 @@
     if (aiCss) aiCss.before(link); else document.head.appendChild(link);
   }
 
-  function aiWorkspaceShellStyles() {
-    if (document.getElementById("aiworkspace-site-shell-style")) return;
-    const style = document.createElement("style");
-    style.id = "aiworkspace-site-shell-style";
-    style.textContent = 'body[data-page="aiworkspace"]{background:#fff!important}' +
-      'body[data-page="aiworkspace"] .topbar{display:flex!important;position:sticky!important;top:0!important;z-index:110!important;height:auto!important;min-height:0!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(8px)!important;border-bottom:1px solid var(--line)!important;padding:14px 24px!important;align-items:center!important;gap:14px!important}' +
-      'body[data-page="aiworkspace"] .topbar .gnb-logo{margin:0!important;font-size:17px!important;font-weight:800!important;letter-spacing:-.03em!important;display:flex!important;align-items:center!important;gap:8px!important;text-decoration:none!important}' +
-      'body[data-page="aiworkspace"] .topbar .gnb-logo .dot{width:10px!important;height:10px!important;border-radius:50%!important;background:var(--mint)!important;flex:none!important}' +
-      'body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap{max-width:1180px!important;margin:0 auto!important;padding:0 30px!important}' +
-      '@media(max-width:640px){body[data-page="aiworkspace"] .topbar{padding:12px 16px!important}body[data-page="aiworkspace"] .topbar .gnb-logo{font-size:14px!important}body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap{padding:0 18px!important}}';
-    document.head.appendChild(style);
+  function installAIWorkspaceStyles() {
+    let style = document.getElementById("aiworkspace-site-shell-style");
+    if (!style) {
+      style = document.createElement("style");
+      style.id = "aiworkspace-site-shell-style";
+      document.head.appendChild(style);
+    }
+    style.textContent = `
+      body[data-page="aiworkspace"]{background:#fff!important}
+      body[data-page="aiworkspace"] .topbar{display:flex!important;position:sticky!important;top:0!important;z-index:110!important;height:auto!important;min-height:0!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(8px)!important;border-bottom:1px solid var(--line)!important;padding:14px 24px!important;align-items:center!important;gap:14px!important}
+      body[data-page="aiworkspace"] .topbar .gnb-logo{margin:0!important;font-size:17px!important;font-weight:800!important;letter-spacing:-.03em!important;display:flex!important;align-items:center!important;gap:8px!important;text-decoration:none!important}
+      body[data-page="aiworkspace"] .topbar .gnb-logo .dot{width:10px!important;height:10px!important;border-radius:50%!important;background:var(--mint)!important;flex:none!important}
+      body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap{max-width:1180px!important;margin:0 auto!important;padding:0 30px!important}
+      body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap footer{border-top:1px solid var(--line)!important;padding:36px 0 48px!important}
+
+      body[data-page="aiworkspace"] figure.task-hires.task-focus-crop{
+        width:100%!important;
+        max-width:1246px!important;
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        margin:38px auto 0!important;
+        overflow:hidden!important;
+        background:#fff!important;
+      }
+      body[data-page="aiworkspace"] figure.task-hires.task-focus-crop>img{
+        display:block!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        aspect-ratio:auto!important;
+        object-fit:contain!important;
+        object-position:center top!important;
+        position:static!important;
+        inset:auto!important;
+        clip:auto!important;
+        clip-path:none!important;
+        transform:none!important;
+        image-rendering:auto!important;
+      }
+      body[data-page="aiworkspace"] .proof-shot img{
+        display:block!important;
+        width:100%!important;
+        height:auto!important;
+        min-height:0!important;
+        max-height:none!important;
+        aspect-ratio:auto!important;
+        object-fit:contain!important;
+        object-position:center top!important;
+        image-rendering:auto!important;
+      }
+      body[data-page="aiworkspace"] .image-lightbox img{
+        width:auto!important;
+        height:auto!important;
+        object-fit:contain!important;
+        image-rendering:auto!important;
+      }
+      @media(max-width:640px){
+        body[data-page="aiworkspace"] .topbar{padding:12px 16px!important}
+        body[data-page="aiworkspace"] .topbar .gnb-logo{font-size:14px!important}
+        body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap{padding:0 18px!important}
+      }
+    `;
+  }
+
+  const ICONS = {
+    instagram: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
+    linkedin: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.49 2.49 0 1 1 0 4.98 2.49 2.49 0 0 1 0-4.98zM3 9h4v12H3zM9.5 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.83 0-2.11 1.43-2.11 2.9V21h-4z"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>',
+  };
+
+  function footerSocialHTML() {
+    let html = "";
+    if (site.INSTAGRAM_URL) {
+      html += '<a class="icon" href="' + site.INSTAGRAM_URL + '" target="_blank" rel="noopener" aria-label="Instagram" data-track="social" data-track-id="social_instagram" data-track-location="footer">' + ICONS.instagram + '</a>';
+    }
+    if (site.LINKEDIN_URL) {
+      html += '<a class="icon" href="' + site.LINKEDIN_URL + '" target="_blank" rel="noopener" aria-label="LinkedIn" data-track="social" data-track-id="social_linkedin" data-track-location="footer">' + ICONS.linkedin + '</a>';
+    }
+    if (site.EMAIL) {
+      html += '<a class="icon" href="mailto:' + site.EMAIL + '" title="' + site.EMAIL + '" aria-label="이메일 보내기" data-track="contact" data-track-id="contact_email" data-track-location="footer">' + ICONS.mail + '</a>';
+    }
+    return html;
   }
 
   function buildStandaloneGNB(nav) {
@@ -271,21 +345,68 @@
     document.addEventListener("keydown", function (e) { if (e.key === "Escape") setOpen(false); });
   }
 
-  function footerSocialHTML() {
-    const mail = site.EMAIL ? '<a class="mail" href="mailto:' + site.EMAIL + '">' + site.EMAIL + '</a>' : "";
-    const instagram = site.INSTAGRAM_URL ? '<a class="icon" href="' + site.INSTAGRAM_URL + '" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>' : "";
-    const linkedin = site.LINKEDIN_URL ? '<a class="icon" href="' + site.LINKEDIN_URL + '" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.4 8.1H2.2V21h3.2V8.1ZM3.8 3A1.9 1.9 0 1 0 3.8 6.8 1.9 1.9 0 0 0 3.8 3ZM21 13.5c0-3.9-2.1-5.7-4.9-5.7-2.3 0-3.3 1.3-3.9 2.1V8.1H9V21h3.2v-6.4c0-1.7.3-3.4 2.5-3.4 2.1 0 2.1 2 2.1 3.5V21H20v-7.5Z"/></svg></a>' : "";
-    return mail + instagram + linkedin;
+  function patchAIWorkspaceImages() {
+    if (document.body.dataset.page !== "aiworkspace") return;
+    installAIWorkspaceStyles();
+
+    const taskFigure = document.querySelector("figure.task-hires");
+    if (taskFigure) {
+      taskFigure.classList.add("task-focus-crop");
+      const taskImg = taskFigure.querySelector("img");
+      if (taskImg) {
+        taskImg.src = "assets/aiworkspace-task-0023.png?v=20260822-source3";
+        taskImg.removeAttribute("width");
+        taskImg.removeAttribute("height");
+      }
+    }
+
+    const sources = {
+      handoff: "assets/aiworkspace-handoff.webp?v=20260822-proof3",
+      overview: "assets/aiworkspace-overview.webp?v=20260822-proof3",
+      newtask: "assets/aiworkspace-newtask.webp?v=20260822-proof3",
+    };
+    document.querySelectorAll(".proof-shot img[data-img]").forEach(function (img) {
+      const key = img.dataset.img;
+      if (sources[key]) img.src = sources[key];
+      img.removeAttribute("width");
+      img.removeAttribute("height");
+      if (!img.dataset.lightboxSizingBound) {
+        img.dataset.lightboxSizingBound = "1";
+        img.addEventListener("click", function () {
+          window.setTimeout(function () {
+            const full = document.querySelector("#aiworkspace-lightbox img");
+            if (!full) return;
+            const max = key === "newtask" ? 1000 : 760;
+            full.style.maxWidth = "min(94vw, " + max + "px)";
+            full.style.width = "auto";
+            full.style.height = "auto";
+          }, 0);
+        });
+      }
+    });
+
+    const taskImg = taskFigure && taskFigure.querySelector("img");
+    if (taskImg && !taskImg.dataset.lightboxSizingBound) {
+      taskImg.dataset.lightboxSizingBound = "1";
+      taskImg.addEventListener("click", function () {
+        window.setTimeout(function () {
+          const full = document.querySelector("#aiworkspace-lightbox img");
+          if (!full) return;
+          full.style.maxWidth = "min(94vw, 1246px)";
+          full.style.width = "auto";
+          full.style.height = "auto";
+        }, 0);
+      });
+    }
   }
 
-  /* ---------- AI Workspace page shell ---------- */
   function setupAIWorkspaceShell() {
     const isAI = /(?:^|\/)aiworkspace\.html$/.test(location.pathname) || document.title.indexOf("AI Workspace") !== -1;
     if (!isAI) return false;
 
     document.body.dataset.page = "aiworkspace";
     addSharedStyleBeforeAIStyles();
-    aiWorkspaceShellStyles();
+    installAIWorkspaceStyles();
 
     const oldHeader = document.querySelector("header.topbar");
     if (oldHeader && !oldHeader.querySelector("#menuBtn")) {
@@ -310,117 +431,21 @@
       shell.innerHTML = '<footer><div>© 2026 Hongseok Ko. All rights reserved.</div><div class="social-row">' + footerSocialHTML() + '</div></footer>';
       oldFooter.replaceWith(shell);
     }
+
+    window.setTimeout(patchAIWorkspaceImages, 0);
+    window.setTimeout(patchAIWorkspaceImages, 120);
+    window.setTimeout(patchAIWorkspaceImages, 500);
     return true;
-  }
-
-  /* ---------- AI Workspace screenshot fidelity ---------- */
-  function fixAIWorkspaceScreenshots() {
-    if (document.body.dataset.page !== "aiworkspace") return;
-
-    if (!document.getElementById("aiworkspace-image-fidelity-style")) {
-      const style = document.createElement("style");
-      style.id = "aiworkspace-image-fidelity-style";
-      style.textContent = `
-        body[data-page="aiworkspace"] .task-focus-crop{
-          width:100%!important;
-          max-width:1246px!important;
-          margin-left:auto!important;
-          margin-right:auto!important;
-        }
-        body[data-page="aiworkspace"] .task-focus-crop img{
-          display:block!important;
-          width:100%!important;
-          height:auto!important;
-          max-height:none!important;
-          object-fit:contain!important;
-          object-position:center top!important;
-          image-rendering:auto!important;
-        }
-        body[data-page="aiworkspace"] .proof-shot img{
-          display:block!important;
-          width:100%!important;
-          height:auto!important;
-          aspect-ratio:auto!important;
-          object-fit:contain!important;
-          object-position:center top!important;
-          image-rendering:auto!important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-
-    const proofSources = {
-      handoff: "assets/aiworkspace-handoff.webp?v=20260822-fidelity2",
-      overview: "assets/aiworkspace-overview.webp?v=20260822-fidelity2",
-      newtask: "assets/aiworkspace-newtask.webp?v=20260822-fidelity2",
-    };
-
-    function refreshProofImages() {
-      document.querySelectorAll('.proof-shot img[data-img]').forEach(function (img) {
-        const src = proofSources[img.dataset.img];
-        if (src && img.getAttribute("src") !== src) img.src = src;
-      });
-    }
-
-    const taskChunkUrls = Array.from({ length: 11 }, function (_, i) {
-      return "https://raw.githubusercontent.com/talkspinout/hongseok-portfolio/main/.png8/task." + String(i).padStart(3, "0") + ".b64?v=20260822";
-    });
-    let taskDataPromise = null;
-
-    function loadOriginalTaskData() {
-      if (taskDataPromise) return taskDataPromise;
-      taskDataPromise = Promise.all(taskChunkUrls.map(function (url) {
-        return fetch(url, { cache: "no-store" }).then(function (res) {
-          if (!res.ok) throw new Error("Task source chunk unavailable: " + res.status);
-          return res.text();
-        });
-      })).then(function (parts) {
-        const base64 = parts.join("").replace(/\s+/g, "");
-        return "data:image/png;base64," + base64;
-      }).catch(function (err) {
-        console.warn("AI Workspace source Task image fallback:", err);
-        return null;
-      });
-      return taskDataPromise;
-    }
-
-    function applyOriginalTask() {
-      const img = document.querySelector(".task-hires img");
-      if (!img || img.dataset.originalSourceApplied === "1") return;
-      loadOriginalTaskData().then(function (dataUrl) {
-        const current = document.querySelector(".task-hires img");
-        if (!dataUrl || !current || current.dataset.originalSourceApplied === "1") return;
-        current.src = dataUrl;
-        current.dataset.originalSourceApplied = "1";
-        current.decoding = "async";
-      });
-    }
-
-    function apply() {
-      refreshProofImages();
-      applyOriginalTask();
-    }
-
-    apply();
-    setTimeout(apply, 80);
-    setTimeout(apply, 350);
-    setTimeout(apply, 1000);
-
-    const observer = new MutationObserver(apply);
-    observer.observe(document.body, { childList: true, subtree: true });
-    setTimeout(function () { observer.disconnect(); }, 5000);
   }
 
   function onReady() {
     installPortfolioSurfaceStyles();
     const ai = setupAIWorkspaceShell();
     if (!ai) {
-      setTimeout(function () {
+      window.setTimeout(function () {
         syncCommonGNB();
         ensureIndexCTA();
       }, 0);
-    } else {
-      fixAIWorkspaceScreenshots();
     }
   }
 
