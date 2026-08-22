@@ -148,6 +148,9 @@
       body[data-page="aiworkspace"] figure.task-hires.task-focus-crop>img{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center top!important;position:static!important;inset:auto!important;clip:auto!important;clip-path:none!important;transform:none!important;image-rendering:auto!important}
       body[data-page="aiworkspace"] .proof-shot img{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center top!important;image-rendering:auto!important}
       body[data-page="aiworkspace"] .image-lightbox img{width:auto!important;height:auto!important;object-fit:contain!important;image-rendering:auto!important}
+      body[data-page="aiworkspace"] .image-lightbox img[alt*="Discord"],body[data-page="aiworkspace"] .image-lightbox img[alt*="Overview"]{max-width:min(94vw,760px)!important}
+      body[data-page="aiworkspace"] .image-lightbox img[alt*="New Task"]{max-width:min(94vw,1000px)!important}
+      body[data-page="aiworkspace"] .image-lightbox img[alt*="TASK-0023"]{max-width:min(94vw,1246px)!important}
       @media(max-width:640px){body[data-page="aiworkspace"] .topbar{padding:12px 16px!important}body[data-page="aiworkspace"] .topbar .gnb-logo{font-size:14px!important}body[data-page="aiworkspace"] .aiworkspace-site-footer-wrap{padding:0 18px!important}}
     `;
   }
@@ -185,23 +188,15 @@
     if (taskFigure) {
       taskFigure.classList.add("task-focus-crop");
       const taskImg = taskFigure.querySelector("img");
-      if (taskImg) { taskImg.src = "assets/aiworkspace-task-0023.webp?v=20260822-stable4"; taskImg.removeAttribute("width"); taskImg.removeAttribute("height"); }
+      if (taskImg) { taskImg.src = "assets/aiworkspace-task-0023.webp?v=20260822-stable5"; taskImg.removeAttribute("width"); taskImg.removeAttribute("height"); }
     }
-    const sources = {handoff:"assets/aiworkspace-handoff.webp?v=20260822-proof4",overview:"assets/aiworkspace-overview.webp?v=20260822-proof4",newtask:"assets/aiworkspace-newtask.webp?v=20260822-proof4"};
+    const sources = {handoff:"assets/aiworkspace-handoff.webp?v=20260822-proof5",overview:"assets/aiworkspace-overview.webp?v=20260822-proof5",newtask:"assets/aiworkspace-newtask.webp?v=20260822-proof5"};
     document.querySelectorAll(".proof-shot img[data-img]").forEach(function (img) {
       const key = img.dataset.img;
       if (sources[key]) img.src = sources[key];
-      img.removeAttribute("width"); img.removeAttribute("height");
-      if (!img.dataset.lightboxSizingBound) {
-        img.dataset.lightboxSizingBound = "1";
-        img.addEventListener("click", function () { window.setTimeout(function () { const full = document.querySelector("#aiworkspace-lightbox img"); if (!full) return; const max = key === "newtask" ? 1000 : 760; full.style.maxWidth = "min(94vw, " + max + "px)"; full.style.width = "auto"; full.style.height = "auto"; }, 0); });
-      }
+      img.removeAttribute("width");
+      img.removeAttribute("height");
     });
-    const taskImg = taskFigure && taskFigure.querySelector("img");
-    if (taskImg && !taskImg.dataset.lightboxSizingBound) {
-      taskImg.dataset.lightboxSizingBound = "1";
-      taskImg.addEventListener("click", function () { window.setTimeout(function () { const full = document.querySelector("#aiworkspace-lightbox img"); if (!full) return; full.style.maxWidth = "min(94vw, 1246px)"; full.style.width = "auto"; full.style.height = "auto"; }, 0); });
-    }
   }
 
   function setupAIWorkspaceShell() {
