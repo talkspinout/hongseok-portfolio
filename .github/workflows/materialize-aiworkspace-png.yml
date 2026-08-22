@@ -1,4 +1,4 @@
-name: Materialize AI Workspace source PNGs
+name: Materialize AI Workspace Task source PNG
 
 on:
   push:
@@ -16,21 +16,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Restore original PNG screenshots
+      - name: Restore source Task screenshot and fix proof sizing
         shell: bash
         run: |
           set -euo pipefail
           test -f .png8/READY || exit 0
 
           cat .png8/task.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-task-0023.png
-          cat .png8/handoff.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-handoff.png
-          cat .png8/overview.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-overview.png
-          cat .png8/newtask.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-newtask.png
-
           echo 'f4d79ef3745eb50dde1761be01219431ccc61a7411295443defc5305f244fb34  assets/aiworkspace-task-0023.png' | sha256sum -c -
-          echo '0ea1ddc2002c40544f2faf7b62f4de173a51d89de4acb667a7262d88409eaf46  assets/aiworkspace-handoff.png' | sha256sum -c -
-          echo '9c20e8ae8269d94054ed877a9b9739de4dc0ed2abed04d326ec8595867f8e702  assets/aiworkspace-overview.png' | sha256sum -c -
-          echo '8b981e55a5f0d4e2be05f4b2432fe7e44f9fe0212528458f3c2b2a3bcc626f1e  assets/aiworkspace-newtask.png' | sha256sum -c -
 
           python - <<'PY'
           from pathlib import Path
@@ -38,25 +31,26 @@ jobs:
 
           p = Path('assets/aiworkspace.js')
           s = p.read_text()
-          s = s.replace("handoff:'assets/aiworkspace-handoff.webp'", "handoff:'assets/aiworkspace-handoff.png'")
-          s = s.replace("overview:'assets/aiworkspace-overview.webp'", "overview:'assets/aiworkspace-overview.png'")
-          s = s.replace("newtask:'assets/aiworkspace-newtask.webp'", "newtask:'assets/aiworkspace-newtask.png'")
           s = s.replace('src="assets/aiworkspace-task-0023.webp"', 'src="assets/aiworkspace-task-0023.png"')
           s = s.replace('max-width:1180px!important', 'max-width:1246px!important')
+          s = s.replace(
+              '.proof-shot img{width:100%!important;height:auto!important;aspect-ratio:600/317!important;object-fit:cover!important;object-position:top!important}',
+              '.proof-shot img{display:block!important;width:100%!important;height:auto!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center top!important;image-rendering:auto!important}'
+          )
           p.write_text(s)
 
           h = Path('aiworkspace.html')
           html = h.read_text()
-          html = re.sub(r'<script src="assets/aiworkspace\.js(?:\?[^\"]*)?"></script>', '<script src="assets/aiworkspace.js?v=20260821-png2"></script>', html)
+          html = re.sub(r'<script src="assets/aiworkspace\.js(?:\?[^\"]*)?"></script>', '<script src="assets/aiworkspace.js?v=20260822-imgfix2"></script>', html)
           h.write_text(html)
           PY
 
-          rm -f assets/aiworkspace-task-0023.webp assets/aiworkspace-handoff.webp assets/aiworkspace-overview.webp assets/aiworkspace-newtask.webp
+          rm -f assets/aiworkspace-task-0023.webp
           rm -rf .png8 .png-materialize
           rm -f .github/workflows/materialize-aiworkspace-png.yml
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'Replace AI Workspace screenshots with source PNGs'
+          git commit -m 'Restore sharp Task screenshot and proof image sizing'
           git push
