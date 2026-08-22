@@ -56,25 +56,25 @@
     gtag("config", site.GA_ID);
   }
 
-  /* ---------- 이번 통합 화면 보정 ---------- */
+  /* ---------- Home / Marketing Lab surface ---------- */
   function installPortfolioSurfaceStyles() {
     if (document.getElementById("aiworkspace-portfolio-surface-style")) return;
     const style = document.createElement("style");
     style.id = "aiworkspace-portfolio-surface-style";
     style.textContent = `
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
-        padding:32px 36px!important;
+        padding:30px 36px!important;
         display:grid!important;
         grid-template-columns:minmax(0,1fr) auto!important;
         align-items:center!important;
         gap:24px!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] h3{
-        max-width:720px!important;
+        max-width:740px!important;
         white-space:normal!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] p{
-        max-width:780px!important;
+        max-width:800px!important;
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
         justify-self:end!important;
@@ -82,27 +82,27 @@
       }
       body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{
         width:auto!important;
-        min-width:174px!important;
-        padding:14px 24px!important;
+        min-width:168px!important;
+        padding:14px 22px!important;
       }
 
       body[data-page="lab"] .lab-card:has(.lab-card-banner){
         display:grid!important;
-        grid-template-columns:minmax(0,1fr) minmax(260px,340px)!important;
+        grid-template-columns:minmax(0,1fr) minmax(250px,330px)!important;
         grid-template-areas:
           "tag banner"
           "title banner"
           "desc banner"
           "button banner"!important;
-        column-gap:34px!important;
-        row-gap:9px!important;
+        column-gap:32px!important;
+        row-gap:8px!important;
         align-items:start!important;
-        padding:28px 30px!important;
+        padding:26px 30px!important;
       }
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>.tag{grid-area:tag!important;width:max-content!important}
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>h3{grid-area:title!important;margin:0!important}
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>p{grid-area:desc!important;margin:0!important;max-width:720px!important}
-      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.btn{grid-area:button!important;width:max-content!important;margin-top:5px!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.btn{grid-area:button!important;width:max-content!important;margin-top:4px!important}
       body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
         grid-area:banner!important;
         width:100%!important;
@@ -123,7 +123,7 @@
       @media(max-width:860px){
         body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
           grid-template-columns:1fr!important;
-          padding:30px 28px!important;
+          padding:28px!important;
         }
         body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
           justify-self:start!important;
@@ -141,7 +141,7 @@
             "banner"
             "button"!important;
           gap:12px!important;
-          padding:26px 24px!important;
+          padding:24px!important;
         }
         body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
           width:100%!important;
@@ -181,6 +181,7 @@
       '</div>';
   }
 
+  /* ---------- Common GNB ---------- */
   function syncCommonGNB() {
     const nav = document.getElementById("gnb");
     if (!nav) return;
@@ -277,6 +278,7 @@
     return mail + instagram + linkedin;
   }
 
+  /* ---------- AI Workspace page shell ---------- */
   function setupAIWorkspaceShell() {
     const isAI = /(?:^|\/)aiworkspace\.html$/.test(location.pathname) || document.title.indexOf("AI Workspace") !== -1;
     if (!isAI) return false;
@@ -311,6 +313,104 @@
     return true;
   }
 
+  /* ---------- AI Workspace screenshot fidelity ---------- */
+  function fixAIWorkspaceScreenshots() {
+    if (document.body.dataset.page !== "aiworkspace") return;
+
+    if (!document.getElementById("aiworkspace-image-fidelity-style")) {
+      const style = document.createElement("style");
+      style.id = "aiworkspace-image-fidelity-style";
+      style.textContent = `
+        body[data-page="aiworkspace"] .task-focus-crop{
+          width:100%!important;
+          max-width:1246px!important;
+          margin-left:auto!important;
+          margin-right:auto!important;
+        }
+        body[data-page="aiworkspace"] .task-focus-crop img{
+          display:block!important;
+          width:100%!important;
+          height:auto!important;
+          max-height:none!important;
+          object-fit:contain!important;
+          object-position:center top!important;
+          image-rendering:auto!important;
+        }
+        body[data-page="aiworkspace"] .proof-shot img{
+          display:block!important;
+          width:100%!important;
+          height:auto!important;
+          aspect-ratio:auto!important;
+          object-fit:contain!important;
+          object-position:center top!important;
+          image-rendering:auto!important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    const proofSources = {
+      handoff: "assets/aiworkspace-handoff.webp?v=20260822-fidelity2",
+      overview: "assets/aiworkspace-overview.webp?v=20260822-fidelity2",
+      newtask: "assets/aiworkspace-newtask.webp?v=20260822-fidelity2",
+    };
+
+    function refreshProofImages() {
+      document.querySelectorAll('.proof-shot img[data-img]').forEach(function (img) {
+        const src = proofSources[img.dataset.img];
+        if (src && img.getAttribute("src") !== src) img.src = src;
+      });
+    }
+
+    const taskChunkUrls = Array.from({ length: 11 }, function (_, i) {
+      return "https://raw.githubusercontent.com/talkspinout/hongseok-portfolio/main/.png8/task." + String(i).padStart(3, "0") + ".b64?v=20260822";
+    });
+    let taskDataPromise = null;
+
+    function loadOriginalTaskData() {
+      if (taskDataPromise) return taskDataPromise;
+      taskDataPromise = Promise.all(taskChunkUrls.map(function (url) {
+        return fetch(url, { cache: "no-store" }).then(function (res) {
+          if (!res.ok) throw new Error("Task source chunk unavailable: " + res.status);
+          return res.text();
+        });
+      })).then(function (parts) {
+        const base64 = parts.join("").replace(/\s+/g, "");
+        return "data:image/png;base64," + base64;
+      }).catch(function (err) {
+        console.warn("AI Workspace source Task image fallback:", err);
+        return null;
+      });
+      return taskDataPromise;
+    }
+
+    function applyOriginalTask() {
+      const img = document.querySelector(".task-hires img");
+      if (!img || img.dataset.originalSourceApplied === "1") return;
+      loadOriginalTaskData().then(function (dataUrl) {
+        const current = document.querySelector(".task-hires img");
+        if (!dataUrl || !current || current.dataset.originalSourceApplied === "1") return;
+        current.src = dataUrl;
+        current.dataset.originalSourceApplied = "1";
+        current.decoding = "async";
+      });
+    }
+
+    function apply() {
+      refreshProofImages();
+      applyOriginalTask();
+    }
+
+    apply();
+    setTimeout(apply, 80);
+    setTimeout(apply, 350);
+    setTimeout(apply, 1000);
+
+    const observer = new MutationObserver(apply);
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function () { observer.disconnect(); }, 5000);
+  }
+
   function onReady() {
     installPortfolioSurfaceStyles();
     const ai = setupAIWorkspaceShell();
@@ -319,6 +419,8 @@
         syncCommonGNB();
         ensureIndexCTA();
       }, 0);
+    } else {
+      fixAIWorkspaceScreenshots();
     }
   }
 
