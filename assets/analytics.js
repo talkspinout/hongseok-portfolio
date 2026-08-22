@@ -25,7 +25,7 @@
     const ai = byTitle("AI Workspace") || {
       type: "project",
       title: "AI Workspace",
-      desc: "여러 AI를 오가며 작업할 때 맥락이 끊기는 문제에서 시작한 Task 중심 Workspace입니다. Discord에서 Task를 만들고, Handoff로 다음 Agent에게 넘기며, Admin에서 같은 상태를 확인하는 흐름을 정리했습니다.",
+      desc: "여러 AI를 오가며 작업할 때 맥락이 끊기는 문제에서 시작한 Task 중심 Workspace입니다. Handoff로 다음 Agent에게 작업을 넘겨 연속성을 잃지 않고 작업을 이어갈 수 있도록 만들었습니다.",
       link: "aiworkspace.html",
       linkLabel: "제작기 보기",
       banner: "assets/aiworkspace-lab-banner.svg",
@@ -56,24 +56,129 @@
     gtag("config", site.GA_ID);
   }
 
+  /* ---------- 이번 통합 화면 보정 ---------- */
+  function installPortfolioSurfaceStyles() {
+    if (document.getElementById("aiworkspace-portfolio-surface-style")) return;
+    const style = document.createElement("style");
+    style.id = "aiworkspace-portfolio-surface-style";
+    style.textContent = `
+      body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
+        padding:32px 36px!important;
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) auto!important;
+        align-items:center!important;
+        gap:24px!important;
+      }
+      body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] h3{
+        max-width:720px!important;
+        white-space:normal!important;
+      }
+      body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] p{
+        max-width:780px!important;
+      }
+      body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
+        justify-self:end!important;
+        flex-wrap:nowrap!important;
+      }
+      body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{
+        width:auto!important;
+        min-width:174px!important;
+        padding:14px 24px!important;
+      }
+
+      body[data-page="lab"] .lab-card:has(.lab-card-banner){
+        display:grid!important;
+        grid-template-columns:minmax(0,1fr) minmax(260px,340px)!important;
+        grid-template-areas:
+          "tag banner"
+          "title banner"
+          "desc banner"
+          "button banner"!important;
+        column-gap:34px!important;
+        row-gap:9px!important;
+        align-items:start!important;
+        padding:28px 30px!important;
+      }
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.tag{grid-area:tag!important;width:max-content!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>h3{grid-area:title!important;margin:0!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>p{grid-area:desc!important;margin:0!important;max-width:720px!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.btn{grid-area:button!important;width:max-content!important;margin-top:5px!important}
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
+        grid-area:banner!important;
+        width:100%!important;
+        max-width:none!important;
+        align-self:center!important;
+        aspect-ratio:16/9!important;
+        border-radius:14px!important;
+        overflow:hidden!important;
+        background:#fff!important;
+      }
+      body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner img{
+        width:100%!important;
+        height:100%!important;
+        object-fit:cover!important;
+        object-position:center!important;
+      }
+
+      @media(max-width:860px){
+        body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"]{
+          grid-template-columns:1fr!important;
+          padding:30px 28px!important;
+        }
+        body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions{
+          justify-self:start!important;
+          width:100%!important;
+        }
+        body[data-page="home"] .cta-band[data-aiworkspace-home-cta="1"] .cta-actions .btn{
+          width:100%!important;
+        }
+        body[data-page="lab"] .lab-card:has(.lab-card-banner){
+          grid-template-columns:1fr!important;
+          grid-template-areas:
+            "tag"
+            "title"
+            "desc"
+            "banner"
+            "button"!important;
+          gap:12px!important;
+          padding:26px 24px!important;
+        }
+        body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner{
+          width:100%!important;
+          margin-top:4px!important;
+          aspect-ratio:auto!important;
+        }
+        body[data-page="lab"] .lab-card:has(.lab-card-banner)>.lab-card-banner img{
+          height:auto!important;
+          object-fit:contain!important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function ensureIndexCTA() {
     if (document.body.dataset.page !== "home") return;
-    if (document.querySelector('[data-aiworkspace-home-cta="1"]')) return;
-    const targetTitle = Array.from(document.querySelectorAll(".cta-band h3")).find(function (el) {
-      return el.textContent.indexOf("생년월일과 오늘 날짜가") !== -1;
-    });
-    const target = targetTitle && targetTitle.closest(".cta-band");
-    if (!target) return;
+    let card = document.querySelector('[data-aiworkspace-home-cta="1"]');
+    if (!card) {
+      const targetTitle = Array.from(document.querySelectorAll(".cta-band h3")).find(function (el) {
+        return el.textContent.indexOf("생년월일과 오늘 날짜가") !== -1;
+      });
+      const target = targetTitle && targetTitle.closest(".cta-band");
+      if (!target) return;
+      const holder = document.createElement("div");
+      holder.innerHTML = '<div class="cta-band reveal" data-aiworkspace-home-cta="1"></div>';
+      card = holder.firstElementChild;
+      target.before(card);
+    }
 
-    const holder = document.createElement("div");
-    holder.innerHTML = '<div class="cta-band reveal" data-aiworkspace-home-cta="1">' +
-      '<div><h3>여러 AI를 하나의 Task로\n이어 쓰는 Workspace를 만들었습니다.</h3>' +
-      '<p>Discord에서 Task를 만들고, Handoff로 다음 Agent에게 넘기며, Admin에서 같은 상태를 확인하는 개인 프로젝트입니다.</p></div>' +
+    card.innerHTML = '<div>' +
+      '<h3>하나의 Task를 여러 AI에서 이어갈 수 있는 Workspace를 만들었습니다.</h3>' +
+      '<p>Handoff로 다음 Agent에게 작업을 넘겨서 연속성을 잃지 않고 작업을 계속할 수 있습니다.</p>' +
+      '</div>' +
       '<div class="cta-actions">' +
       '<a class="btn btn-mint" href="aiworkspace.html" data-track="cta" data-track-id="view_aiworkspace_story" data-track-location="home_bottom">제작기 보기 <span class="arrow">→</span></a>' +
-      '<a class="btn btn-line" href="https://www.youtube.com/watch?v=lg5cbHGhoUI" target="_blank" rel="noopener" data-track="cta" data-track-id="view_aiworkspace_demo" data-track-location="home_bottom">시연 영상 <span class="arrow">→</span></a>' +
-      '</div></div>';
-    target.before(holder.firstElementChild);
+      '</div>';
   }
 
   function syncCommonGNB() {
@@ -207,6 +312,7 @@
   }
 
   function onReady() {
+    installPortfolioSurfaceStyles();
     const ai = setupAIWorkspaceShell();
     if (!ai) {
       setTimeout(function () {
