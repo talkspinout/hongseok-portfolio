@@ -1,0 +1,32 @@
+name: Restore AI Workspace Task source
+
+on:
+  push:
+    paths:
+      - '.png8/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore exact Task screenshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .png8/task.*.b64 | tr -d '\n\r' | base64 -d > assets/aiworkspace-task-0023.png
+          echo 'f4d79ef3745eb50dde1761be01219431ccc61a7411295443defc5305f244fb34  assets/aiworkspace-task-0023.png' | sha256sum -c -
+          rm -f assets/aiworkspace-task-0023.webp
+          rm -rf .png8 .png-materialize
+          rm -f .github/workflows/restore-aiworkspace-task-source.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Restore exact AI Workspace Task screenshot'
+          git push
